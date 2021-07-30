@@ -14,7 +14,7 @@ const Auth = () => {
         password: ''
     })
     const [showPassword, setShowPassword] = useState(false);
-    const [isSignup, setIsSignup] = useState(true);
+    const [isSignup, setIsSignup] = useState(false);
     const dispatch = useDispatch()
     const history = useHistory();
 
