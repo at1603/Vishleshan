@@ -58,6 +58,11 @@ const Auth = () => {
                 <Button type="submit" fullWidth variant="contained" color="primary">
                     {isSignup ? 'Sign Up' : 'Sign In'}
                 </Button>
+                <Grid container justifyContent="flex-end">
+                    <Grid item>
+                        <Button onClick={switchMode}>{ isSignup ? "Already have an account? Sign In" : "Don't have an account? Sign Up"}</Button>
+                    </Grid>
+                </Grid>
             </form>
         </Paper>
     )
