@@ -4,7 +4,6 @@ import jwt from 'jsonwebtoken';
 import User from "../models/user.js"
 
 export const signup = async (req, res) => {
-    console.log(req.body)
     const { email, password, confirmPassword, firstName, lastName } = req.body;
 
     try {
@@ -21,6 +20,7 @@ export const signup = async (req, res) => {
 
         res.status(200).json({ result, token });
     } catch (error) {
+        console.log("sfhds")
         res.status(500).json({ message: "Something went wrong!" })
     }
 
