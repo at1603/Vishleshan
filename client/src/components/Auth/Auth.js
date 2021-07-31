@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Button, Typography, Paper, Grid } from '@material-ui/core'
+import { GoogleLogin } from 'react-google-login';
 import { signin, signup } from '../../actions/auth';
 
 import Input from './Input';
@@ -11,7 +12,8 @@ const Auth = () => {
         firstName: '',
         lastName: '',
         email: '',
-        password: ''
+        password: '',
+        confirmPassword: ''
     })
     const [showPassword, setShowPassword] = useState(false);
     const [isSignup, setIsSignup] = useState(false);
@@ -39,6 +41,24 @@ const Auth = () => {
 
     const handleShowPassword = () => setShowPassword((prevShowPassword) => !prevShowPassword);
 
+    // const googleFailure = (error) => {
+    //     console.log(error)
+    //     console.log("Google Sign In was unsuccessful. Try Again!");
+    // };
+
+    // const googleSuccess = async (res) => {
+    //     const result = res?.profileObj;
+    //     const token = res?.tokenId;
+
+    //     try {
+    //         dispatch({ type: 'AUTH', data: { result, token } });
+
+    //         history.push('/');
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // };
+
     return (
         <Paper>
             <form onSubmit={handleSubmit}>
@@ -58,9 +78,10 @@ const Auth = () => {
                 <Button type="submit" fullWidth variant="contained" color="primary">
                     {isSignup ? 'Sign Up' : 'Sign In'}
                 </Button>
+
                 <Grid container justifyContent="flex-end">
                     <Grid item>
-                        <Button onClick={switchMode}>{ isSignup ? "Already have an account? Sign In" : "Don't have an account? Sign Up"}</Button>
+                        <Button onClick={switchMode}>{isSignup ? "Already have an account? Sign In" : "Don't have an account? Sign Up"}</Button>
                     </Grid>
                 </Grid>
             </form>
