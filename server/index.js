@@ -23,3 +23,4 @@ mongoose.connect(process.env.CONNECTION_URL, { useNewUrlParser: true, useUnified
 mongoose.set('useFindAndModify', false);
 
 app.use('/user', authRoutes)
+
