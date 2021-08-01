@@ -1,9 +1,15 @@
 import express from 'express';
 
-import { InterviewAnalysis } from '../controllers/api/symbl/InterviewAnalysis/zoomApi.js'
+import { InterviewAnalysis, InterviewAnalysisResult } from '../controllers/api/symbl/InterviewAnalysis/zoomApi.js'
+import auth from '../middleware/auth.js';
+
 const router = express.Router();
 
 
-router.post('/interviewAnalysis', InterviewAnalysis);
+
+
+
+router.post('/interviewAnalysisResult', auth, InterviewAnalysisResult)
+router.post('/interviewAnalysis', auth, InterviewAnalysis);
 
 export default router;
