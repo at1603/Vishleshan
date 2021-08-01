@@ -10,6 +10,7 @@ import Home from './components/Home/Home';
 import Dashboard from './components/Dashboard/Dashboard';
 import PitchAnalysis from './components/PitchAnalysis/PitchAnalysis';
 import InterviewAnalysis from './components/InterviewAnalysis/InterviewAnalysis';
+import InterviewAnalysisResult from './components/InterviewAnalysisResult/InterviewAnalysisResult';
 import useStyles from './styles';
 const App = () => {
     const classes = useStyles();
@@ -25,6 +26,8 @@ const App = () => {
                     <Route path="/dashboard" exact component={Dashboard} />
                     <Route path="/pitchAnalysis" exact component={PitchAnalysis} />
                     <Route path="/interviewAnalysis" exact component={InterviewAnalysis} />
+                    <Route path="/interviewAnalysisResult" exact component={InterviewAnalysisResult} />
+
                 </Switch>
             </Container>
         </BrowserRouter>
