@@ -9,7 +9,7 @@ export const InterviewAnalysis = (req) => {
   const appSecret = process.env.APP_SECRET
   const phoneNumber = "+16465588656"; // US Zoom Numbers are "+16465588656", or "+14086380968".
   const meetingName = "Zoom Test Meeting";
-  const emailAddress = "abhinav16032002@gmail.com";
+  const emailAddress = process.env.MY_EMAIL;
 
   const ZOOM_MEETING_ID = "74216069687";
   const ZOOM_PARTICIPANT_ID = "";
@@ -75,7 +75,6 @@ export const InterviewAnalysis = (req) => {
     }
   })
     .catch(err => console.error('Error in SDK initialization.', err));
-    console.log("hello");
 }
 
 // ************** Generate AUTH_TOKEN for Interview Analysis *****************
