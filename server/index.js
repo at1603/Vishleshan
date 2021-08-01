@@ -5,6 +5,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 
 import authRoutes from './routes/auth.js'
+import analysisRoutes from './routes/analysis.js'
 
 dotenv.config();
 const app = express();
@@ -23,4 +24,5 @@ mongoose.connect(process.env.CONNECTION_URL, { useNewUrlParser: true, useUnified
 mongoose.set('useFindAndModify', false);
 
 app.use('/user', authRoutes)
+app.use('/analysis', analysisRoutes)
 
