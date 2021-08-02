@@ -131,12 +131,12 @@ export const InterviewAnalysisResult = (req, res) => {
   })
 }
 
-
+//----------------Stop Interview Analysis------------------------//
 export const stopInterviewAnalysis = (req, res) => {
-  console.log(req.body)
   sdk.stopEndpoint({ connectionId: req.body.connectionId.connectionId })
     .then((response) => {
-      console.log(response)
+      res.status(200).send("Analysis is stopped successfully")
+      console.log("Your connection has been disabled succesfully")
     })
     .catch((err) => {
       console.error("Error while stopping the connection", err);
