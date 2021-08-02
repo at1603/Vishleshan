@@ -3,15 +3,15 @@ const { sdk } = pkg
 import request from "request";
 import mongoose from 'mongoose';
 import InterviewAnalysisUser from "../../../../models/interviewAnalysisModel.js";
-export const InterviewAnalysis = (req) => {
+export const InterviewAnalysis = (req, res) => {
 
   const appId = process.env.APP_ID
   const appSecret = process.env.APP_SECRET
   const phoneNumber = "+16465588656"; // US Zoom Numbers are "+16465588656", or "+14086380968".
   const meetingName = "Zoom Test Meeting";
-  const emailAddress = "harshpandey011@gmail.com";
+  const emailAddress = process.env.MY_EMAIL;
 
-  const ZOOM_MEETING_ID = "74216069687";
+  const ZOOM_MEETING_ID = "7147450969";
   const ZOOM_PARTICIPANT_ID = "";
   const ZOOM_MEETING_PASSCODE = "123456";
 
@@ -26,7 +26,7 @@ export const InterviewAnalysis = (req) => {
   if (ZOOM_MEETING_PASSCODE) {
     dtmfSequence += `,,${ZOOM_MEETING_PASSCODE}#`;
   }
-
+  console.log("4")
   sdk.init({
     appId: appId,
     appSecret: appSecret,
@@ -35,7 +35,7 @@ export const InterviewAnalysis = (req) => {
     console.log('SDK initialized.');
     console.log(dtmfSequence)
     try {
-
+      console.log("2")
       sdk.startEndpoint({
         endpoint: {
           type: "pstn",
@@ -68,15 +68,17 @@ export const InterviewAnalysis = (req) => {
         console.log('Conversation ID', connection.conversationId);
         console.log('Full Conection Object', connection);
         console.log("Calling into Zoom now, please wait about 30-60 seconds.");
+        res.status(200).json({ connectionId: connectionId })
       })
         .catch((err) => {
           console.error("Error while starting the connection", err);
         });
+      console.log("1")
     } catch (e) {
       console.error(e);
     }
   })
-    .catch(err => console.error('Error in SDK initialization.', err));
+    .catch(err => console.error('Error in SDK initialization.', err))
 }
 
 // ************** Generate AUTH_TOKEN for Interview Analysis *****************
@@ -129,4 +131,16 @@ export const InterviewAnalysisResult = (req, res) => {
   generateAuthToken((authToken) => {
     getConversation(req.body.conversationId, authToken.accessToken, res)
   })
+}
+
+
+export const stopInterviewAnalysis = (req, res) => {
+  console.log(req.body)
+  sdk.stopEndpoint({ connectionId: req.body.connectionId.connectionId })
+    .then((response) => {
+      console.log(response)
+    })
+    .catch((err) => {
+      console.error("Error while stopping the connection", err);
+    });
 }
