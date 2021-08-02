@@ -16,3 +16,4 @@ export const signUp = (formData) => API.post('/user/signup', formData);
 
 export const joinZoomCall = (formData) => API.post('/analysis/interviewAnalysis', formData)
 export const getAnalysis = (formData) => API.post('/analysis/interviewAnalysisResult', formData)
+export const stopAnalysis = (formData) => API.post('/analysis/stopInterviewAnalysis', formData)
