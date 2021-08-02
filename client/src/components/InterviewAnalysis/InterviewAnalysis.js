@@ -2,17 +2,22 @@ import React, { useState } from 'react'
 import { TextField, Button, Typography, Paper, Grid } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux'
 import { joinZoomCall, stopAnalysis } from '../../actions/InterviewAnalysis/interviewAnalysis'
+import { useHistory } from 'react-router-dom';
+
 
 
 const InterviewAnalysis = () => {
+    let message = ""
 
     const [formData, setFormData] = useState({ url: '' })
     const [stopForm, setstopForm] = useState({ connectionId: "" })
 
     const dispatch = useDispatch()
-
     const connectionId = useSelector(state => state.interviewAnalysis.connection)
-    console.log(connectionId, "arararara")
+    const history = useHistory();
+
+    message = useSelector(state => state.interviewAnalysis.message)
+    console.log(message, "arararara")
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -21,7 +26,7 @@ const InterviewAnalysis = () => {
 
     const handleStopSubmit = (e) => {
         e.preventDefault()
-        dispatch(stopAnalysis({ connectionId }))
+        dispatch(stopAnalysis({ connectionId }, history ))
     }
 
 
@@ -45,10 +50,12 @@ const InterviewAnalysis = () => {
                 ></TextField>
                 <Button variant='contained' color='primary' size='large' type='submit' fullWidth>Submit</Button>
             </form>
-            {connectionId !== null &&
+            {connectionId !== null && message === "" ?
                 <form onSubmit={handleStopSubmit}>
                     <Button variant='contained' color='primary' size='large' type='submit' fullWidth>Stop Analysis</Button>
-                </form>
+                </form> :
+                
+                <Typography variant="h6">{message}</Typography>
             }
 
         </>
