@@ -6,9 +6,7 @@ export const joinZoomCall = (formData) => async (dispatch) => {
     try {
         console.log(formData)
         const { data } = await api.joinZoomCall(formData);
-
         dispatch({ type: JOIN_CALL, data });
-
 
     } catch (error) {
         console.log(error);
@@ -26,11 +24,12 @@ export const getAnalysis = (formData) => async (dispatch) => {
     }
 }
 
-export const stopAnalysis = (formData) => async (dispatch) => {
+export const stopAnalysis = (formData, history) => async (dispatch) => {
     try {
         console.log(formData)
         const { data } = await api.stopAnalysis(formData)
-        dispatch({ type: STOP_ANALYSIS, data })
+        console.log(data)
+        dispatch({ type: STOP_ANALYSIS, data }).then(history.push('/interviewAnalysisResult'))
     } catch (error) {
         console.log(error);
     }
