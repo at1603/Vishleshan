@@ -1,3 +1,4 @@
 export const AUTH = 'AUTH'
-export const JOIN = 'JOIN'
-export const GET = 'GET'
+export const JOIN_CALL = 'JOIN_CALL'
+export const GET_INTERVIEW_ANALYSIS = 'GET_INTERVIEW_ANALYSIS'
+export const STOP_ANALYSIS = 'STOP_ANALYSIS'
