@@ -29,7 +29,12 @@ export const stopAnalysis = (formData, history) => async (dispatch) => {
         console.log(formData)
         const { data } = await api.stopAnalysis(formData)
         console.log(data)
-        dispatch({ type: STOP_ANALYSIS, data }).then(history.push('/interviewAnalysisResult'))
+        dispatch({ type: STOP_ANALYSIS, data })
+        setTimeout(() => {
+            history.push('/interviewAnalysisResult')
+        }, 3000);
+
+
     } catch (error) {
         console.log(error);
     }

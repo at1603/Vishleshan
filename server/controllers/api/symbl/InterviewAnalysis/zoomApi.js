@@ -66,7 +66,11 @@ export const InterviewAnalysis = (req, res) => {
         console.log('Conversation ID', connection.conversationId);
         console.log('Full Conection Object', connection);
         console.log("Calling into Zoom now, please wait about 30-60 seconds.");
-        res.status(200).json({ connectionId: connectionId })
+        const conversationData = {
+          connectionId: connectionId,
+          conversationId: conversationId
+        }
+        res.status(200).json(conversationData)
       })
         .catch((err) => {
           console.error("Error while starting the connection", err);
@@ -112,7 +116,7 @@ const getConversation = (conversationId, authToken, res) => {
     json: true
   }, (err, response, body) => {
     console.log(body, "insideGetConversation");
-    res.status(200).json({ message: body.messages })
+    // res.status(200).json({ message: body.messages })
   });
 }
 
@@ -125,18 +129,21 @@ const addConversationId = async (conversationId, req) => {
   }
 }
 
-export const InterviewAnalysisResult = (req, res) => {
+export const InterviewAnalysisResult = (req, res, conversationId) => {
   generateAuthToken((authToken) => {
-    getConversation(req.body.conversationId, authToken.accessToken, res)
+    getConversation(conversationId, authToken.accessToken, res)
   })
 }
 
 //----------------Stop Interview Analysis------------------------//
 export const stopInterviewAnalysis = (req, res) => {
-  sdk.stopEndpoint({ connectionId: req.body.connectionId.connectionId })
+  console.log(req.body)
+  sdk.stopEndpoint({ connectionId: req.body.connectionId })
     .then((response) => {
-      res.status(200).send("Analysis is stopped successfully")
       console.log("Your connection has been disabled succesfully")
+      InterviewAnalysisResult(req, res, response._conversationId)
+      res.status(200).json({ message: 'Analysis stopped successfully', connectionId: response._connectionId, conversationId: response._conversationId })
+
     })
     .catch((err) => {
       console.error("Error while stopping the connection", err);

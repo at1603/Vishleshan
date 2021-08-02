@@ -13,11 +13,10 @@ const InterviewAnalysis = () => {
     const [stopForm, setstopForm] = useState({ connectionId: "" })
 
     const dispatch = useDispatch()
-    const connectionId = useSelector(state => state.interviewAnalysis.connection)
+    const connectionId = useSelector(state => state.interviewAnalysis.conversationData.connectionId)
     const history = useHistory();
 
-    message = useSelector(state => state.interviewAnalysis.message)
-    console.log(message, "arararara")
+    message = useSelector(state => state.interviewAnalysis.connection.message)
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -26,7 +25,7 @@ const InterviewAnalysis = () => {
 
     const handleStopSubmit = (e) => {
         e.preventDefault()
-        dispatch(stopAnalysis({ connectionId }, history ))
+        dispatch(stopAnalysis({ connectionId }, history))
     }
 
 
@@ -50,11 +49,11 @@ const InterviewAnalysis = () => {
                 ></TextField>
                 <Button variant='contained' color='primary' size='large' type='submit' fullWidth>Submit</Button>
             </form>
-            {connectionId !== null && message === "" ?
+            {connectionId !== undefined && message === undefined ?
                 <form onSubmit={handleStopSubmit}>
                     <Button variant='contained' color='primary' size='large' type='submit' fullWidth>Stop Analysis</Button>
                 </form> :
-                
+
                 <Typography variant="h6">{message}</Typography>
             }
 
