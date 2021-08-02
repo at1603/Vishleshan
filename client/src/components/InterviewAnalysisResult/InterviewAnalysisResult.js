@@ -1,14 +1,15 @@
 import React, { useState } from 'react'
 import { TextField, Button, Typography, Paper, Grid } from '@material-ui/core'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { getAnalysis } from '../../actions/InterviewAnalysis/interviewAnalysis'
-import { useSelector } from 'react-redux';
 
 
 const InterviewAnalysisResult = () => {
 
     const [formData, setFormData] = useState({ conversationId: '' })
     const dispatch = useDispatch()
+
+
 
     // setFormData({conversationId: useSelector(state => state.interviewAnalysis.conversationId)})
     const handleSubmit = (e) => {
