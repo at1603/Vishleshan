@@ -35,7 +35,6 @@ export const InterviewAnalysis = (req, res) => {
     console.log('SDK initialized.');
     console.log(dtmfSequence)
     try {
-      console.log("2")
       sdk.startEndpoint({
         endpoint: {
           type: "pstn",
@@ -53,7 +52,6 @@ export const InterviewAnalysis = (req, res) => {
               ],
             },
           },
-
         ],
         data: {
           session: {
