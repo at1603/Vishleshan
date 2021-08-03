@@ -41,7 +41,7 @@ export const InterviewAnalysis = (req, res) => {
           phoneNumber: phoneNumber,
           dtmf: dtmfSequence,
         },
-        languages: ['en-IN'],
+        languages: ['en-US'],
         actions: [
           {
             invokeOn: "stop",
@@ -108,15 +108,113 @@ const generateAuthToken = (callback) => {
 
 // *****************
 
-const getConversation = (conversationId, authToken, res) => {
+const getSpeechToText = async (conversationId, authToken, res) => {
 
   request.get({
     url: `https://api.symbl.ai/v1/conversations/${conversationId}/messages`,
     headers: { 'Authorization': `Bearer ${authToken}` },
+    params: { 'sentiment': true },
     json: true
   }, (err, response, body) => {
-    console.log(body, "insideGetConversation");
+    console.log("insideGetConversation", body);
     // res.status(200).json({ message: body.messages })
+  });
+}
+
+const getActionItems = (conversationId, authToken, res) => {
+
+  request.get({
+    url: `https://api.symbl.ai/v1/conversations/${conversationId}/action-items`,
+    headers: { 'Authorization': `Bearer ${authToken}` },
+    json: true
+  }, (err, response, body) => {
+    console.log("insideGetActionItems", body);
+  });
+}
+
+const getFollowUps = (conversationId, authToken, res) => {
+
+  request.get({
+    url: `https://api.symbl.ai/v1/conversations/${conversationId}/follow-ups`,
+    headers: { 'Authorization': `Bearer ${authToken}` },
+    json: true
+  }, (err, response, body) => {
+    console.log("insideGetFollowUps", body);
+  });
+}
+
+const getTopics = (conversationId, authToken, res) => {
+  request.get({
+    url: `https://api.symbl.ai/v1/conversations/${conversationId}/topics`,
+    headers: { 'Authorization': `Bearer ${authToken}` },
+    params: { 'sentiment': true, 'parentRefs': false },
+    json: true
+  }, (err, response, body) => {
+    console.log("insideGetTopics", body);
+  });
+}
+
+const getQuestions = (conversationId, authToken, res) => {
+  request.get({
+    url: `https://api.symbl.ai/v1/conversations/${conversationId}/questions`,
+    headers: { 'Authorization': `Bearer ${authToken}` },
+    json: true
+  }, (err, response, body) => {
+    console.log("insideGetQuestions", body);
+  });
+}
+
+
+
+const getEntities = async (conversationId, authToken, res) => {
+
+  request.get({
+    url: `https://api.symbl.ai/v1/conversations/${conversationId}/entities`,
+    headers: { 'Authorization': `Bearer ${authToken}` },
+    json: true
+  }, (err, response, body) => {
+    console.log("insideGetEntitites", body);
+  });
+}
+
+
+const getAnalytics = (conversationId, authToken, res) => {
+  request.get({
+    url: `https://api.symbl.ai/v1/conversations/${conversationId}/analytics`,
+    headers: { 'Authorization': `Bearer ${authToken}` },
+    json: true
+  }, (err, response, body) => {
+    console.log("insideGetAnalytics", body);
+  });
+}
+
+const getConversationData = (conversationId, authToken, res) => {
+  request.get({
+    url: `https://api.symbl.ai/v1/conversations/${conversationId}`,
+    headers: { 'Authorization': `Bearer ${authToken}` },
+    json: true
+  }, (err, response, body) => {
+    console.log("insideGetConversationData", body);
+  });
+}
+
+const deleteConversation = (conversationId, authToken, res) => {
+  request.delete({
+    url: `https://api.symbl.ai/v1/conversations/${conversationId}`,
+    headers: { 'Authorization': `Bearer ${authToken}` },
+    json: true
+  }, (err, response, body) => {
+    console.log("insideDeleteConversation", body);
+  });
+}
+
+const getMemberInformation = (conversationId, authToken, res) => {
+  request.get({
+    url: `https://api.symbl.ai/v1/conversations/${conversationId}/members`,
+    headers: { 'Authorization': `Bearer ${authToken}` },
+    json: true
+  }, (err, response, body) => {
+    console.log("insideGetMemberInformation", body);
   });
 }
 
@@ -129,9 +227,16 @@ const addConversationId = async (conversationId, req) => {
   }
 }
 
-export const InterviewAnalysisResult = (req, res, conversationId) => {
+export const InterviewAnalysisResult = async (req, res, conversationId) => {
   generateAuthToken((authToken) => {
-    getConversation(conversationId, authToken.accessToken, res)
+    getSpeechToText(conversationId, authToken.accessToken, res)
+    getActionItems(conversationId, authToken.accessToken, res)
+    getFollowUps(conversationId, authToken.accessToken, res)
+    getTopics(conversationId, authToken.accessToken, res)
+    getQuestions(conversationId, authToken.accessToken, res)
+    getEntities(conversationId, authToken.accessToken, res)
+    getAnalytics(conversationId, authToken.accessToken, res)
+    getConversationData(conversationId, authToken.accessToken, res)
   })
 }
 
