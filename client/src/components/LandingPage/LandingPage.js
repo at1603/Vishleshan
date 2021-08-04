@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const Home = () => {
     return (
         <>
-            <Button component={Link} to="/auth" variant="contained" color="primary">Sign In</Button>
+            <p>This is Home</p>
         </>
     )
 }
