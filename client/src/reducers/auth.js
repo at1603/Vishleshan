@@ -1,4 +1,4 @@
-import { AUTH } from '../constants/actionTypes';
+import { AUTH, LOGOUT } from '../constants/actionTypes';
 
 const authReducer = (state = { authData: null }, action) => {
     //change state based on action type and payload
@@ -6,6 +6,10 @@ const authReducer = (state = { authData: null }, action) => {
         case AUTH:
             localStorage.setItem('profile', JSON.stringify({ ...action?.data }));
             return { ...state, authData: action?.data };
+            
+        case LOGOUT: 
+            localStorage.clear();
+            return { ...state, authData: null };
         default:
             return state;
     }
