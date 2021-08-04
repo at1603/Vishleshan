@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const Home = () => {
     return (
         <>
-            <p>This is Home</p>
+            <p>This is Home(Non Authenticated content)</p>
         </>
     )
 }

@@ -35,6 +35,10 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         alignItems: 'center',
     },
+    heading: {
+        color: 'rgba(0,183,255, 1)',
+        textDecoration: 'none',
+    }
 }));
 
 export default useStyles

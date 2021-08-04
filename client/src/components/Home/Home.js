@@ -1,10 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 
-import { Button, Typography, Paper, Grid} from '@material-ui/core';
+import { Button, Typography, Paper, Grid } from '@material-ui/core';
 import useStyles from './styles';
 
-const Home = () => {   
+const Home = () => {
     const classes = useStyles();
 
     return (
@@ -13,22 +13,22 @@ const Home = () => {
                 <Grid container justifyContent="center" spacing={6}>
                     <Grid item>
                         <Paper className={classes.paper}>
-                            <Button component={Link} to="/dashboard" variant="h3" align="center">Dashboard</Button>
+                            <Button component={Link} to="/dashboard" fullWidth variant="contained" color="secondary" component="h3" align="center">Dashboard</Button>
                         </Paper>
                     </Grid>
                     <Grid item>
                         <Paper className={classes.paper}>
-                            <Button component={Link} to="/pitchAnalysis" variant="h3" align="center">Pitch Analysis</Button>
+                            <Button component={Link} to="/pitchAnalysis" fullWidth variant="contained" color="primary" component="h3" align="center">Pitch Analysis</Button>
                         </Paper>
                     </Grid>
                     <Grid item>
-                        <Paper className={classes.paper} textAlign="center">
-                            <Button component={Link} to="/interviewAnalysis" variant="h3">Interview Analysis  </Button>
+                        <Paper className={classes.paper} textalign="center">
+                            <Button component={Link} to="/interviewAnalysis" component="h3">Interview Analysis  </Button>
                         </Paper>
                     </Grid>
                 </Grid>
             </Grid>
-      </Grid>
+        </Grid>
     )
 }
 

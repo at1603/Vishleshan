@@ -22,7 +22,7 @@ export const signup = async (req, res) => {
         res.status(200).json({ result, token });
         mongoose.connection.close()
     } catch (error) {
-        console.log("sfhds")
+        console.log(error);
         res.status(500).json({ message: "Something went wrong!" })
     }
 
