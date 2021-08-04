@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Link, useHistory, useLocation  } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import decode from 'jwt-decode';
 
@@ -24,31 +24,29 @@ const Navbar = () => {
 
     useEffect(() => {
         const token = user?.token;
-        if(token){
+        if (token) {
             const decodedToken = decode(token);
 
-            if(decodedToken.exp * 1000 < new Date().getTime()) logout();
+            if (decodedToken.exp * 1000 < new Date().getTime()) logout();
         }
 
         setUser(JSON.parse(localStorage.getItem('profile')));
     }, [location])
     return (
         <AppBar position="static" className={classes.appBar}>
-            <Toolbar className={classes.toolbar}>
-                <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-                    <MenuIcon />
-                </IconButton>
-                <Typography variant="h6" className={classes.title}>
-                    News
-                </Typography>
 
+            <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+                <MenuIcon />
+            </IconButton>
+            <Typography component={Link} to="/" className={classes.heading} variant="h2" align="center">Vishleshan</Typography>
+            <Toolbar className={classes.toolbar}>
                 {user ? (
                     <div className={classes.profile}>
                         <Typography className={classes.userName} variant="h6">{user.result.name}</Typography>
                         <Button variant="contained" color="secondary" onClick={logout} >Log Out</Button>
                     </div>
                 ) : (
-                    <Button component={Link} to="/auth" variant="contained" color="primary">Sign In</Button>
+                    <Button component={Link} to="/auth" variant="contained" color="primary" >Sign In</Button>
                 )}
             </Toolbar>
         </AppBar>
