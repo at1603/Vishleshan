@@ -27,7 +27,7 @@ app.use(function (req, res, next) {
     next();
 });
 
-//define starting route for all the routes in authRoutes.js and analysisRoutes.js
+//define endpoint for all the routes in authRoutes.js and analysisRoutes.js
 app.use('/user', authRoutes)
 app.use('/analysis', analysisRoutes)
 
