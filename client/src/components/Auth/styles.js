@@ -1,17 +1,21 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
+    backPaper: {
+        backgroundColor: '#fff',
+        borderRadius: 25,
+        boxShadow: '0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22)',
+        width: '100%'
+     },
     paper: {
-        marginTop: theme.spacing(8),
+        marginTop: theme.spacing(4),
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        padding: theme.spacing(2),
+        padding: '3rem'
     },
     root: {
-        '& .MuiTextField-root': {
-            margin: theme.spacing(1),
-        },
+        backgroundColor: 'rgb(238, 238, 238)'
     },
     avatar: {
         margin: theme.spacing(1),

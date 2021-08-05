@@ -55,6 +55,11 @@ const useStyles = makeStyles((theme) => ({
         textDecoration: 'none',
         marginLeft: '2rem',
         padding: '1rem',
+    },
+    titleImage: {
+        height: 50, 
+        marginLeft: 70, 
+        padding: '0.7rem'
     }
 }));
 
