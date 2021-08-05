@@ -18,11 +18,10 @@ export const signup = async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 12);
         const result = await User.create({ email, password: hashedPassword, name: `${firstName} ${lastName}` });
         const token = jwt.sign({ email: result.email, id: result._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
-
-        res.status(200).json({ result, token });
         mongoose.connection.close()
+        res.status(200).json({ result, token });
     } catch (error) {
-        console.log("sfhds")
+        console.log(error);
         res.status(500).json({ message: "Something went wrong!" })
     }
 
