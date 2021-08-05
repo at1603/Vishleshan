@@ -33,20 +33,16 @@ const Navbar = () => {
         setUser(JSON.parse(localStorage.getItem('profile')));
     }, [location])
     return (
-        <AppBar position="static" className={classes.appBar}>
-
-            <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-                <MenuIcon />
-            </IconButton>
-            <Typography component={Link} to="/" className={classes.heading} variant="h2" align="center">Vishleshan</Typography>
+        <AppBar position="fixed" className={classes.appBar}>
+            <a href="https://fontmeme.com/fonts/samarkan-font/"><img style={{ height: 50, marginLeft: 70, padding: '0.7rem'}} src="https://fontmeme.com/permalink/210804/b5f47598f9d6a5548eee06b1d5a9d444.png" alt="samarkan-font" border="0" /></a>
             <Toolbar className={classes.toolbar}>
                 {user ? (
                     <div className={classes.profile}>
                         <Typography className={classes.userName} variant="h6">{user.result.name}</Typography>
-                        <Button variant="contained" color="secondary" onClick={logout} >Log Out</Button>
+                        <Button className={classes.button} variant="contained" color="secondary" onClick={logout} >Log Out</Button>
                     </div>
                 ) : (
-                    <Button component={Link} to="/auth" variant="contained" color="primary" >Sign In</Button>
+                    <Button component={Link} className={classes.button} to="/auth" variant="contained" color="primary" >Sign In</Button>
                 )}
             </Toolbar>
         </AppBar>
