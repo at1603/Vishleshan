@@ -28,7 +28,7 @@ export const generateAuthToken = (callback) => {
     })
 };
 
-// *****************
+// *****************Conversation API requests*******************
 
 export const getSpeechToText = async (conversationId, authToken, res) => {
     console.log("getSpeechtoText")

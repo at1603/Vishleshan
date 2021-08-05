@@ -11,25 +11,41 @@ import Dashboard from './components/Dashboard/Dashboard';
 import PitchAnalysis from './components/PitchAnalysis/PitchAnalysis';
 import InterviewAnalysis from './components/InterviewAnalysis/InterviewAnalysis';
 import InterviewAnalysisResult from './components/InterviewAnalysisResult/InterviewAnalysisResult';
+import { ThemeProvider, createTheme } from '@material-ui/core/styles';
 import useStyles from './styles';
+const THEME = createTheme({
+    typography: {
+        "fontFamily": `"Nunito Sans", "Cairo", "Arial", sans-serif`,
+        "fontSize": 14,
+        "fontWeightLight": 300,
+        "fontWeightRegular": 400,
+        "fontWeightMedium": 500
+    }
+});
 const App = () => {
     const classes = useStyles();
 
+
+
+
     return (
-        <BrowserRouter>
-            <Container maxWidth="xl" className={classes.root}>
-                <Navbar />
-                <Switch>
-                    <Route path="/" exact component={LandingPage} />
-                    <Route path="/auth" exact component={Auth} />
-                    <Route path="/home" exact component={Home} />
-                    <Route path="/dashboard" exact component={Dashboard} />
-                    <Route path="/pitchAnalysis" exact component={PitchAnalysis} />
-                    <Route path="/interviewAnalysis" exact component={InterviewAnalysis} />
-                    <Route path="/interviewAnalysisResult" exact component={InterviewAnalysisResult} />
-                </Switch>
-            </Container>
-        </BrowserRouter>
+        <ThemeProvider theme={THEME}>
+            <BrowserRouter>
+                <Container maxWidth="xl" className={classes.root}>
+                    <Navbar />
+                    <Switch>
+                        <Route path="/" exact component={LandingPage} />
+                        <Route path="/auth" exact component={Auth} />
+                        <Route path="/home" exact component={Home} />
+                        <Route path="/dashboard" exact component={Dashboard} />
+                        <Route path="/pitchAnalysis" exact component={PitchAnalysis} />
+                        <Route path="/interviewAnalysis" exact component={InterviewAnalysis} />
+                        <Route path="/interviewAnalysisResult" exact component={InterviewAnalysisResult} />
+                    </Switch>
+                </Container>
+            </BrowserRouter>
+        </ThemeProvider>
+
     )
 }
 
