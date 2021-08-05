@@ -33,8 +33,8 @@ const Navbar = () => {
         setUser(JSON.parse(localStorage.getItem('profile')));
     }, [location])
     return (
-        <AppBar position="fixed" className={classes.appBar}>
-            <a href="https://fontmeme.com/fonts/samarkan-font/"><img style={{ height: 50, marginLeft: 70, padding: '0.7rem'}} src="https://fontmeme.com/permalink/210804/b5f47598f9d6a5548eee06b1d5a9d444.png" alt="samarkan-font" border="0" /></a>
+        <AppBar position="static" className={classes.appBar}>
+            <a href="https://fontmeme.com/fonts/samarkan-font/"><img style={{ height: 50, marginLeft: 70, padding: '0.7rem' }} src="https://fontmeme.com/permalink/210804/b5f47598f9d6a5548eee06b1d5a9d444.png" alt="samarkan-font" border="0" /></a>
             <Toolbar className={classes.toolbar}>
                 {user ? (
                     <div className={classes.profile}>
