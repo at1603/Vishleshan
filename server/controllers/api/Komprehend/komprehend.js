@@ -40,7 +40,7 @@ export const getIntentAnalysis = async (text, res) => {
     request.post({
         url: `https://apis.paralleldots.com/v4/new/intent`,
         form: {
-            api_key: 'y7R1EJEICDz342wqsFYzSaLzzHJTmPWZEUGC90RMC1M',
+            api_key: apiKey,
             text: "You have brought honour to our family and I am greatfull to you for that."
         },
         json: true
