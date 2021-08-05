@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import InterviewAnalysisUser from "../../../../models/interviewAnalysisModel.js";
 import { listenToZoomCall } from "./socket.js";
 import { generateAuthToken, getActionItems, getAnalytics, getConversationData, getEntities, getFollowUps, getQuestions, getSpeechToText, getTopics } from "../ConversationApi/apiCalls.js";
+import { getEmotionAnalysis, getIntentAnalysis, getSarcasmAnalysis } from "../../Komprehend/komprehend.js";
 export const startInterviewAnalysis = (req, res) => {
 
   const appId = process.env.APP_ID
@@ -113,6 +114,13 @@ export const InterviewAnalysisResult = async (req, res, conversationId) => {
     getEntities(conversationId, authToken.accessToken, res)
     getAnalytics(conversationId, authToken.accessToken, res)
     getConversationData(conversationId, authToken.accessToken, res)
+    // Text is a JSON object formed by the messages returned from the conversation api calls
+    const text = {
+      data: data
+    }
+    // **************************
+
+    additionalAnanlysis(text)
   })
 }
 
@@ -128,4 +136,11 @@ export const stopInterviewAnalysis = (req, res, connectionId) => {
     .catch((err) => {
       console.error("Error while stopping the connection", err);
     });
+}
+
+
+const additionalAnanlysis = (text) => {
+  getEmotionAnalysis(text, res)
+  getIntentAnalysis(text, res)
+  getSarcasmAnalysis(text, res)
 }
