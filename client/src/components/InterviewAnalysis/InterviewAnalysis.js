@@ -3,7 +3,6 @@ import { TextField, Button, Typography, Paper, Grid } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux'
 import { joinZoomCall, stopAnalysis } from '../../actions/InterviewAnalysis/interviewAnalysis'
 import { useHistory } from 'react-router-dom';
-
 import useStyles from './styles';
 
 
@@ -11,7 +10,7 @@ import useStyles from './styles';
 const InterviewAnalysis = () => {
     let message = ""
 
-    const [formData, setFormData] = useState({ url: '' })
+    const [formData, setFormData] = useState({ url: '', meetingTitle: '' })
     const [stopForm, setstopForm] = useState({ connectionId: "" })
 
     const dispatch = useDispatch()
@@ -43,14 +42,14 @@ const InterviewAnalysis = () => {
                 <Grid item xs={4} className={classes.leftGrid}>
                     <div className={classes.paper}>
                         <form onSubmit={handleSubmit} className={classes.form}>
-                            <TextField className={classes.input} name='meetingTitle'value={formData.meetingTitle} onChange={handleChange} variant="outlined" required fullWidth label='Meeting Title' />
-                            <TextField className={classes.input} name='url'value={formData.url} onChange={handleChange} variant="outlined" required fullWidth label='URL' />
-                            <Button style={{marginLeft: '0.5rem'}} variant='contained' color='primary' size='large' type='submit' className={classes.submit} fullWidth>Submit</Button>
+                            <TextField className={classes.input} name='meetingTitle' value={formData.meetingTitle} onChange={handleChange} variant="outlined" required fullWidth label='Meeting Title' />
+                            <TextField className={classes.input} name='url' value={formData.url} onChange={handleChange} variant="outlined" required fullWidth label='URL' />
+                            <Button style={{ marginLeft: '0.5rem' }} variant='contained' color='primary' size='large' type='submit' className={classes.submit} fullWidth>Submit</Button>
                         </form>
                     </div>
                 </Grid>
                 <Grid item xs={8} className={classes.rightGrid}>
-                    <Typography component="h1" variant="h5" style={{textAlign: 'center'}}>
+                    <Typography component="h1" variant="h5" style={{ textAlign: 'center' }}>
                         Interview Analysis
                     </Typography>
                     <div className={classes.text}>

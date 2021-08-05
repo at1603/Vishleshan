@@ -19,7 +19,7 @@ export default makeStyles((theme) => ({
         justifyContent: 'center',
         width: '60%',
         padding: '5rem',
-        paddingTop : '10rem',
+        paddingTop: '10rem',
         // marginLeft: '2rem,
         borderWidth: '1px',
         borderStyle: 'solid',
@@ -33,7 +33,7 @@ export default makeStyles((theme) => ({
         width: '80%', // Fix IE 11 issue.
         marginTop: theme.spacing(1),
     },
-    input:{
+    input: {
         margin: '0.5rem'
     },
     text: {
