@@ -5,7 +5,7 @@ import request from 'request';
 
 
 
-const startPitchAnalysis = (authToken) => {
+const startPitchAnalysis = (res, authToken) => {
     const payload = {
         'url': "https://symbltestdata.s3.us-east-2.amazonaws.com/sample_video_file.mp4",
         // A valid url string. The URL must be a publicly accessible url.
@@ -54,6 +54,7 @@ const startPitchAnalysis = (authToken) => {
         }
         console.log('Status code: ', statusCode);
         console.log('Body', response.body);
+        res.status(statusCode).json({conversationData: response.body});
     });
 }
 
@@ -63,7 +64,7 @@ export const getVideoData = (req, res) => {
     try {
         generateAuthToken((authToken) => {
             console.log(authToken, "bbb")
-            startPitchAnalysis(authToken.accessToken)
+            startPitchAnalysis(res, authToken.accessToken)
         })
 
     } catch (error) {
