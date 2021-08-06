@@ -33,7 +33,22 @@ const useStyles = makeStyles((theme) => ({
     title: {
         flexGrow: 1,
     },
-    toolbar: {
+    leftToolbar: {
+        display: 'flex',
+        flex: 'flex-wrap',
+        justifyContent: 'flex-start',
+    },
+    leftLinks: {
+        textDecoration: 'none',
+        color: 'white',
+        display: 'inline-block'
+    },
+    leftLinksButton: {
+        marginRight: '20px',
+        alignItems: 'center',
+        lineHeight: 1.4
+    },
+    rightToolbar: {
         display: 'flex',
         justifyContent: 'flex-end',
     },
@@ -48,6 +63,7 @@ const useStyles = makeStyles((theme) => ({
         marginRight: '20px',
         display: 'flex',
         alignItems: 'center',
+        lineHeight: 1.4
     },
     heading: {
         color: 'rgba(0,183,255, 1)',
