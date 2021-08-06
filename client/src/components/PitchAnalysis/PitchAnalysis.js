@@ -3,14 +3,17 @@ import { useDispatch } from 'react-redux';
 
 import { sendVideoData } from '../../actions/pitchAnalysis'
 import { Typography, TextField, Button, Grid, Paper } from '@material-ui/core';
-import useStyles from './styles'
+import useStyles from './styles';
+
+import { ThemeProvider } from '@material-ui/core/styles';
+import headlineTheme from '../fonts/FontThemes';
 
 
 const PitchAnalysis = () => {
     const dispatch = useDispatch();
     const classes = useStyles();
 
-    const [formData, setFormData] = useState({url: ""})
+    const [formData, setFormData] = useState({videoTitle: "", url: ""})
     
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -34,11 +37,15 @@ const PitchAnalysis = () => {
                 </div>
             </Grid>
             <Grid item xs={8} className={classes.rightGrid}>
-                <Typography component="h1" variant="h5" style={{textAlign: 'center'}}>
-                    Pitch Analysis
-                </Typography>
+                <ThemeProvider theme={headlineTheme}>
+                    <Typography component="h1" variant="h5" style={{textAlign: 'center', fontWeight: 'bold'}}>
+                        Pitch Analysis
+                    </Typography>
+                </ThemeProvider>
                 <div className={classes.text}>
-                    Hello, In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before final copy is available.
+                    <Typography variant="h6">
+                        Hello, In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before final copy is available.
+                    </Typography>
                 </div>
             </Grid>
         </Grid>
