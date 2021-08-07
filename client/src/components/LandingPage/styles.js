@@ -1,8 +1,8 @@
 import { makeStyles } from "@material-ui/core";
 
-const useStyles = makeStyles((theme) => ({ 
+const useStyles = makeStyles((theme) => ({
     topCover: {
-        background: 'linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(22,26,70,1) 100%)', 
+        background: 'linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(22,26,70,1) 100%)',
         height: '100vh',
         color: 'white'
     },
@@ -16,14 +16,14 @@ const useStyles = makeStyles((theme) => ({
     button: {
         width: '140px',
         height: '45px',
-        fontSize: '11px',
+        fontSize: '15px',
         textTransform: 'uppercase',
         letterSpacing: '2.5px',
         fontWeight: 'bold',
-        color: '#000',
-        backgroundColor: '#efe939',
+        color: '#232323',
+        backgroundColor: '#FFC947',
         border: 'none',
-        borderRadius: '45px',
+        borderRadius: '15px',
         boxShadow: ' 0px 8px 15px rgba(0, 0, 0, 0.1)',
         transition: 'all 0.3s ease 0s',
         cursor: 'pointer',

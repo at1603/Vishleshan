@@ -17,9 +17,11 @@ const Navbar = () => {
     const classes = useStyles()
 
     const logout = () => {
-        dispatch({ type: LOGOUT });
-        history.push('/');
         setUser(null);
+        dispatch({ type: LOGOUT });
+
+        history.push('/');
+
     }
 
     useEffect(() => {
@@ -35,16 +37,16 @@ const Navbar = () => {
     return (
         <AppBar position="sticky" className={classes.appBar}>
             <Toolbar className={classes.leftToolbar}>
-            <a href="/"><img className={classes.titleImage} src="https://fontmeme.com/permalink/210804/b5f47598f9d6a5548eee06b1d5a9d444.png" alt="samarkan-font" border="0" /></a>
-                <div style={{marginLeft: '2rem'}}>
+                <a href="/"><img className={classes.titleImage} src="https://fontmeme.com/permalink/210804/b5f47598f9d6a5548eee06b1d5a9d444.png" alt="samarkan-font" border="0" /></a>
+                <div style={{ marginLeft: '2rem' }}>
                     <a href="/about" className={classes.leftLinks}><Typography className={classes.userName} variant="h6">ABOUT</Typography></a>
                     <a href="/contact" className={classes.leftLinks}><Typography className={classes.userName} variant="h6">CONTACT</Typography></a>
                 </div>
             </Toolbar>
             <Toolbar className={classes.rightToolbar}>
-                {user ? (
+                {user?.result ? (
                     <div className={classes.profile}>
-                        <Typography className={classes.userName} variant="h6">{user.result.name}</Typography>
+                        <Typography component={Link} className={classes.userName} variant="h6" to='/dashboard'>{user.result.name}</Typography>
                         <Button className={classes.button} variant="contained" color="secondary" onClick={logout} >Log Out</Button>
                     </div>
                 ) : (
@@ -54,5 +56,5 @@ const Navbar = () => {
         </AppBar>
     )
 }
- // <Button component={Link} className={classes.button} to="/auth" variant="contained" color="primary" >Sign In</Button>
+// <Button component={Link} className={classes.button} to="/auth" variant="contained" color="primary" >Sign In</Button>
 export default Navbar
