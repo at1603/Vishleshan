@@ -30,10 +30,6 @@ const THEME = createTheme({
 
 const App = () => {
     const classes = useStyles();
-
-
-
-
     return (
         <ThemeProvider theme={THEME}>
             <BrowserRouter>

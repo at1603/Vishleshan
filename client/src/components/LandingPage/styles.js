@@ -7,11 +7,11 @@ const useStyles = makeStyles((theme) => ({
         color: 'white'
     },
     leftGrid: {
-        textAlign: 'center',
-        margin: '5rem 1rem 2rem',
+        textAlign: 'left',
+        margin: '8rem 0 2rem 6rem',
     },
     rightGrid: {
-        margin: '5rem 1rem 2rem'
+        margin: '5rem 0rem 2rem'
     },
     button: {
         width: '140px',
@@ -32,6 +32,45 @@ const useStyles = makeStyles((theme) => ({
         marginTop: '3rem',
         // marginLeft: '4rem'
     },
+    textStyle: {
+        textShadow: '0 1px 0 rgba(255, 255, 255, 0.4)'
+    },
+    serviceCardsWrapper: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        margin: '4rem 8rem'
+    }, 
+    serviceCard: {
+        borderRadius: '25px',
+        height: '14rem',
+        width: '100%',
+        margin: '0 2rem',
+        padding: '2rem',
+        justifyContent: 'center',
+        textAlign: 'center',
+    },
+    aboutGrid: {
+        display: 'flex',
+        width: '80%',
+        justifyContent: 'center',
+        margin: '3rem auto'
+    },
+    aboutLeftGrid: {
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    aboutRightGrid: {
+        margin: 0
+    },
+    teamCard: {
+        maxWidth: '24rem',
+        textAlign: 'center',
+        backgroundColor: '#f9f9f9',
+        borderRadius: '25px',
+    },
+    teamMedia: {
+        height: '17rem',
+    }
 
 }))
 

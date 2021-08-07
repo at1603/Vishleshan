@@ -33,7 +33,7 @@ const Navbar = () => {
         setUser(JSON.parse(localStorage.getItem('profile')));
     }, [location])
     return (
-        <AppBar position="static" className={classes.appBar}>
+        <AppBar position="sticky" className={classes.appBar}>
             <Toolbar className={classes.leftToolbar}>
             <a href="/"><img className={classes.titleImage} src="https://fontmeme.com/permalink/210804/b5f47598f9d6a5548eee06b1d5a9d444.png" alt="samarkan-font" border="0" /></a>
                 <div style={{marginLeft: '2rem'}}>
