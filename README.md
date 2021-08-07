@@ -2,11 +2,10 @@
 
 <p align="center">
   <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="https://fontmeme.com/permalink/210320/c38112f2aab8c423e67f009a7a09a42b.png" >
+    <img src="https://fontmeme.com/permalink/210807/b29d89552af634629c87346070924ac2.png" alt="samarkan-font" border="0">
   </a>
-
-  <h3 align="center">SOS Assistance Platform</h3>
-  <h4 align="center">Deployed at <a href="https://sahayak-sos.herokuapp.com/" target="_blank">Sahayak</a>(Best works on desktop or landsacape mode in mobile)</h4>
+  <h3 align="center">Video Analyzer Platform</h3>
+  <!-- <h4 align="center">Deployed at <a href="https://sahayak-sos.herokuapp.com/" target="_blank">Sahayak</a>(Best works on desktop or landsacape mode in mobile)</h4> -->
 
 </p>
 
