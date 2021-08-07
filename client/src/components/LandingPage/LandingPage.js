@@ -15,7 +15,13 @@ const LandingPage = () => {
                 <Grid container component="main">
                     <Grid item xs={5} className={classes.leftGrid}>
                         <ThemeProvider theme={headlineTheme}>
-                            <Typography style={{fontWeight: 'bold', fontSize: 50}}><span style={{color: '#04a334', display: 'block'}}>Enhance</span> <span style={{color: '#1dbce0', display: 'block'}}>Your Performance</span> By Getting A Thorough Analysis.</Typography>
+                            <Typography style={{ fontWeight: 'bold', fontSize: 50 }}>
+                                <span style={{ color: '#04a334', display: 'block' }}>Enhance</span>
+                                <span style={{ color: '#1dbce0', display: 'block' }}>Your Performance</span>
+                                {/* <span style={{ display: 'block' }}>Your <span style={{ color: '#1dbce0' }}>Performance</span></span> */}
+                                With A Thorough
+                                <span style={{ color: '#FF4848', display: 'block' }}>Analysis</span>
+                            </Typography>
                         </ThemeProvider>
                         <Button component={Link} className={classes.button} to="/auth" variant="contained" color="primary" >Sign In</Button>
                     </Grid>
