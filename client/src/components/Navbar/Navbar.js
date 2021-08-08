@@ -6,6 +6,9 @@ import decode from 'jwt-decode';
 import { LOGOUT } from '../../constants/actionTypes'
 import { AppBar, Typography, IconButton, Toolbar, Button } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu';
+import Scroll from 'react-scroll'
+import './styles.js'
+
 
 import useStyles from './styles';
 
@@ -15,11 +18,15 @@ const Navbar = () => {
     const history = useHistory();
     const location = useLocation();
     const classes = useStyles()
+    const ScrollLink = Scroll.Link
+
 
     const logout = () => {
-        dispatch({ type: LOGOUT });
-        history.push('/');
         setUser(null);
+        dispatch({ type: LOGOUT });
+
+        history.push('/');
+
     }
 
     useEffect(() => {
@@ -33,20 +40,62 @@ const Navbar = () => {
         setUser(JSON.parse(localStorage.getItem('profile')));
     }, [location])
     return (
-        <AppBar position="static" className={classes.appBar}>
-            <a href="#"><img className={classes.titleImage} src="https://fontmeme.com/permalink/210804/b5f47598f9d6a5548eee06b1d5a9d444.png" alt="samarkan-font" border="0" /></a>
-            <Toolbar className={classes.toolbar}>
-                {user ? (
+        <AppBar position="sticky" className={classes.appBar}>
+            <Toolbar className={classes.leftToolbar}>
+                <a href="/"><img className={classes.titleImage} src="https://fontmeme.com/permalink/210804/b5f47598f9d6a5548eee06b1d5a9d444.png" alt="samarkan-font" border="0" /></a>
+                <div style={{ marginLeft: '2rem' }}>
+
+                    <a href="#" className={classes.leftLinks}>
+                        <ScrollLink
+                            to="about-us"
+                            spy={true}
+                            smooth={true}
+                            duration={500}
+                            // className='some-class' 
+                            activeClass={classes.selected}
+                        >
+                            <Typography className={classes.userName} variant="h6">ABOUT</Typography>
+                        </ScrollLink>
+                    </a>
+                    <a href="#" className={classes.leftLinks}  >
+                        <ScrollLink
+                            to="our-services"
+                            spy={true}
+                            smooth={true}
+                            duration={500}
+                            // className='some-class'
+                            activeClass={classes.selected}
+                        >
+                            <Typography className={classes.userName} variant="h6">SERVICES</Typography>
+                        </ScrollLink>
+                    </a>
+                    <a href="#" className={classes.leftLinks}  >
+                        <ScrollLink
+                            to="our-team"
+                            spy={true}
+                            smooth={true}
+                            duration={500}
+                            // className='some-class'
+                            activeClass={classes.selected}
+                        >
+                            <Typography className={classes.userName} variant="h6">TEAM</Typography>
+                        </ScrollLink>
+                    </a>
+                    <a href="/contact" className={classes.leftLinks}><Typography className={classes.userName} variant="h6">CONTACT</Typography></a>
+                </div>
+            </Toolbar>
+            <Toolbar className={classes.rightToolbar}>
+                {user?.result ? (
                     <div className={classes.profile}>
-                        <Typography className={classes.userName} variant="h6">{user.result.name}</Typography>
+                        <Typography component={Link} className={classes.userName} variant="h6" to='/dashboard'>{user.result.name}</Typography>
                         <Button className={classes.button} variant="contained" color="secondary" onClick={logout} >Log Out</Button>
                     </div>
                 ) : (
-                    <Button component={Link} className={classes.button} to="/auth" variant="contained" color="primary" >Sign In</Button>
+                    ''
                 )}
             </Toolbar>
         </AppBar>
     )
 }
-
+// <Button component={Link} className={classes.button} to="/auth" variant="contained" color="primary" >Sign In</Button>
 export default Navbar

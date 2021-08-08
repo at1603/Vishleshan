@@ -1,30 +1,42 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import  { useHistory } from 'react-router-dom'
 
 import { sendVideoData } from '../../actions/pitchAnalysis'
-import { Typography, TextField, Button, Grid, Paper } from '@material-ui/core';
-import useStyles from './styles'
+import { Typography, TextField, Button, Grid, Paper, CircularProgress } from '@material-ui/core';
+import useStyles from './styles';
+
+import { ThemeProvider } from '@material-ui/core/styles';
+import headlineTheme from '../fonts/FontThemes';
 
 
 const PitchAnalysis = () => {
     const dispatch = useDispatch();
     const classes = useStyles();
+    const history = useHistory();
 
-    const [formData, setFormData] = useState({url: ""})
-    
+    const [formData, setFormData] = useState({videoTitle: "", url: ""})
+    const [isSubmit, setIsSubmit] = useState(false)
+    const [isResponse, setIsResponse] = useState(false)
     const handleSubmit = (e) => {
         e.preventDefault()
-        dispatch(sendVideoData(formData))
+        dispatch(sendVideoData(formData, history))
+        setIsSubmit(true)
     }
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value })
     }
 
+    const spinner = <div style={{alignContent: 'center', textAlign: 'center', justifyContent: 'center', marginTop: '8rem'}}>
+        <CircularProgress />
+        <Typography variant="body1" style={{display: 'block', textAlign: 'center', marginTop: '2rem'}}>Analyzing Video!</Typography>
+    </div>
     return (
         <>
         <Grid container component="main" className={classes.root}>
             <Grid item xs={4} className={classes.leftGrid}>
+                { isSubmit ? spinner :
                 <div className={classes.paper}>
                     <form onSubmit={handleSubmit} className={classes.form}>
                         <TextField className={classes.input} name='videoTitle'value={formData.videoTitle} onChange={handleChange} variant="outlined" required fullWidth label='Video Title' />
@@ -32,13 +44,18 @@ const PitchAnalysis = () => {
                         <Button style={{marginLeft: '0.5rem'}} variant='contained' color='primary' size='large' type='submit' className={classes.submit} fullWidth>Submit</Button>
                     </form>
                 </div>
+                }
             </Grid>
             <Grid item xs={8} className={classes.rightGrid}>
-                <Typography component="h1" variant="h5" style={{textAlign: 'center'}}>
-                    Pitch Analysis
-                </Typography>
+                <ThemeProvider theme={headlineTheme}>
+                    <Typography component="h1" variant="h5" style={{textAlign: 'center', fontWeight: 'bold'}}>
+                        Pitch Analysis
+                    </Typography>
+                </ThemeProvider>
                 <div className={classes.text}>
-                    Hello, In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before final copy is available.
+                    <Typography variant="h6">
+                        Hello, In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before final copy is available.
+                    </Typography>
                 </div>
             </Grid>
         </Grid>

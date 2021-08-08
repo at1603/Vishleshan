@@ -17,23 +17,41 @@ const useStyles = makeStyles((theme) => ({
     button: {
         width: '140px',
         height: '45px',
-        fontSize: '11px',
+        fontSize: '15px',
         textTransform: 'uppercase',
         letterSpacing: '2.5px',
-        fontWeight: '500',
-        color: '#000',
-        backgroundColor: '#efe939',
+        fontWeight: 'bold',
+        color: '#232323',
+        backgroundColor: '#FFC947',
         border: 'none',
-        borderRadius: '45px',
+        borderRadius: '15px',
         boxShadow: ' 0px 8px 15px rgba(0, 0, 0, 0.1)',
         transition: 'all 0.3s ease 0s',
         cursor: 'pointer',
         outline: 'none',
+        // float: 'left',
+        // marginTop: '3rem',
+        // marginLeft: '4rem'
     },
     title: {
         flexGrow: 1,
     },
-    toolbar: {
+    leftToolbar: {
+        display: 'flex',
+        flex: 'flex-wrap',
+        justifyContent: 'flex-start',
+    },
+    leftLinks: {
+        textDecoration: 'none',
+        color: 'white',
+        display: 'inline-block'
+    },
+    leftLinksButton: {
+        marginRight: '20px',
+        alignItems: 'center',
+        lineHeight: 1.4
+    },
+    rightToolbar: {
         display: 'flex',
         justifyContent: 'flex-end',
     },
@@ -48,6 +66,10 @@ const useStyles = makeStyles((theme) => ({
         marginRight: '20px',
         display: 'flex',
         alignItems: 'center',
+        lineHeight: 1.4,
+        color: "#fff",
+        textDecoration: 'none'
+
     },
     heading: {
         color: 'rgba(0,183,255, 1)',
@@ -57,9 +79,14 @@ const useStyles = makeStyles((theme) => ({
         padding: '1rem',
     },
     titleImage: {
-        height: 50, 
-        marginLeft: 70, 
+        height: 50,
+        marginLeft: 70,
         padding: '0.7rem'
+    },
+    selected: {
+        // borderBottom: '3px solid #fff',
+        // color: ' #fff',
+        textDecoration: 'underline',
     }
 }));
 
