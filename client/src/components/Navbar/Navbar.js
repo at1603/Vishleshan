@@ -6,6 +6,9 @@ import decode from 'jwt-decode';
 import { LOGOUT } from '../../constants/actionTypes'
 import { AppBar, Typography, IconButton, Toolbar, Button } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu';
+import Scroll from 'react-scroll'
+import './styles.js'
+
 
 import useStyles from './styles';
 
@@ -15,6 +18,8 @@ const Navbar = () => {
     const history = useHistory();
     const location = useLocation();
     const classes = useStyles()
+    const ScrollLink = Scroll.Link
+
 
     const logout = () => {
         setUser(null);
@@ -39,7 +44,43 @@ const Navbar = () => {
             <Toolbar className={classes.leftToolbar}>
                 <a href="/"><img className={classes.titleImage} src="https://fontmeme.com/permalink/210804/b5f47598f9d6a5548eee06b1d5a9d444.png" alt="samarkan-font" border="0" /></a>
                 <div style={{ marginLeft: '2rem' }}>
-                    <a href="/about" className={classes.leftLinks}><Typography className={classes.userName} variant="h6">ABOUT</Typography></a>
+
+                    <a href="#" className={classes.leftLinks}>
+                        <ScrollLink
+                            to="about-us"
+                            spy={true}
+                            smooth={true}
+                            duration={500}
+                            // className='some-class' 
+                            activeClass={classes.selected}
+                        >
+                            <Typography className={classes.userName} variant="h6">ABOUT</Typography>
+                        </ScrollLink>
+                    </a>
+                    <a href="#" className={classes.leftLinks}  >
+                        <ScrollLink
+                            to="our-services"
+                            spy={true}
+                            smooth={true}
+                            duration={500}
+                            // className='some-class'
+                            activeClass={classes.selected}
+                        >
+                            <Typography className={classes.userName} variant="h6">SERVICES</Typography>
+                        </ScrollLink>
+                    </a>
+                    <a href="#" className={classes.leftLinks}  >
+                        <ScrollLink
+                            to="our-team"
+                            spy={true}
+                            smooth={true}
+                            duration={500}
+                            // className='some-class'
+                            activeClass={classes.selected}
+                        >
+                            <Typography className={classes.userName} variant="h6">TEAM</Typography>
+                        </ScrollLink>
+                    </a>
                     <a href="/contact" className={classes.leftLinks}><Typography className={classes.userName} variant="h6">CONTACT</Typography></a>
                 </div>
             </Toolbar>
