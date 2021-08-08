@@ -8,10 +8,22 @@ import useStyles from './styles';
 import { ThemeProvider } from '@material-ui/core/styles';
 import headlineTheme from '../fonts/FontThemes';
 
+// import { w3cwebsocket as W3CWebSocket } from "websocket";
 
 
+// let SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 const InterviewAnalysis = () => {
     let message = ""
+
+    // const recognition = new SpeechRecognition()
+
+
+
+
+
+    const [formData, setFormData] = useState({ url: '', meetingTitle: '' })
+    const [stopForm, setstopForm] = useState({ connectionId: "" })
+
 
     const [formData, setFormData] = useState({ meetingTitle: '', url: '' })
     const dispatch = useDispatch()
@@ -23,7 +35,36 @@ const InterviewAnalysis = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
         dispatch(joinZoomCall(formData))
+        // setTimeout(() => {
+        //     const client = new WebSocket('ws://127.0.0.1:8000');
+        //     recognition.continuous = true
+        //     recognition.start()
+        //     recognition.onspeechstart = () => {
+        //         console.log('Speech has been detected');
+
+        //     }
+
+        //     recognition.onresult = (event) => {
+        //         client.send(JSON.stringify({
+        //             flag: 1
+        //         }));
+        //         console.log(event.results)
+        //     }
+
+
+
+
+        // }, 10000);
+
     }
+
+    const handleStopSubmit = (e) => {
+        e.preventDefault()
+        dispatch(stopAnalysis({ connectionId }, history))
+
+    }
+
+
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });

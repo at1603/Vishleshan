@@ -1,5 +1,5 @@
 import pkg from "symbl-node";
-const { sdk } = pkg
+const { sdk, SpeakerEvent } = pkg
 import mongoose from 'mongoose';
 import InterviewAnalysisUser from "../../../../models/interviewAnalysisModel.js";
 import { listenToZoomCall } from "./socket.js";
@@ -43,6 +43,7 @@ export const startInterviewAnalysis = (req, res) => {
           phoneNumber: phoneNumber,
           dtmf: dtmfSequence,
         },
+        confidenceThreshold: 0.1,
         languages: ['en-IN'],
         actions: [
           {
@@ -74,11 +75,6 @@ export const startInterviewAnalysis = (req, res) => {
         })
 
 
-        const conversationData = {
-          connectionId: connectionId,
-          conversationId: conversationId
-        }
-        // res.status(200).json(conversationData)
       })
         .catch((err) => {
           console.error("Error while starting the connection", err);
@@ -116,11 +112,11 @@ export const InterviewAnalysisResult = async (req, res, conversationId) => {
     getConversationData(conversationId, authToken.accessToken, res)
     // Text is a JSON object formed by the messages returned from the conversation api calls
     const text = {
-      data: data
+      data: 'data'
     }
     // **************************
 
-    additionalAnanlysis(text)
+    additionalAnanlysis(text, res)
   })
 }
 
@@ -139,7 +135,7 @@ export const stopInterviewAnalysis = (req, res, connectionId) => {
 }
 
 
-const additionalAnanlysis = (text) => {
+const additionalAnanlysis = (text, res) => {
   getEmotionAnalysis(text, res)
   getIntentAnalysis(text, res)
   getSarcasmAnalysis(text, res)

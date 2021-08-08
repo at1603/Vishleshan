@@ -46,6 +46,7 @@ const App = () => {
                         <Route path="/pitchAnalysisResult" exact component={PitchAnalysisResult} />
                         <Route path="/interviewAnalysis" exact component={InterviewAnalysis} />
                         <Route path="/interviewAnalysisResult" exact component={InterviewAnalysisResult} />
+
                     </Switch>
                 </Container>
             </BrowserRouter>
