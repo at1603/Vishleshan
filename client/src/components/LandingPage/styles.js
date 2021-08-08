@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         justifyContent: 'space-between',
         margin: '4rem 8rem'
-    }, 
+    },
     serviceCard: {
         borderRadius: '25px',
         height: '14rem',
@@ -63,14 +63,15 @@ const useStyles = makeStyles((theme) => ({
         margin: 0
     },
     teamCard: {
-        maxWidth: '24rem',
+        maxWidth: '20rem',
         textAlign: 'center',
         backgroundColor: '#f9f9f9',
-        borderRadius: '25px',
+        borderRadius: '25px'
     },
     teamMedia: {
         height: '17rem',
     }
+
 
 }))
 
