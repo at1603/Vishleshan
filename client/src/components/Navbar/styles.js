@@ -82,6 +82,11 @@ const useStyles = makeStyles((theme) => ({
         height: 50,
         marginLeft: 70,
         padding: '0.7rem'
+    },
+    selected: {
+        // borderBottom: '3px solid #fff',
+        // color: ' #fff',
+        textDecoration: 'underline',
     }
 }));
 
