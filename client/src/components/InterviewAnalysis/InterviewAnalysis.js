@@ -21,8 +21,6 @@ const InterviewAnalysis = () => {
 
 
 
-    const [formData, setFormData] = useState({ url: '', meetingTitle: '' })
-    const [stopForm, setstopForm] = useState({ connectionId: "" })
 
 
     const [formData, setFormData] = useState({ meetingTitle: '', url: '' })
@@ -58,11 +56,11 @@ const InterviewAnalysis = () => {
 
     }
 
-    const handleStopSubmit = (e) => {
-        e.preventDefault()
-        dispatch(stopAnalysis({ connectionId }, history))
+    // const handleStopSubmit = (e) => {
+    //     e.preventDefault()
+    //     dispatch(stopAnalysis({ connectionId }, history))
 
-    }
+    // }
 
 
 
@@ -77,15 +75,15 @@ const InterviewAnalysis = () => {
                 <Grid item xs={4} className={classes.leftGrid}>
                     <div className={classes.paper}>
                         <form onSubmit={handleSubmit} className={classes.form}>
-                            <TextField className={classes.input} name='meetingTitle'value={formData.meetingTitle} onChange={handleChange} variant="outlined" required fullWidth label='Meeting Title' />
-                            <TextField className={classes.input} name='url'value={formData.url} onChange={handleChange} variant="outlined" required fullWidth label='URL' />
-                            <Button style={{marginLeft: '0.5rem'}} variant='contained' color='primary' size='large' type='submit' className={classes.submit} fullWidth>Submit</Button>
+                            <TextField className={classes.input} name='meetingTitle' value={formData.meetingTitle} onChange={handleChange} variant="outlined" required fullWidth label='Meeting Title' />
+                            <TextField className={classes.input} name='url' value={formData.url} onChange={handleChange} variant="outlined" required fullWidth label='URL' />
+                            <Button style={{ marginLeft: '0.5rem' }} variant='contained' color='primary' size='large' type='submit' className={classes.submit} fullWidth>Submit</Button>
                         </form>
                     </div>
                 </Grid>
                 <Grid item xs={8} className={classes.rightGrid}>
                     <ThemeProvider theme={headlineTheme}>
-                        <Typography component="h1" variant="h5" style={{textAlign: 'center', fontWeight: 'bold'}}>
+                        <Typography component="h1" variant="h5" style={{ textAlign: 'center', fontWeight: 'bold' }}>
                             Real-Time Analysis
                         </Typography>
                     </ThemeProvider>
