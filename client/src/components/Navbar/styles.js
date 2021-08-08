@@ -37,8 +37,8 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
     },
     leftToolbar: {
-        display: 'flex',
-        flex: 'flex-wrap',
+        width: '100%',
+        display: 'inline-flex',
         justifyContent: 'flex-start',
     },
     leftLinks: {
@@ -52,6 +52,7 @@ const useStyles = makeStyles((theme) => ({
         lineHeight: 1.4
     },
     rightToolbar: {
+        width: '80%',
         display: 'flex',
         justifyContent: 'flex-end',
     },
