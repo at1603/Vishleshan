@@ -30,14 +30,15 @@ export const generateAuthToken = (callback) => {
 
 // *****************Conversation API requests*******************
 
-export const getSpeechToText = async (conversationId, authToken, res) => {
+export const getSpeechToText = (conversationId, authToken, callback) => {
     console.log("getSpeechtoText")
     request.get({
         url: `https://api.symbl.ai/v1/conversations/${conversationId}/messages?sentiment=true`,
         headers: { 'Authorization': `Bearer ${authToken}` },
         json: true
     }, (err, response, body) => {
-        console.log("insideGetConversation", body);
+        // console.log("insideGetConversation", body);
+        callback(null, body)
         // console.log("insideGetConversation", response);
         // console.log(err)
 
@@ -45,7 +46,7 @@ export const getSpeechToText = async (conversationId, authToken, res) => {
     });
 }
 
-export const getActionItems = (conversationId, authToken, res) => {
+export const getActionItems = (conversationId, authToken, callback) => {
     console.log("actionItems")
     request.get({
         url: `https://api.symbl.ai/v1/conversations/${conversationId}/action-items`,
@@ -53,10 +54,11 @@ export const getActionItems = (conversationId, authToken, res) => {
         json: true
     }, (err, response, body) => {
         console.log("insideGetActionItems", body);
+        callback(null, body)
     });
 }
 
-export const getFollowUps = (conversationId, authToken, res) => {
+export const getFollowUps = (conversationId, authToken, callback) => {
     console.log("followUps")
     request.get({
         url: `https://api.symbl.ai/v1/conversations/${conversationId}/follow-ups`,
@@ -64,10 +66,12 @@ export const getFollowUps = (conversationId, authToken, res) => {
         json: true
     }, (err, response, body) => {
         console.log("insideGetFollowUps", body);
+        callback(null, body)
+
     });
 }
 
-export const getTopics = (conversationId, authToken, res) => {
+export const getTopics = (conversationId, authToken, callback) => {
     console.log("topics")
     request.get({
         url: `https://api.symbl.ai/v1/conversations/${conversationId}/topics?sentiment=true`,
@@ -75,10 +79,12 @@ export const getTopics = (conversationId, authToken, res) => {
         json: true
     }, (err, response, body) => {
         console.log("insideGetTopics", body);
+        callback(null, body)
+
     });
 }
 
-export const getQuestions = (conversationId, authToken, res) => {
+export const getQuestions = (conversationId, authToken, callback) => {
     console.log("ques")
     request.get({
         url: `https://api.symbl.ai/v1/conversations/${conversationId}/questions`,
@@ -86,12 +92,14 @@ export const getQuestions = (conversationId, authToken, res) => {
         json: true
     }, (err, response, body) => {
         console.log("insideGetQuestions", body);
+        callback(null, body)
+
     });
 }
 
 
 
-export const getEntities = async (conversationId, authToken, res) => {
+export const getEntities = async (conversationId, authToken, callback) => {
     console.log("entities")
     request.get({
         url: `https://api.symbl.ai/v1/conversations/${conversationId}/entities`,
@@ -99,11 +107,13 @@ export const getEntities = async (conversationId, authToken, res) => {
         json: true
     }, (err, response, body) => {
         console.log("insideGetEntitites", body);
+        callback(null, body)
+
     });
 }
 
 
-export const getAnalytics = (conversationId, authToken, res) => {
+export const getAnalytics = (conversationId, authToken, callback) => {
     console.log("analytics")
     request.get({
         url: `https://api.symbl.ai/v1/conversations/${conversationId}/analytics`,
@@ -111,10 +121,12 @@ export const getAnalytics = (conversationId, authToken, res) => {
         json: true
     }, (err, response, body) => {
         console.log("insideGetAnalytics", body);
+        callback(null, body)
+
     });
 }
 
-export const getConversationData = (conversationId, authToken, res) => {
+export const getConversationData = (conversationId, authToken, callback) => {
     console.log("getconversationData")
     request.get({
         url: `https://api.symbl.ai/v1/conversations/${conversationId}`,
@@ -122,12 +134,12 @@ export const getConversationData = (conversationId, authToken, res) => {
         json: true
     }, (err, response, body) => {
         console.log("insideGetConversationData", body);
-        console.log("insideGetConversationData", response);
+        callback(null, body)
 
     });
 }
 
-export const deleteConversation = (conversationId, authToken, res) => {
+export const deleteConversation = (conversationId, authToken, callback) => {
     console.log("deleteConversationData")
     request.delete({
         url: `https://api.symbl.ai/v1/conversations/${conversationId}`,
@@ -135,10 +147,12 @@ export const deleteConversation = (conversationId, authToken, res) => {
         json: true
     }, (err, response, body) => {
         console.log("insideDeleteConversation", body);
+        callback(null, body)
+
     });
 }
 
-export const getMemberInformation = (conversationId, authToken, res) => {
+export const getMemberInformation = (conversationId, authToken, callback) => {
     console.log("getMemberInfo")
     request.get({
         url: `https://api.symbl.ai/v1/conversations/${conversationId}/members`,
@@ -146,15 +160,19 @@ export const getMemberInformation = (conversationId, authToken, res) => {
         json: true
     }, (err, response, body) => {
         console.log("insideGetMemberInformation", body);
+        callback(null, body)
+
     });
 }
 
-export const getSummary = (conversationId, authToken, res) => {
+export const getSummary = (conversationId, authToken, callback) => {
     request.get({
         url: `https://api-labs.symbl.ai/v1/conversations/${conversationId}/summary`,
         headers: { 'Authorization': `Bearer ${authToken}` },
         json: true
     }, (err, response, body) => {
         console.log(body);
+        callback(null, body)
+
     });
 }

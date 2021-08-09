@@ -8,29 +8,100 @@ import multer from 'multer'
 
 
 import fs from 'fs'
+import { callbackify } from 'util';
 
-const startPitchAnalysis = async (authToken, path, res) => {
+const startPitchAnalysis = (authToken, path, callback) => {
+    const ans = {}
 
     const check = async (jobId, conversationId) => {
         request.get({
             url: `https://api.symbl.ai/v1/job/${jobId}`,
             headers: { 'Authorization': `Bearer ${authToken}` },
             json: true
-        }, (err, response, body) => {
+        }, async (err, response, body) => {
             console.log(body);
             if (body.status === 'in_progress' || body.status === 'scheduled') {
                 check(jobId, conversationId)
             }
             if (body.status === 'completed') {
-                console.log(conversationId, "mssss")
-                getSpeechToText(conversationId, authToken, res)
-                getActionItems(conversationId, authToken, res)
-                getFollowUps(conversationId, authToken, res)
-                getTopics(conversationId, authToken, res)
-                getQuestions(conversationId, authToken, res)
-                getEntities(conversationId, authToken, res)
-                getAnalytics(conversationId, authToken, res)
-                getSummary(conversationId, authToken, res)
+
+
+
+                getSpeechToText(conversationId, authToken, (err, body) => {
+                    if (err) {
+                        console.log(err)
+                    }
+                    else {
+                        Object.assign(ans, { 'messages': body })
+                        console.log("1")
+                        getActionItems(conversationId, authToken, (err, body) => {
+                            if (err) {
+                                console.log(err)
+                            }
+                            else {
+                                Object.assign(ans, { 'actionItems': body })
+                                getFollowUps(conversationId, authToken, (err, body) => {
+                                    if (err) {
+                                        console.log(err)
+                                    }
+                                    else {
+                                        Object.assign(ans, { 'followUps': body })
+                                        getTopics(conversationId, authToken, (err, body) => {
+                                            if (err) {
+                                                console.log(err)
+                                            }
+                                            else {
+                                                Object.assign(ans, { 'topics': body })
+                                                getQuestions(conversationId, authToken, (err, body) => {
+                                                    if (err) {
+                                                        console.log(err)
+                                                    }
+                                                    else {
+                                                        Object.assign(ans, { 'questions': body })
+                                                        getEntities(conversationId, authToken, (err, body) => {
+                                                            if (err) {
+                                                                console.log(err)
+                                                            }
+                                                            else {
+                                                                Object.assign(ans, { 'entities': body })
+                                                                getAnalytics(conversationId, authToken, (err, body) => {
+                                                                    if (err) {
+                                                                        console.log(err)
+                                                                    }
+                                                                    else {
+                                                                        Object.assign(ans, { 'analytics': body })
+                                                                        getSummary(conversationId, authToken, (err, body) => {
+                                                                            if (err) {
+                                                                                console.log(err)
+                                                                            }
+                                                                            else {
+                                                                                Object.assign(ans, { 'summary': body })
+                                                                                callback(null, ans)
+                                                                            }
+                                                                        })
+                                                                    }
+                                                                })
+                                                            }
+                                                        })
+                                                    }
+                                                })
+                                            }
+                                        })
+                                    }
+                                })
+                            }
+                        })
+                    }
+                })
+
+
+
+
+
+
+
+
+
 
                 fs.unlink(path, (err) => {
                     if (err) {
@@ -39,10 +110,9 @@ const startPitchAnalysis = async (authToken, path, res) => {
                     }
                 })
 
-
             }
-        });
 
+        });
     }
 
 
@@ -70,7 +140,24 @@ const startPitchAnalysis = async (authToken, path, res) => {
         // <Optional, boolean| language_code> |code of language of recording.
         'enableSeparateRecognitionPerChannel': true,
         'enableSpeakerDiarization': true,
-        'diarizationSpeakerCount': 2
+        'diarizationSpeakerCount': 2,
+        'enableSummary': true,
+        "channelMetadata": [
+            {
+                "channel": 1,
+                "speaker": {
+                    "name": "Robert Bartheon",
+                    "email": "robertbartheon@example.com"
+                }
+            },
+            {
+                "channel": 2,
+                "speaker": {
+                    "name": "Arya Stark",
+                    "email": "aryastark@example.com"
+                }
+            }
+        ]
     }
 
     const videoOption = {
@@ -134,7 +221,14 @@ export const getVideoData = (req, res) => {
             const path = 'public/zoom_0.mp4'
             generateAuthToken((authToken) => {
                 console.log(authToken, "bbb")
-                startPitchAnalysis(authToken.accessToken, path, res)
+                startPitchAnalysis(authToken.accessToken, path, (err, ans) => {
+                    if (err) {
+                        console.log(err)
+                    }
+                    else {
+                        res.status(200).json(ans)
+                    }
+                })
 
             })
 
