@@ -14,14 +14,13 @@ const PitchAnalysisResult = () => {
 
     const [gridSize, setGridSize] = useState(11)
     const [selectedPage, setSelectedPage] = useState('summary')
-    const [summaryActive, setSummaryActive] = useState(false);
+    const [summaryActive, setSummaryActive] = useState(true);
     const [languageActive, setLanguageActive] = useState(false);
     const [sentimentActive, setSentimentActive] = useState(false);
 
     const analysisData = useSelector(state => state.pitchAnalysis.conversationData)
 
     const handleGridChange = () => {
-        console.log('sdfhsdf')
         gridSize === 11 ? setGridSize(8) : setGridSize(11)
     }
 
@@ -54,8 +53,8 @@ const PitchAnalysisResult = () => {
                         <Button onClick={handleSelectedPageLanguage} id="language" className={languageActive ? classes.buttonActive : null} >Language Analysis</Button>
                         <Button onClick={handleSelectedPageSentiment} id="sentiment" className={ `${classes.buttonRight} ${sentimentActive ? classes.buttonActive : null}` }>Sentiment Analysis</Button> 
                     </ButtonGroup>
+                    <Button onClick={handleGridChange} className={classes.toggleGrid}>Cha</Button>
                 </div>
-                <Button onClick={handleGridChange} className={classes.toggleGrid}>Cha</Button>
             </div>
             <Grid container className={classes.gridContainer}>
                 <Grid container item xs={gridSize} className={classes.leftGrid} spacing={1}>
