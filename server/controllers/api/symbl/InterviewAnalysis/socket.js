@@ -125,13 +125,35 @@ export const listenToZoomCall = (req, res, connectionId, apiToken) => {
     //   });
     // });
 
-    /*
+
     // handler for realtime message response
-    connection.on('message', function(payload) {
-      const data = payload.type === 'utf8' ? payload.utf8Data : payload.binaryData;
-      console.log(data)
+    connection.on('message', function (payload) {
+      let data = payload.type === 'utf8' ? payload.utf8Data : payload.binaryData;
+      data = JSON.parse(data);
+      if (data.type === 'message' && data.message.hasOwnProperty('data')) {
+        console.log('conversationId', data.message.data.conversationId);
+      }
+      if (data.type === 'message_response') {
+        for (let message of data.messages) {
+          console.log('Transcript (more accurate): ', message.payload.content);
+        }
+      }
+      // if (data.type === 'topic_response') {
+      //     for (let topic of data.topics) {
+      //         console.log('Topic detected: ', topic.phrases)
+      //     }
+      // }
+      // if (data.type === 'insight_response') {
+      //     for (let insight of data.insights) {
+      //         console.log('Insight detected: ', insight.payload.content);
+      //     }
+      // }
+      // if (data.type === 'message' && data.message.hasOwnProperty('punctuated')) {
+      //     console.log('Live transcript (less accurate): ', data.message.punctuated.transcript)
+      // }
+      // console.log(`Response type: ${data.type}. Object: `, data);
     })
-    */
+
 
   })
 

@@ -3,9 +3,13 @@ import { generateAuthToken } from '../ConversationApi/apiCalls.js';
 import request from 'request';
 // const webhookUrl = WEBHOOK_URL;
 
+import * as multer from 'multer'
 
+
+import fs from 'fs'
 
 const startPitchAnalysis = (authToken, path) => {
+
     const videoFileStream = fs.createReadStream(path);
 
     const params = {
@@ -63,10 +67,29 @@ const startPitchAnalysis = (authToken, path) => {
 
 export const getVideoData = (req, res) => {
     try {
-        const path = req.body.path
-        generateAuthToken((authToken) => {
-            console.log(authToken, "bbb")
-            startPitchAnalysis(authToken.accessToken, path)
+        var storage = multer.diskStorage({
+            destination: function (req, file, cb) {
+                cb(null, 'public')
+            },
+            filename: function (req, file, cb) {
+                cb(null, Date.now() + '-' + file.originalname)
+            }
+        })
+        var upload = multer({ storage: storage }).single('file')
+
+        upload(req, res, function (err) {
+            if (err instanceof multer.MulterError) {
+                return res.status(500).json(err)
+            } else if (err) {
+                return res.status(500).json(err)
+            }
+            console.log("ss")
+            // const path = req.body.path
+            // generateAuthToken((authToken) => {
+            //     console.log(authToken, "bbb")
+            //     startPitchAnalysis(authToken.accessToken, path)
+            // })
+
         })
 
     } catch (error) {
