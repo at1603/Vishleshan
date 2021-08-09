@@ -1,17 +1,11 @@
 import { generateAuthToken, getActionItems, getAnalytics, getEntities, getFollowUps, getQuestions, getSpeechToText, getSummary, getTopics } from '../ConversationApi/apiCalls.js';
 
 import request from 'request';
-// const webhookUrl = WEBHOOK_URL;
-
 import multer from 'multer'
-
-
-
 import fs from 'fs'
-import { callbackify } from 'util';
+import { getAbuseAnalysis, getEmotionAnalysis, getIntentAnalysis, getSarcasmAnalysis } from '../../Komprehend/komprehend.js';
 
 const startPitchAnalysis = (authToken, path, callback) => {
-    const ans = {}
 
     const check = async (jobId, conversationId) => {
         request.get({
@@ -25,84 +19,64 @@ const startPitchAnalysis = (authToken, path, callback) => {
             }
             if (body.status === 'completed') {
 
+                let [messages, questions, analytics, actionItems, entities, followUps, topics, summary] =
+                    [getSpeechToText(conversationId, authToken),
+                    getQuestions(conversationId, authToken),
+                    getAnalytics(conversationId, authToken),
+                    getActionItems(conversationId, authToken),
+                    getEntities(conversationId, authToken),
+                    getFollowUps(conversationId, authToken),
+                    getTopics(conversationId, authToken),
+                    getSummary(conversationId, authToken)
+                    ]
+
+                await Promise.allSettled([messages, questions, analytics, actionItems, entities, followUps, topics, summary])
+                    .then(result => {
+                        callback(null, result)
+                    })
 
 
-                getSpeechToText(conversationId, authToken, (err, body) => {
-                    if (err) {
-                        console.log(err)
-                    }
-                    else {
-                        Object.assign(ans, { 'messages': body })
-                        console.log("1")
-                        getActionItems(conversationId, authToken, (err, body) => {
-                            if (err) {
-                                console.log(err)
-                            }
-                            else {
-                                Object.assign(ans, { 'actionItems': body })
-                                getFollowUps(conversationId, authToken, (err, body) => {
-                                    if (err) {
-                                        console.log(err)
-                                    }
-                                    else {
-                                        Object.assign(ans, { 'followUps': body })
-                                        getTopics(conversationId, authToken, (err, body) => {
-                                            if (err) {
-                                                console.log(err)
-                                            }
-                                            else {
-                                                Object.assign(ans, { 'topics': body })
-                                                getQuestions(conversationId, authToken, (err, body) => {
-                                                    if (err) {
-                                                        console.log(err)
-                                                    }
-                                                    else {
-                                                        Object.assign(ans, { 'questions': body })
-                                                        getEntities(conversationId, authToken, (err, body) => {
-                                                            if (err) {
-                                                                console.log(err)
-                                                            }
-                                                            else {
-                                                                Object.assign(ans, { 'entities': body })
-                                                                getAnalytics(conversationId, authToken, (err, body) => {
-                                                                    if (err) {
-                                                                        console.log(err)
-                                                                    }
-                                                                    else {
-                                                                        Object.assign(ans, { 'analytics': body })
-                                                                        getSummary(conversationId, authToken, (err, body) => {
-                                                                            if (err) {
-                                                                                console.log(err)
-                                                                            }
-                                                                            else {
-                                                                                Object.assign(ans, { 'summary': body })
-                                                                                callback(null, ans)
-                                                                            }
-                                                                        })
-                                                                    }
-                                                                })
-                                                            }
-                                                        })
-                                                    }
-                                                })
-                                            }
-                                        })
-                                    }
-                                })
-                            }
-                        })
-                    }
-                })
+                // let messages = await getSpeechToText(conversationId, authToken)
+                // let questions = await getQuestions(conversationId, authToken)
+                // let analytics = await getAnalytics(conversationId, authToken)
+                // let actionItems = await getActionItems(conversationId, authToken)
+                // let entities = await getEntities(conversationId, authToken)
+                // let followUps = await getFollowUps(conversationId, authToken)
+                // let topics = await getTopics(conversationId, authToken)
+                // let summary = await getSummary(conversationId, authToken)
+
+                // let ans = {
+                //     'emotion': [],
+                //     'sarcasm': [],
+                //     'intent': [],
+                //     'profaneWord': [],
+                // }
+                // messages.messages.forEach(async element => {
+                //     let emotion = await getEmotionAnalysis(element.text)
+                //     let sarcasm = await getSarcasmAnalysis(element.text)
+                //     let intent = await getIntentAnalysis(element.text)
+                //     let profaneWord = await getAbuseAnalysis(element.text)
+                //     ans['emotion'].push(emotion)
+                //     ans['sarcasm'].push(sarcasm)
+                //     ans['intent'].push(intent)
+                //     ans['profaneWord'].push(profaneWord)
+
+                // });
 
 
 
-
-
-
-
-
-
-
+                // const result = {
+                //     'messages': messages,
+                //     'actionItems': actionItems,
+                //     'topics': topics,
+                //     'followUps': followUps,
+                //     'questions': questions,
+                //     'entities': entities,
+                //     'analytics': analytics,
+                //     'summary': summary,
+                //     // 'extraAnalysis': ans
+                // }
+                // callback(null, result)
                 fs.unlink(path, (err) => {
                     if (err) {
                         console.error(err)
@@ -221,12 +195,13 @@ export const getVideoData = (req, res) => {
             const path = 'public/zoom_0.mp4'
             generateAuthToken((authToken) => {
                 console.log(authToken, "bbb")
-                startPitchAnalysis(authToken.accessToken, path, (err, ans) => {
+                startPitchAnalysis(authToken.accessToken, path, (err, result) => {
                     if (err) {
                         console.log(err)
                     }
                     else {
-                        res.status(200).json(ans)
+                        console.log("done............................................................", result)
+                        res.status(200).json(result)
                     }
                 })
 
