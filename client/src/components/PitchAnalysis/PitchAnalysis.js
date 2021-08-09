@@ -36,8 +36,6 @@ const PitchAnalysis = () => {
         console.log(event.target.files[0]);
         setFormData({ file: event.target.files[0] });
         setSelectedFileName(event.target.files[0].name);
-        console.log(formData, 'aaa');
-
     };
 
     const spinner = <div style={{ alignContent: 'center', textAlign: 'center', justifyContent: 'center', marginTop: '8rem' }}>
@@ -68,7 +66,8 @@ const PitchAnalysis = () => {
                                         </Button>
 
                                     </label>
-                                    <Typography component="span" className={classes.input}>{selectedFileName}</Typography>
+                                    { selectedFileName === "" ? <Typography component="span" className={classes.input}>No File Chosen</Typography> : 
+                                    <Typography component="span" className={classes.input}>{selectedFileName}</Typography>}
                                 </>
                                 <Button style={{ marginLeft: '0.5rem' }} variant='contained' color='primary' size='large' type='submit' className={classes.submit} fullWidth>Submit</Button>
                             </form>
