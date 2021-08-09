@@ -1,22 +1,60 @@
-import { generateAuthToken } from '../ConversationApi/apiCalls.js';
+import { generateAuthToken, getActionItems, getAnalytics, getEntities, getFollowUps, getQuestions, getSpeechToText, getSummary, getTopics } from '../ConversationApi/apiCalls.js';
 
 import request from 'request';
 // const webhookUrl = WEBHOOK_URL;
 
-import * as multer from 'multer'
+import multer from 'multer'
+
 
 
 import fs from 'fs'
 
-const startPitchAnalysis = (authToken, path) => {
+const startPitchAnalysis = async (authToken, path, res) => {
 
-    const videoFileStream = fs.createReadStream(path);
+    const check = async (jobId, conversationId) => {
+        request.get({
+            url: `https://api.symbl.ai/v1/job/${jobId}`,
+            headers: { 'Authorization': `Bearer ${authToken}` },
+            json: true
+        }, (err, response, body) => {
+            console.log(body);
+            if (body.status === 'in_progress' || body.status === 'scheduled') {
+                check(jobId, conversationId)
+            }
+            if (body.status === 'completed') {
+                console.log(conversationId, "mssss")
+                getSpeechToText(conversationId, authToken, res)
+                getActionItems(conversationId, authToken, res)
+                getFollowUps(conversationId, authToken, res)
+                getTopics(conversationId, authToken, res)
+                getQuestions(conversationId, authToken, res)
+                getEntities(conversationId, authToken, res)
+                getAnalytics(conversationId, authToken, res)
+                getSummary(conversationId, authToken, res)
+
+                fs.unlink(path, (err) => {
+                    if (err) {
+                        console.error(err)
+                        return
+                    }
+                })
+
+
+            }
+        });
+
+    }
+
+
+
+
+    const videoFileStream = fs.createReadStream('public/zoom_0.mp4');
 
     const params = {
         'name': "Business Meeting",
         // <Optional, string| your_conversation_name | Your meeting name. Default name set to conversationId.>
 
-        'confidenceThreshold': 0.3,
+        'confidenceThreshold': 0.5,
         // <Optional, double| confidence_threshold | Minimum required confidence for the insight to be recognized.>
 
         // 'webhookUrl': "https://yourdomain.com/jobs/callback",
@@ -28,7 +66,7 @@ const startPitchAnalysis = (authToken, path) => {
         'detectPhrases': true,
         // <Optional, boolean| detect_phrases> |Accepted values are true & false. It shows Actionable Phrases in each sentence of conversation. These sentences can be found in the Conversation's Messages API.
 
-        'languageCode': "en-IN",
+        'languageCode': "en-US",
         // <Optional, boolean| language_code> |code of language of recording.
         'enableSeparateRecognitionPerChannel': true,
         'enableSpeakerDiarization': true,
@@ -59,7 +97,15 @@ const startPitchAnalysis = (authToken, path) => {
             throw new Error(responses[statusCode]);
         }
         console.log('Status code: ', statusCode);
-        console.log('Body', response.body);
+        console.log('Body', body.conversationId);
+        console.log('JobId', body.jobId);
+
+
+        check(body.jobId, body.conversationId)
+
+
+
+
     }));
 }
 
@@ -67,12 +113,13 @@ const startPitchAnalysis = (authToken, path) => {
 
 export const getVideoData = (req, res) => {
     try {
+        // console.log(__dirname)
         var storage = multer.diskStorage({
             destination: function (req, file, cb) {
                 cb(null, 'public')
             },
             filename: function (req, file, cb) {
-                cb(null, Date.now() + '-' + file.originalname)
+                cb(null, file.originalname)
             }
         })
         var upload = multer({ storage: storage }).single('file')
@@ -84,11 +131,12 @@ export const getVideoData = (req, res) => {
                 return res.status(500).json(err)
             }
             console.log("ss")
-            // const path = req.body.path
-            // generateAuthToken((authToken) => {
-            //     console.log(authToken, "bbb")
-            //     startPitchAnalysis(authToken.accessToken, path)
-            // })
+            const path = 'public/zoom_0.mp4'
+            generateAuthToken((authToken) => {
+                console.log(authToken, "bbb")
+                startPitchAnalysis(authToken.accessToken, path, res)
+
+            })
 
         })
 

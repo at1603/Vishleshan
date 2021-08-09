@@ -38,6 +38,9 @@ export const getSpeechToText = async (conversationId, authToken, res) => {
         json: true
     }, (err, response, body) => {
         console.log("insideGetConversation", body);
+        // console.log("insideGetConversation", response);
+        // console.log(err)
+
         // res.status(200).json({ message: body.messages })
     });
 }
@@ -119,6 +122,8 @@ export const getConversationData = (conversationId, authToken, res) => {
         json: true
     }, (err, response, body) => {
         console.log("insideGetConversationData", body);
+        console.log("insideGetConversationData", response);
+
     });
 }
 
@@ -141,5 +146,15 @@ export const getMemberInformation = (conversationId, authToken, res) => {
         json: true
     }, (err, response, body) => {
         console.log("insideGetMemberInformation", body);
+    });
+}
+
+export const getSummary = (conversationId, authToken, res) => {
+    request.get({
+        url: `https://api-labs.symbl.ai/v1/conversations/${conversationId}/summary`,
+        headers: { 'Authorization': `Bearer ${authToken}` },
+        json: true
+    }, (err, response, body) => {
+        console.log(body);
     });
 }

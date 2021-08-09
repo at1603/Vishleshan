@@ -50,7 +50,7 @@ const PitchAnalysis = () => {
                     {isSubmit ? spinner :
                         <div className={classes.paper}>
                             <form onSubmit={handleSubmit} className={classes.form}>
-                                <TextField className={classes.input} name='videoTitle' value={formData.videoTitle} onChange={handleChange} variant="outlined" required fullWidth label='Video Title' />
+                                {/*<TextField className={classes.input} name='videoTitle' value={formData.videoTitle} onChange={handleChange} variant="outlined" required fullWidth label='Video Title' />*/}
                                 {/* <TextField className={classes.input} name='url'value={formData.url} onChange={handleChange} variant="outlined" required fullWidth label='URL' /> */}
                                 <>
                                     <input
