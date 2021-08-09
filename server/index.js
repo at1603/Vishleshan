@@ -2,16 +2,18 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
-
+import path from 'path';
 import authRoutes from './routes/auth.js'
 import analysisRoutes from './routes/analysis.js'
 
 dotenv.config();
 const app = express();
+// const __dirname = path.resolve();
+
 
 app.use(express.urlencoded({ limit: "30mb", extended: true }));
 app.use(express.json({ limit: "30mb", extended: true }));
-
+// app.use(express.static(path.join(__dirname + "/public")));
 app.use(cors());
 
 
