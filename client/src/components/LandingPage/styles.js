@@ -70,7 +70,28 @@ const useStyles = makeStyles((theme) => ({
     },
     teamMedia: {
         height: '17rem',
-    }
+    },
+    paper: {
+        margin: theme.spacing(0, 4),
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
+    form: {
+        width: '100%', // Fix IE 11 issue.
+        marginTop: theme.spacing(1),
+    },
+    submit: {
+        margin: theme.spacing(3, 0, 2),
+    },
+    backPaper: {
+        backgroundColor: '#fff',
+        borderRadius: 25,
+        boxShadow: '0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22)',
+        width: '90%',
+        paddingBottom: '3rem',
+        paddingTop: '3rem'
+    },
 
 
 }))

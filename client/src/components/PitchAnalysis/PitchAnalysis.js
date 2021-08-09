@@ -18,6 +18,7 @@ const PitchAnalysis = () => {
     const history = useHistory();
     const [formData, setFormData] = useState({ videoTitle: "", file: null })
     const [isSubmit, setIsSubmit] = useState(false)
+    const [selectedFileName, setSelectedFileName] = useState("");
 
     const [isResponse, setIsResponse] = useState(false)
     const handleSubmit = (e) => {
@@ -34,7 +35,7 @@ const PitchAnalysis = () => {
     const handleUploadClick = (event) => {
         console.log(event.target.files[0]);
         setFormData({ file: event.target.files[0] });
-
+        setSelectedFileName(event.target.files[0].name);
         console.log(formData, 'aaa');
 
     };
@@ -59,13 +60,15 @@ const PitchAnalysis = () => {
                                         style={{ display: 'none' }}
                                         id="contained-button-file"
                                         onChange={handleUploadClick}
+
                                     />
-                                    <label htmlFor="contained-button-file">
+                                    <label htmlFor="contained-button-file" className={classes.input}>
                                         <Button variant="contained" color="primary" component="span">
                                             Upload
                                         </Button>
+
                                     </label>
-                                    {/* <Typography>{JSON.stringify(formData.file)}</Typography> */}
+                                    <Typography component="span" className={classes.input}>{selectedFileName}</Typography>
                                 </>
                                 <Button style={{ marginLeft: '0.5rem' }} variant='contained' color='primary' size='large' type='submit' className={classes.submit} fullWidth>Submit</Button>
                             </form>
