@@ -81,7 +81,18 @@ const Navbar = () => {
                             <Typography className={classes.userName} variant="h6">TEAM</Typography>
                         </ScrollLink>
                     </a>
-                    <a href="/contact" className={classes.leftLinks}><Typography className={classes.userName} variant="h6">CONTACT</Typography></a>
+                    <a href="#" className={classes.leftLinks}>
+                        <ScrollLink
+                            to="contact-us"
+                            spy={true}
+                            smooth={true}
+                            duration={500}
+                            // className='some-class'
+                            activeClass={classes.selected}
+                        >
+                            <Typography className={classes.userName} variant="h6">CONTACT</Typography>
+                        </ScrollLink>
+                    </a>
                 </div>
             </Toolbar>
             <Toolbar className={classes.rightToolbar}>
