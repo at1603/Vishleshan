@@ -52,9 +52,9 @@ const useStyles = makeStyles((theme) => ({
         lineHeight: 1.4
     },
     rightToolbar: {
-        width: '80%',
         display: 'flex',
         justifyContent: 'flex-end',
+        paddingLeft: '0'
     },
     profile: {
         marginLeft: '120px',
