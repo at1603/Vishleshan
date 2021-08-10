@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Button, Grid, Typography, Paper, Card, CardActionArea, CardContent, CardMedia } from '@material-ui/core'
+import { Button, Grid, Typography, Paper, Card, CardActionArea, CardContent, CardMedia, TextField } from '@material-ui/core'
 import { Link } from 'react-router-dom';
 import AOS from 'aos';
 
@@ -169,6 +169,81 @@ const LandingPage = () => {
                             </CardActionArea>
                         </Card>
                     </div>
+                </div>
+            </Element>
+
+            {/* Contact Us */}
+            <Element id='contact-us' name='contact-us'>
+                <div data-aos="fade-up">
+                    <ThemeProvider theme={headlineTheme}>
+                        <Typography style={{ textAlign: 'center', fontSize: 32, fontWeight: 'bold', marginTop: '5rem ' }}>Contact Us</Typography>
+                    </ThemeProvider>
+                    <hr className="hrStyle" />
+                    <Grid container component="main" className={classes.aboutGrid}>
+                        <Grid items xs={8} className={classes.aboutLeftGrid} data-aos="fade-right">
+                            <div className={classes.backPaper}>
+                                {/* <Grid item component={Paper} elevation={6} square> */}
+                                <div className={classes.paper}>
+                                    <form className={classes.form} noValidate>
+
+                                        <TextField
+                                            variant="outlined"
+                                            margin="normal"
+                                            required
+                                            // fullWidth
+                                            id="name"
+                                            label="Name"
+                                            name="name"
+                                            style={{ marginRight: '2rem' }}
+                                            autoComplete="name"
+                                            autoFocus
+                                        />
+                                        <TextField
+                                            variant="outlined"
+                                            margin="normal"
+                                            required
+                                            style={{ width: '59%' }}
+                                            id="email"
+                                            label="Email Address"
+                                            name="email"
+                                            autoComplete="email"
+                                            autoFocus
+                                        />
+                                        <TextField
+                                            variant="outlined"
+                                            margin="normal"
+                                            required
+                                            fullWidth
+                                            name="message"
+                                            label="Message"
+                                            type="message"
+                                            id="message"
+                                            multiline={5}
+                                        />
+                                        <Button
+                                            type="submit"
+                                            fullWidth
+                                            variant="contained"
+                                            color="primary"
+                                            className={classes.submit}
+                                        >
+                                            Send Message
+                                        </Button>
+                                    </form>
+                                </div>
+                                {/* </Grid> */}
+                            </div>
+                        </Grid>
+                        <Grid items xs={2} data-aos="fade-left">
+                            <Typography variant="h5" style={{ marginTop: '2rem', marginBottom: '1rem', color: '#1e2572', fontWeight: 'bold' }}>Contact Info</Typography>
+                            <Typography variant="h6" style={{ color: '#1e2572', fontWeight: 'bold' }}>Address</Typography>
+                            <Typography>India</Typography>
+                            <Typography variant="h6" style={{ color: '#1e2572', fontWeight: 'bold' }}>Phone</Typography>
+                            <Typography>+916377675739</Typography>
+                            <Typography variant="h6" style={{ color: '#1e2572', fontWeight: 'bold' }}>Email</Typography>
+                            <Typography>anmolsahu2k@gmail.com</Typography>
+                        </Grid>
+                    </Grid>
                 </div>
             </Element>
             <div style={{ height: '100%', width: '100%' }}>

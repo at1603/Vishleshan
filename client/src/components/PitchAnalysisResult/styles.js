@@ -26,8 +26,8 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         margin: '3rem 3.2rem',
         borderRadius: '25px',
-        backgroundColor: 'white',
-        width: '64rem'
+        backgroundImage: 'linear-gradient(90deg, #04182b, #00488e)',
+        width: '100%'
     },
     buttonGroup: {
         margin: '2rem auto 2rem',
@@ -45,20 +45,22 @@ const useStyles = makeStyles((theme) => ({
         borderBottomRightRadius: '25px'
     },
     buttonActive: {
-        backgroundColor: 'dodgerblue',
+        backgroundColor: '#ffc947',
         color: 'black',
         '&:hover': {
-            background: 'dodgerblue',
+            background: '#ffc947',
         },
     },
     toggleGrid: {
         float: 'left',
         borderRadius: '50%',
-        margin: '1rem 4rem 1rem 0',
-        backgroundImage: 'linear-gradient(45deg, #0B0D21, #3e4477)',
-        color: 'white',
-        float: 'right', 
-        boxShadow: '0 6px 38px rgba(0,0,0,0.30), -1px 4px 12px rgba(0,0,0,0.22)'
+        margin: '1rem 4rem 1.5rem 0',
+        backgroundColor: '#ffc947',
+        color: 'black',
+        boxShadow: '0 6px 38px rgba(0,0,0,0.30), -1px 4px 12px rgba(0,0,0,0.22)',
+        '&:hover': {
+            background: '#ffc947',
+        },
     },
 }));
 

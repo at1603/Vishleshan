@@ -7,7 +7,6 @@ export const sendVideoData = (formData, history) => async (dispatch) => {
         const { data } = await api.sendVideoData(formData);
         dispatch({ type: SEND_VIDEO_DATA, data });
         history.push('/pitchAnalysisResult')
-
     } catch (error) {
         console.log(error);
     }

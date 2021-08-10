@@ -4,6 +4,7 @@ const useStyles = makeStyles((theme) => ({
     appBar: {
         display: 'flex',
         flexDirection: 'row',
+        flexGrow: 1,
         justifyContent: 'space-between',
         alignItems: 'center',
         padding: 0,
@@ -52,9 +53,9 @@ const useStyles = makeStyles((theme) => ({
         lineHeight: 1.4
     },
     rightToolbar: {
-        width: '80%',
         display: 'flex',
         justifyContent: 'flex-end',
+        paddingLeft: '0'
     },
     profile: {
         marginLeft: '120px',
