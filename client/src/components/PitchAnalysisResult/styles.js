@@ -7,8 +7,9 @@ const useStyles = makeStyles((theme) => ({
         margin: '0 2rem 0 2rem'
     },
     leftGrid: {
-        backgroundColor: 'white',
+        backgroundColor: 'dodgerblue',
         display: 'flex',
+        height: '100vh',
         padding: '1rem 4.5rem 1rem',
         borderRadius: '25px',
         width: '100vw',

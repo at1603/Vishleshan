@@ -1,16 +1,13 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
+import GaugeChart from 'react-gauge-chart'
 import { ResponsivePie } from '@nivo/pie'
 import { Grid, Typography } from '@material-ui/core'
 import { ThemeProvider } from '@material-ui/core/styles';
 import headlineTheme from '../../fonts/FontThemes';
 
 import './styles.css';
-
-// <Typography style={{textAlign: 'center', justifyContent: 'center', fontSize: 40, fontWeight: 'bold'}}>{analysisData.analytics.members.length}</Typography>
-// <Typography style={{textAlign: 'center', justifyContent: 'center', fontSize: 24}}>Total Members</Typography>
-
 
 const SummaryAnalysis = () => {
 
@@ -39,24 +36,22 @@ const SummaryAnalysis = () => {
     ]
 
     const SimplePie = <ResponsivePie
-        data={data}
-        margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
-        height={300}
-        width={300}
-        innerRadius={0.5}
-        padAngle={0.7}
-        cornerRadius={3}
-        activeOuterRadiusOffset={8}
-        borderWidth={1}
-        borderColor={{ from: 'color', modifiers: [['darker', 0.2]] }}
-        arcLinkLabelsSkipAngle={10}
-        arcLinkLabelsTextColor="#333333"
-        arcLinkLabelsThickness={2}
-        arcLinkLabelsColor={{ from: 'color' }}
-        arcLabelsSkipAngle={10}
-        arcLabelsTextColor={{ from: 'color', modifiers: [['darker', 2]] }}
-        legends={[]}
-    />
+    data={data}
+    margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
+    innerRadius={0.5}
+    padAngle={0.7}
+    cornerRadius={3}
+    activeOuterRadiusOffset={8}
+    borderWidth={1}
+    borderColor={{ from: 'color', modifiers: [ [ 'darker', 0.2 ] ] }}
+    arcLinkLabelsSkipAngle={10}
+    arcLinkLabelsTextColor="#333333"
+    arcLinkLabelsThickness={2}
+    arcLinkLabelsColor={{ from: 'color' }}
+    arcLabelsSkipAngle={10}
+    arcLabelsTextColor={{ from: 'color', modifiers: [ [ 'darker', 2 ] ] }}
+    legends={[]}
+/>
 
     return (
         <>
@@ -65,14 +60,29 @@ const SummaryAnalysis = () => {
             </ThemeProvider>
             <Grid container item xs={6} sm={6} md={4} spacing={4} className="card" style={{ padding: '1rem' }}>
                 <>
-                    <Typography style={{ width: '100%', marginTop: '2rem', textAlign: 'center', justifyContent: 'center', fontSize: 40, fontWeight: 'bold' }}>{analysisData.analytics.members.length}</Typography>
-                    <Typography style={{ width: '100%', textAlign: 'center', justifyContent: 'center', fontSize: 24 }}>Total Members</Typography>
+                    <Typography style={{width: '100%', marginTop: '4rem', textAlign: 'center', justifyContent: 'center', fontSize:69, fontWeight: 'bolder'}}>{analysisData.analytics.members.length}</Typography>
+                    <Typography style={{marginTop: '2rem', width: '100%', textAlign: 'center', justifyContent: 'center', fontSize: 24}}>Total Members</Typography>
                 </>
             </Grid>
             <Grid container item xs={6} sm={6} md={4} spacing={4} className="card">
                 <>
-                    {SimplePie}
-                    <Typography style={{ position: 'absolute', marginBottom: '2rem', width: '100%', textAlign: 'center', justifyContent: 'center', fontSize: 24 }}>Total Conversation Time</Typography>
+                        {SimplePie}
+                        <Typography style={{position: 'relative',top: '-69px', marginBottom: '2rem', width: '100%', textAlign: 'center', justifyContent: 'center', fontSize: 24}}>Total Conversation Time ( in % )</Typography>
+                </>
+            </Grid>
+            <Grid container item xs={6} sm={6} md={4} spacing={4} className="card" >
+                <GaugeChart id="gauge-chart1" />
+            </Grid>
+            <Grid container item xs={6} sm={6} md={4} spacing={4} className="card" style={{padding: '1rem'}}>
+                <>
+                    <Typography style={{width: '100%', marginTop: '4rem', textAlign: 'center', justifyContent: 'center', fontSize:69, fontWeight: 'bolder'}}>{analysisData.questions.questions.length}</Typography>
+                    <Typography style={{width: '100%', textAlign: 'center', justifyContent: 'center', fontSize: 24}}>Total Questions Asked</Typography>
+                </>
+            </Grid>
+            <Grid container item xs={6} sm={6} md={4} spacing={4} className="card">
+                <>
+                        {SimplePie}
+                        <Typography style={{position: 'relative',top: '-69px', marginBottom: '2rem', width: '100%', textAlign: 'center', justifyContent: 'center', fontSize: 24}}>Total Conversation Time</Typography>
                 </>
             </Grid>
             <Grid container item xs={6} sm={6} md={4} spacing={4} className="card" >
