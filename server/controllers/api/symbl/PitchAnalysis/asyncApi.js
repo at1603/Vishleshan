@@ -6,7 +6,7 @@ import fs from 'fs'
 import { getAbuseAnalysis, getEmotionAnalysis, getIntentAnalysis, getSarcasmAnalysis } from '../../Komprehend/komprehend.js';
 
 const startPitchAnalysis = (authToken, path, callback) => {
-
+    let data = {}
     const check = async (jobId, conversationId) => {
         request.get({
             url: `https://api.symbl.ai/v1/job/${jobId}`,
@@ -29,54 +29,33 @@ const startPitchAnalysis = (authToken, path, callback) => {
                     getTopics(conversationId, authToken),
                     getSummary(conversationId, authToken)
                     ]
-
                 await Promise.allSettled([messages, questions, analytics, actionItems, entities, followUps, topics, summary])
-                    .then(result => {
-                        callback(null, result)
+                    .then(async result => {
+                        let i
+                        const properties = ['messages', 'questions', 'analytics', 'actionItems', 'entities', 'followUps', 'topics', 'summary']
+                        for (i = 0; i < 8; i++) {
+                            data[properties[i]] = result[i].value
+                        }
+                        console.log(data)
+                        let ans = {
+                            'emotion': [],
+                            'sarcasm': [],
+                            'intent': [],
+                            'profaneWord': [],
+                        }
+                        for (i = 0; i < data.messages.messages.length; i++) {
+                            let emotion = await getEmotionAnalysis(data.messages.messages[i].text)
+                            let sarcasm = await getSarcasmAnalysis(data.messages.messages[i].text)
+                            let intent = await getIntentAnalysis(data.messages.messages[i].text)
+                            let profaneWord = await getAbuseAnalysis(data.messages.messages[i].text)
+                            ans['emotion'].push(emotion)
+                            ans['sarcasm'].push(sarcasm)
+                            ans['intent'].push(intent)
+                            ans['profaneWord'].push(profaneWord)
+                        }
+                        data['extraAnalysis'] = ans
+                        callback(null, data)
                     })
-
-
-                // let messages = await getSpeechToText(conversationId, authToken)
-                // let questions = await getQuestions(conversationId, authToken)
-                // let analytics = await getAnalytics(conversationId, authToken)
-                // let actionItems = await getActionItems(conversationId, authToken)
-                // let entities = await getEntities(conversationId, authToken)
-                // let followUps = await getFollowUps(conversationId, authToken)
-                // let topics = await getTopics(conversationId, authToken)
-                // let summary = await getSummary(conversationId, authToken)
-
-                // let ans = {
-                //     'emotion': [],
-                //     'sarcasm': [],
-                //     'intent': [],
-                //     'profaneWord': [],
-                // }
-                // messages.messages.forEach(async element => {
-                //     let emotion = await getEmotionAnalysis(element.text)
-                //     let sarcasm = await getSarcasmAnalysis(element.text)
-                //     let intent = await getIntentAnalysis(element.text)
-                //     let profaneWord = await getAbuseAnalysis(element.text)
-                //     ans['emotion'].push(emotion)
-                //     ans['sarcasm'].push(sarcasm)
-                //     ans['intent'].push(intent)
-                //     ans['profaneWord'].push(profaneWord)
-
-                // });
-
-
-
-                // const result = {
-                //     'messages': messages,
-                //     'actionItems': actionItems,
-                //     'topics': topics,
-                //     'followUps': followUps,
-                //     'questions': questions,
-                //     'entities': entities,
-                //     'analytics': analytics,
-                //     'summary': summary,
-                //     // 'extraAnalysis': ans
-                // }
-                // callback(null, result)
                 fs.unlink(path, (err) => {
                     if (err) {
                         console.error(err)
@@ -195,13 +174,13 @@ export const getVideoData = (req, res) => {
             const path = 'public/zoom_0.mp4'
             generateAuthToken((authToken) => {
                 console.log(authToken, "bbb")
-                startPitchAnalysis(authToken.accessToken, path, (err, result) => {
+                startPitchAnalysis(authToken.accessToken, path, (err, data) => {
                     if (err) {
                         console.log(err)
                     }
                     else {
-                        console.log("done............................................................", result)
-                        res.status(200).json(result)
+                        console.log("done............................................................", data)
+                        res.status(200).json(data)
                     }
                 })
 
