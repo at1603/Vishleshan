@@ -30,149 +30,227 @@ export const generateAuthToken = (callback) => {
 
 // *****************Conversation API requests*******************
 
-export const getSpeechToText = (conversationId, authToken, callback) => {
+export const getSpeechToText = (conversationId, authToken) => {
     console.log("getSpeechtoText")
-    request.get({
-        url: `https://api.symbl.ai/v1/conversations/${conversationId}/messages?sentiment=true`,
-        headers: { 'Authorization': `Bearer ${authToken}` },
-        json: true
-    }, (err, response, body) => {
-        // console.log("insideGetConversation", body);
-        callback(null, body)
-        // console.log("insideGetConversation", response);
-        // console.log(err)
+    return new Promise((resolve, reject) => {
+        request.get({
+            url: `https://api.symbl.ai/v1/conversations/${conversationId}/messages?sentiment=true`,
+            headers: { 'Authorization': `Bearer ${authToken}` },
+            json: true
+        }, (err, response, body) => {
+            if (err) {
+                reject(err)
+            }
+            else {
+                console.log("insideGetConversation", body);
+                resolve(body)
+            }
+        });
+    })
 
-        // res.status(200).json({ message: body.messages })
-    });
 }
 
-export const getActionItems = (conversationId, authToken, callback) => {
-    console.log("actionItems")
-    request.get({
-        url: `https://api.symbl.ai/v1/conversations/${conversationId}/action-items`,
-        headers: { 'Authorization': `Bearer ${authToken}` },
-        json: true
-    }, (err, response, body) => {
-        console.log("insideGetActionItems", body);
-        callback(null, body)
-    });
+export const getActionItems = (conversationId, authToken) => {
+    return new Promise((resolve, reject) => {
+        request.get({
+            url: `https://api.symbl.ai/v1/conversations/${conversationId}/action-items`,
+            headers: { 'Authorization': `Bearer ${authToken}` },
+            json: true
+        }, (err, response, body) => {
+            if (err) {
+                reject(err)
+            }
+            else {
+                console.log("insideGetActionItems", body);
+                resolve(body)
+            }
+        });
+    })
+
 }
 
-export const getFollowUps = (conversationId, authToken, callback) => {
+export const getFollowUps = (conversationId, authToken) => {
     console.log("followUps")
-    request.get({
-        url: `https://api.symbl.ai/v1/conversations/${conversationId}/follow-ups`,
-        headers: { 'Authorization': `Bearer ${authToken}` },
-        json: true
-    }, (err, response, body) => {
-        console.log("insideGetFollowUps", body);
-        callback(null, body)
+    return new Promise((resolve, reject) => {
+        request.get({
+            url: `https://api.symbl.ai/v1/conversations/${conversationId}/follow-ups`,
+            headers: { 'Authorization': `Bearer ${authToken}` },
+            json: true
+        }, (err, response, body) => {
+            if (err) {
+                reject(err)
+            }
+            else {
+                console.log("insideGetFollowUps", body);
+                resolve(body)
+            }
+        });
+    })
 
-    });
 }
 
-export const getTopics = (conversationId, authToken, callback) => {
+export const getTopics = (conversationId, authToken) => {
     console.log("topics")
-    request.get({
-        url: `https://api.symbl.ai/v1/conversations/${conversationId}/topics?sentiment=true`,
-        headers: { 'Authorization': `Bearer ${authToken}` },
-        json: true
-    }, (err, response, body) => {
-        console.log("insideGetTopics", body);
-        callback(null, body)
+    return new Promise((resolve, reject) => {
+        request.get({
+            url: `https://api.symbl.ai/v1/conversations/${conversationId}/topics?sentiment=true`,
+            headers: { 'Authorization': `Bearer ${authToken}` },
+            json: true
+        }, (err, response, body) => {
+            if (err) {
+                reject(err)
+            }
+            else {
+                console.log("insideGetTopics", body);
+                resolve(body)
+            }
+        });
+    })
 
-    });
 }
 
-export const getQuestions = (conversationId, authToken, callback) => {
+export const getQuestions = (conversationId, authToken) => {
     console.log("ques")
-    request.get({
-        url: `https://api.symbl.ai/v1/conversations/${conversationId}/questions`,
-        headers: { 'Authorization': `Bearer ${authToken}` },
-        json: true
-    }, (err, response, body) => {
-        console.log("insideGetQuestions", body);
-        callback(null, body)
+    return new Promise((resolve, reject) => {
+        request.get({
+            url: `https://api.symbl.ai/v1/conversations/${conversationId}/questions`,
+            headers: { 'Authorization': `Bearer ${authToken}` },
+            json: true
+        }, (err, response, body) => {
+            if (err) {
+                reject(err)
+            }
+            else {
+                console.log("insideGetQuestions", body);
+                resolve(body)
+            }
+        });
+    })
 
-    });
 }
 
 
 
-export const getEntities = async (conversationId, authToken, callback) => {
-    console.log("entities")
-    request.get({
-        url: `https://api.symbl.ai/v1/conversations/${conversationId}/entities`,
-        headers: { 'Authorization': `Bearer ${authToken}` },
-        json: true
-    }, (err, response, body) => {
-        console.log("insideGetEntitites", body);
-        callback(null, body)
+export const getEntities = async (conversationId, authToken) => {
+    return new Promise((resolve, reject) => {
+        request.get({
+            url: `https://api.symbl.ai/v1/conversations/${conversationId}/entities`,
+            headers: { 'Authorization': `Bearer ${authToken}` },
+            json: true
+        }, (err, response, body) => {
+            if (err) {
+                reject(err)
+            }
+            else {
+                console.log("insideGetQuestions", body);
+                resolve(body)
+            }
 
-    });
+        });
+    })
 }
 
 
-export const getAnalytics = (conversationId, authToken, callback) => {
+export const getAnalytics = (conversationId, authToken) => {
     console.log("analytics")
-    request.get({
-        url: `https://api.symbl.ai/v1/conversations/${conversationId}/analytics`,
-        headers: { 'Authorization': `Bearer ${authToken}` },
-        json: true
-    }, (err, response, body) => {
-        console.log("insideGetAnalytics", body);
-        callback(null, body)
+    return new Promise((resolve, reject) => {
+        request.get({
+            url: `https://api.symbl.ai/v1/conversations/${conversationId}/analytics`,
+            headers: { 'Authorization': `Bearer ${authToken}` },
+            json: true
+        }, (err, response, body) => {
+            if (err) {
+                reject(err)
+            }
+            else {
+                console.log("insideGetQuestions", body);
+                resolve(body)
+            }
 
-    });
+        });
+    })
+
 }
 
-export const getConversationData = (conversationId, authToken, callback) => {
+export const getConversationData = (conversationId, authToken) => {
     console.log("getconversationData")
-    request.get({
-        url: `https://api.symbl.ai/v1/conversations/${conversationId}`,
-        headers: { 'Authorization': `Bearer ${authToken}` },
-        json: true
-    }, (err, response, body) => {
-        console.log("insideGetConversationData", body);
-        callback(null, body)
+    return new Promise((resolve, reject) => {
+        request.get({
+            url: `https://api.symbl.ai/v1/conversations/${conversationId}`,
+            headers: { 'Authorization': `Bearer ${authToken}` },
+            json: true
+        }, (err, response, body) => {
+            if (err) {
+                reject(err)
+            }
+            else {
+                console.log("insideGetQuestions", body);
+                resolve(body)
+            }
 
-    });
+        });
+    })
+
 }
 
-export const deleteConversation = (conversationId, authToken, callback) => {
+export const deleteConversation = (conversationId, authToken) => {
     console.log("deleteConversationData")
-    request.delete({
-        url: `https://api.symbl.ai/v1/conversations/${conversationId}`,
-        headers: { 'Authorization': `Bearer ${authToken}` },
-        json: true
-    }, (err, response, body) => {
-        console.log("insideDeleteConversation", body);
-        callback(null, body)
+    return new Promise((resolve, reject) => {
+        request.delete({
+            url: `https://api.symbl.ai/v1/conversations/${conversationId}`,
+            headers: { 'Authorization': `Bearer ${authToken}` },
+            json: true
+        }, (err, response, body) => {
+            if (err) {
+                reject(err)
+            }
+            else {
+                console.log("insideGetQuestions", body);
+                resolve(body)
+            }
 
-    });
+        });
+    })
+
 }
 
-export const getMemberInformation = (conversationId, authToken, callback) => {
+export const getMemberInformation = (conversationId, authToken) => {
     console.log("getMemberInfo")
-    request.get({
-        url: `https://api.symbl.ai/v1/conversations/${conversationId}/members`,
-        headers: { 'Authorization': `Bearer ${authToken}` },
-        json: true
-    }, (err, response, body) => {
-        console.log("insideGetMemberInformation", body);
-        callback(null, body)
+    return new Promise((resolve, reject) => {
+        request.get({
+            url: `https://api.symbl.ai/v1/conversations/${conversationId}/members`,
+            headers: { 'Authorization': `Bearer ${authToken}` },
+            json: true
+        }, (err, response, body) => {
+            if (err) {
+                reject(err)
+            }
+            else {
+                console.log("insideGetQuestions", body);
+                resolve(body)
+            }
 
-    });
+        });
+    })
+
 }
 
-export const getSummary = (conversationId, authToken, callback) => {
-    request.get({
-        url: `https://api-labs.symbl.ai/v1/conversations/${conversationId}/summary`,
-        headers: { 'Authorization': `Bearer ${authToken}` },
-        json: true
-    }, (err, response, body) => {
-        console.log(body);
-        callback(null, body)
+export const getSummary = (conversationId, authToken) => {
+    return new Promise((resolve, reject) => {
+        request.get({
+            url: `https://api-labs.symbl.ai/v1/conversations/${conversationId}/summary`,
+            headers: { 'Authorization': `Bearer ${authToken}` },
+            json: true
+        }, (err, response, body) => {
+            if (err) {
+                reject(err)
+            }
+            else {
+                console.log("insideGetQuestions", body);
+                resolve(body)
+            }
 
-    });
+        });
+    })
+
 }

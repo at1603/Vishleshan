@@ -1,5 +1,5 @@
 .card{
-  display: inline-flex;
+  display: block;
   border-radius: 25px;
   height: 250px;
   padding: 45px 0;

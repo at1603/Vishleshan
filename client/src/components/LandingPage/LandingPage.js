@@ -171,6 +171,7 @@ const LandingPage = () => {
                     </div>
                 </div>
             </Element>
+
             {/* Contact Us */}
             <Element id='contact-us' name='contact-us'>
                 <div data-aos="fade-up">
@@ -186,7 +187,6 @@ const LandingPage = () => {
                                     <form className={classes.form} noValidate>
 
                                         <TextField
-
                                             variant="outlined"
                                             margin="normal"
                                             required
@@ -195,7 +195,6 @@ const LandingPage = () => {
                                             label="Name"
                                             name="name"
                                             style={{ marginRight: '2rem' }}
-
                                             autoComplete="name"
                                             autoFocus
                                         />
@@ -219,6 +218,7 @@ const LandingPage = () => {
                                             label="Message"
                                             type="message"
                                             id="message"
+                                            multiline={5}
                                         />
                                         <Button
                                             type="submit"

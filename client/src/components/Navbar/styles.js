@@ -4,6 +4,7 @@ const useStyles = makeStyles((theme) => ({
     appBar: {
         display: 'flex',
         flexDirection: 'row',
+        flexGrow: 1,
         justifyContent: 'space-between',
         alignItems: 'center',
         padding: 0,
