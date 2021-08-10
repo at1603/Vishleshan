@@ -1,9 +1,10 @@
 import { generateAuthToken, getActionItems, getAnalytics, getEntities, getFollowUps, getQuestions, getSpeechToText, getSummary, getTopics } from '../ConversationApi/apiCalls.js';
-
+import mongoose from 'mongoose';
 import request from 'request';
 import multer from 'multer'
 import fs from 'fs'
 import { getAbuseAnalysis, getEmotionAnalysis, getIntentAnalysis, getSarcasmAnalysis } from '../../Komprehend/komprehend.js';
+import AnalysisData from '../../../../models/analysisDataModel.js';
 
 const startPitchAnalysis = (authToken, path, callback) => {
     let data = {}
@@ -174,13 +175,39 @@ export const getVideoData = (req, res) => {
             const path = 'public/zoom_0.mp4'
             generateAuthToken((authToken) => {
                 console.log(authToken, "bbb")
-                startPitchAnalysis(authToken.accessToken, path, (err, data) => {
+                startPitchAnalysis(authToken.accessToken, path, async (err, data) => {
                     if (err) {
                         console.log(err)
                     }
                     else {
                         console.log("done............................................................", data)
-                        res.status(200).json(data)
+                        try {
+                            const existingUser = await AnalysisData.findOne({ handlerId: req.userId })
+                            if (!existingUser) {
+                                try {
+                                    await AnalysisData.create({ handlerId: req.userId, conversationId: data.messages.messages[0].conversationId, data: data });
+                                    mongoose.connection.close()
+                                    res.status(200).json(data)
+                                }
+                                catch (error) {
+                                    console.log(error.message)
+                                }
+                            }
+                            else {
+                                await AnalysisData.updateOne({ _id: existingUser._id }, { $push: { analysisData: data } }).exec(function (err, response) {
+                                    if (err) {
+                                        console.log(err)
+                                    }
+                                    else {
+                                        res.status(200).json(data)
+                                    }
+                                })
+                            }
+                        }
+                        catch (error) {
+                            console.log(error.message)
+                        }
+
                     }
                 })
 

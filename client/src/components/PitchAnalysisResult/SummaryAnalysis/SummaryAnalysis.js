@@ -124,7 +124,7 @@ const SummaryAnalysis = () => {
             </Grid>
             <Grid container item xs={6} sm={6} md={4} spacing={4} className="card" >
                 <>
-                    
+                        
                     <Typography style={{position: 'relative',top: '-69px', marginBottom: '2rem', width: '100%', textAlign: 'center', justifyContent: 'center', fontSize: 24}}>{averageEmotion}</Typography>
                 </>
             </Grid>
