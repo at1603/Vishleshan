@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom'
 
-import { sendVideoData } from '../../actions/pitchAnalysis'
+import { sendvideodata } from '../../actions/pitchAnalysis'
 import { Typography, TextField, Button, Grid, Paper, CircularProgress, Fab } from '@material-ui/core';
 import AddPhotoAlternateIcon from '@material-ui/icons/AddPhotoAlternate';
 
@@ -25,7 +25,7 @@ const PitchAnalysis = () => {
         e.preventDefault()
         const data = new FormData();
         data.append('file', formData.file);
-        dispatch(sendVideoData(data, history))
+        dispatch(sendvideodata(data, history))
         setIsSubmit(true)
     }
 
