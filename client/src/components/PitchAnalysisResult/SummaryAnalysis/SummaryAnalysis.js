@@ -41,8 +41,6 @@ const SummaryAnalysis = () => {
     const SimplePie = <ResponsivePie
         data={data}
         margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
-        height={300}
-        width={300}
         innerRadius={0.5}
         padAngle={0.7}
         cornerRadius={3}
