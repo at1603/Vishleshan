@@ -2,13 +2,13 @@ import mongoose from 'mongoose';
 import AnalysisData from '../models/analysisDataModel';
 
 
-export const fetchDataToCompare = async (conversationId1, conversationId2, req) => {
-    await AnalysisData.findOne({ handlerId: req.userId, conversationId: conversationId1 }).exec((err, response1) => {
+export const getDataToCompare = async (conversationId1, conversationId2, req) => {
+    await AnalysisData.findOne({ handlerId: req.userId, conversationIdData: { conversationId: conversationId1 } }).exec((err, response1) => {
         if (err) {
             console.log(err)
         }
         else {
-            await AnalysisData.findOne({ handlerId: req.userId, conversationId: conversationId2 }).exec((err, response2) => {
+            await AnalysisData.findOne({ handlerId: req.userId, conversationIdData: { conversationId: conversationId2 } }).exec((err, response2) => {
                 if (err) {
                     console.log(err)
                 }
@@ -26,14 +26,14 @@ export const fetchDataToCompare = async (conversationId1, conversationId2, req) 
 }
 
 
-export const fetchConversationList = () => {
+export const getConversationList = () => {
     await AnalysisData.findOne({ handlerId: req.userId }).exec((err, response) => {
         if (err) {
             console.log(err)
         }
         else {
             console.log(response)
-            res.status(200).json({ conversationId: response.analysisData.messages.messages[0].conversationId, createdAt: response.createdAt, meetingName: 'meetingName' })
+            res.status(200).json({ conversationIdData: { conversationId: response.analysisData.messages.messages[0].conversationId, createdAt: response.createdAt }, meetingName: 'meetingName' })
         }
     })
 }

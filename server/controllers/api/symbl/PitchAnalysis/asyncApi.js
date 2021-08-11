@@ -152,7 +152,7 @@ const startPitchAnalysis = (authToken, path, callback) => {
 
 
 
-export const getVideoData = (req, res) => {
+export const sendVideoData = (req, res) => {
     try {
         // console.log(__dirname)
         var storage = multer.diskStorage({
@@ -185,7 +185,7 @@ export const getVideoData = (req, res) => {
                             const existingUser = await AnalysisData.findOne({ handlerId: req.userId })
                             if (!existingUser) {
                                 try {
-                                    await AnalysisData.create({ handlerId: req.userId, conversationId: data.messages.messages[0].conversationId, analysisData: data, createdAt: Date.now });
+                                    await AnalysisData.create({ handlerId: req.userId, conversationIdData: { conversationId: data.messages.messages[0].conversationId, createdAt: Date.now() }, analysisData: data });
                                     mongoose.connection.close()
                                     res.status(200).json(data)
                                 }
@@ -194,7 +194,7 @@ export const getVideoData = (req, res) => {
                                 }
                             }
                             else {
-                                await AnalysisData.updateOne({ _id: existingUser._id }, { $push: { conversationId: data.messages.messages[0].conversationId, analysisData: data, createdAt: Date.now } }).exec(function (err, response) {
+                                await AnalysisData.updateOne({ _id: existingUser._id }, { $push: { conversationIdData: { conversationId: data.messages.messages[0].conversationId, createdAt: Date.now() }, analysisData: data } }).exec(function (err, response) {
                                     if (err) {
                                         console.log(err)
                                     }
