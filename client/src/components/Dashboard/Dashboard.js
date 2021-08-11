@@ -13,7 +13,6 @@ import Paper from '@material-ui/core/Paper';
 import Link from '@material-ui/core/Link';
 import Tabs from './Tabs'
 
-import SentimentAnalysis from './SentimentAnalysis/SentimentAnalysis';
 import useStyles from './styles'
 
 function Copyright() {
@@ -112,7 +111,7 @@ export default function Dashboard() {
                                         </Paper>
                                     </Grid>
                                 </>
-                            ) : (<SentimentAnalysis />)}
+                            ) : (<div>Nothing Here</div>)}
                         </Grid>
                     </Grid>
                     <Box pt={4}>
