@@ -1,76 +1,94 @@
-import React, { useState } from 'react'
-import { useSelector } from 'react-redux';
+import React from 'react';
+import clsx from 'clsx';
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
+import Grow from '@material-ui/core/Grow';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
+
+import Typography from '@material-ui/core/Typography';
+import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import Link from '@material-ui/core/Link';
+import Tabs from '../Dashboard/Tabs'
+
 import SummaryAnalysis from './SummaryAnalysis/SummaryAnalysis';
 import LanguageAnalysis from './LanguageAnalysis/LanguageAnalysis';
 import SentimentAnalysis from './SentimentAnalysis/SentimentAnalysis';
 
-import { Paper, Grid, Button, ButtonGroup, Typography } from '@material-ui/core';
-import useStyles from './styles';
-import './styles.css'
-
-console.log()
-const PitchAnalysisResult = () => {
-    const classes = useStyles();
-
-    const [gridSize, setGridSize] = useState(11)
-    const [selectedPage, setSelectedPage] = useState('summary')
-    const [summaryActive, setSummaryActive] = useState(true);
-    const [languageActive, setLanguageActive] = useState(false);
-    const [sentimentActive, setSentimentActive] = useState(false);
-
-    const analysisData = useSelector(state => state.pitchAnalysis.conversationData)
-
-    const handleGridChange = () => {
-        gridSize === 11 ? setGridSize(8) : setGridSize(11)
-    }
-
-    const handleSelectedPageSummary = () => {
-        setSummaryActive(true);
-        setLanguageActive(false)
-        setSentimentActive(false)
-        setSelectedPage('summary')
-    }
-    const handleSelectedPageLanguage = () => {
-        setSummaryActive(false);
-        setLanguageActive(true)
-        setSentimentActive(false)
-        setSelectedPage('language')
-    }
-    const handleSelectedPageSentiment = () => {
-        setSummaryActive(false);
-        setLanguageActive(false)
-        setSentimentActive(true)
-        setSelectedPage('sentiment')
-    }
-
-    console.log(analysisData)
+import useStyles from './styles'
+function Copyright() {
     return (
-        <>
-            <div style={{display: 'flex'}}>
-                <div className={classes.buttonBundle}>
-                    <ButtonGroup color="primary" aria-label="outlined primary button group" className={classes.buttonGroup}>
-                        <Button onClick={handleSelectedPageSummary} id="summary" className={ `${classes.buttonLeft} ${summaryActive ? classes.buttonActive : null}` }>Analysis Summary</Button>
-                        <Button onClick={handleSelectedPageLanguage} id="language" className={languageActive ? classes.buttonActive : null} >Language Analysis</Button>
-                        <Button onClick={handleSelectedPageSentiment} id="sentiment" className={ `${classes.buttonRight} ${sentimentActive ? classes.buttonActive : null}` }>Sentiment Analysis</Button> 
-                    </ButtonGroup>
-                    <Button onClick={handleGridChange} className={classes.toggleGrid}>Cha</Button>
-                </div>
-            </div>
-            <Grid container className={classes.gridContainer}>
-                <Grid container item xs={gridSize} className={classes.leftGrid} spacing={1}>
-                    <>
-                        { selectedPage === 'summary' && <SummaryAnalysis /> }
-                        { selectedPage === 'language' && <LanguageAnalysis /> }
-                        { selectedPage === 'sentiment' && <SentimentAnalysis /> }
-                        
-                    </>
-                </Grid>
-                <Grid item xs={11 - gridSize} className={classes.rightGrid}>
-                </Grid>
-            </Grid>
-        </>
-    )
+        <Typography variant="body2" color="textSecondary" align="center">
+            {'Copyright © '}
+            <Link color="inherit" href="https://material-ui.com/">
+                Your Website
+            </Link>{' '}
+            {new Date().getFullYear()}
+            {'.'}
+        </Typography>
+    );
 }
 
+export default function PitchAnalysisResult() {
+    const classes = useStyles();
+    const [open, setOpen] = React.useState(true);
+    const [gulag, setGulag] = React.useState(true);
+    const [tab, setTab] = React.useState(0);
+    const handleTabValue = (tabValue) => {
+        setTab(tabValue)
+    }
+    const handleGridToggle = () => {
+        setOpen(!open);
+    };
+    const handleDisplay = () => {
+        // setTimeout(() => {
 
-export default PitchAnalysisResult;
+
+        // }, 1000)
+        setGulag(!gulag);
+    }
+
+    const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+
+    return (
+        <div className={classes.root}>
+            <main className={classes.content}>
+                <Button onClick={handleGridToggle} className={classes.toggleGrid}>Cha</Button>
+                <FormControlLabel
+                    control={<Switch checked={open} onChange={handleGridToggle} />}
+                    label="Show"
+                />
+                <Container maxWidth="xl" className={classes.container}>
+                    <Grid container xs={12}>
+                        {/* <Grid container item xs={3} style={open ? {} : { display: 'none' }}> */}
+                        <Grow in={open} onExited={handleDisplay} onEnter={handleDisplay}>
+                            <Grid container item xs={3} style={gulag ? { display: 'none' } : {}} >
+
+                                <Paper style={{ width: '100%', margin: '0 2rem' }} className={classes.paper}>
+                                    {/* <Chart /> */}
+                                </Paper>
+                            </Grid>
+                        </Grow>
+                        <Grid container spacing={3} item xs={gulag ? 12 : 9}>
+
+                            <Grid item xs={12} >
+                                <Paper className={classes.paper}><Tabs onSelectTab={handleTabValue} /></Paper>
+                            </Grid>
+
+                            {tab === 0 ? (
+                                <>
+                                    <SummaryAnalysis />
+                                </>
+                            ) : (tab === 1 ? <LanguageAnalysis /> : <SentimentAnalysis />)}
+                        </Grid>
+                    </Grid>
+                    <Box pt={4}>
+                        <Copyright />
+                    </Box>
+                </Container>
+            </main>
+        </div>
+    );
+}

@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import clsx from 'clsx';
 
 import GaugeChart from 'react-advanced-gauge-chart';
 import { ResponsivePie } from '@nivo/pie'
-import { Grid, Typography } from '@material-ui/core'
+import { Grid, Typography, Paper } from '@material-ui/core'
 import { ThemeProvider } from '@material-ui/core/styles';
 import headlineTheme from '../../fonts/FontThemes';
 // import styled from '@emotion/styled';
 // import { HappyAlt } from '@emotion-icons/boxicons-solid/HappyAlt';
 
 import './styles.css';
+import useStyles from './styles';
 
 
 // const Happy = styled(HappyAlt)`
@@ -16,12 +18,12 @@ import './styles.css';
 // `
 
 const SummaryAnalysis = () => {
-    
+
     const [meterValue, setMeterValue] = useState(0)
     const [averageEmotion, setAverageEmotion] = useState('Happy')
 
     const analysisData = JSON.parse(localStorage.getItem('pitchAnalysisData'))
-    
+
     useEffect(() => {
         let maxEmotionValue = 0
         let averageEmotionObject = { Bored: 0, Angry: 0, Sad: 0, Fear: 0, Excited: 0, Happy: 0 }
@@ -32,13 +34,13 @@ const SummaryAnalysis = () => {
             averageEmotionObject.Fear += v.emotion.Fear;
             averageEmotionObject.Excited += v.emotion.Excited;
             averageEmotionObject.Happy += v.emotion.Happy;
-            
+
             maxEmotionValue = Math.max(averageEmotionObject.Bored, averageEmotionObject.Angry, averageEmotionObject.Sad, averageEmotionObject.Fear, averageEmotionObject.Excited
                 , averageEmotionObject.Happy)
-            });
-            setAverageEmotion(Object.keys(averageEmotionObject).find(key => averageEmotionObject[key] === maxEmotionValue))
-            setMeterValue(((analysisData.analytics.members[0].pace.wpm)/150)*0.5)
-        }, [meterValue, analysisData.analytics.members, analysisData.extraAnalysis.emotion])
+        });
+        setAverageEmotion(Object.keys(averageEmotionObject).find(key => averageEmotionObject[key] === maxEmotionValue))
+        setMeterValue(((analysisData.analytics.members[0].pace.wpm) / 150) * 0.5)
+    }, [meterValue, analysisData.analytics.members, analysisData.extraAnalysis.emotion])
     console.log(analysisData)
     const data = [
         {
@@ -69,27 +71,81 @@ const SummaryAnalysis = () => {
         cornerRadius={3}
         activeOuterRadiusOffset={8}
         borderWidth={1}
-        borderColor={{ from: 'color', modifiers: [ [ 'darker', 0.2 ] ] }}
+        borderColor={{ from: 'color', modifiers: [['darker', 0.2]] }}
         arcLinkLabelsSkipAngle={10}
         arcLinkLabelsTextColor="#333333"
         arcLinkLabelsThickness={2}
         arcLinkLabelsColor={{ from: 'color' }}
         arcLabelsSkipAngle={10}
-        arcLabelsTextColor={{ from: 'color', modifiers: [ [ 'darker', 2 ] ] }}
+        arcLabelsTextColor={{ from: 'color', modifiers: [['darker', 2]] }}
         legends={[]}
     />
 
-    const gaugeChart = <GaugeChart style={{marginTop: '2rem', width:'100%'}} id="gauge-chart2" 
+    const gaugeChart = <GaugeChart style={{ marginTop: '2rem', width: '100%' }} id="gauge-chart2"
         nrOfLevels={3}
-        percent={meterValue/1}
+        percent={meterValue / 1}
         colors={["#f4e361", "#1eea21", "#ea1e1e"]}
-        formatTextValue = {value => Math.ceil((value*300)/100) +' wpm'}
-        textColor = "#000000"
-        marginInPercent = {0.06}
+        formatTextValue={value => Math.ceil((value * 300) / 100) + ' wpm'}
+        textColor="#000000"
+        marginInPercent={0.06}
     />
+    const classes = useStyles();
+    const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+
     return (
         <>
-            <ThemeProvider theme={headlineTheme}>
+            <Grid item xs={12} md={8} lg={4}>
+                <Paper className={fixedHeightPaper}>
+                    <Typography style={{ width: '100%', marginTop: '4rem', textAlign: 'center', justifyContent: 'center', fontSize: 69, fontWeight: 'bolder' }}>{analysisData.analytics.members.length}</Typography>
+                    <Typography style={{ marginTop: '2rem', width: '100%', textAlign: 'center', justifyContent: 'center', fontSize: 24 }}>Total Members</Typography>
+
+                </Paper>
+            </Grid>
+
+            <Grid item xs={12} md={4} lg={4}>
+                <Paper className={fixedHeightPaper}>
+                    {SimplePie}
+                    <Typography style={{ position: 'relative', top: '-55px', marginBottom: '2rem', width: '100%', textAlign: 'center', justifyContent: 'center', fontSize: 24 }}>Total Conversation Time ( in % )</Typography>
+
+                </Paper>
+            </Grid>
+            <Grid item xs={12} md={8} lg={4}>
+                <Paper className={fixedHeightPaper}>
+                    {gaugeChart}
+                    <Typography style={{ position: 'relative', top: '-6px', width: '100%', textAlign: 'center', justifyContent: 'center', fontSize: 24 }}>Pace</Typography>
+
+                </Paper>
+            </Grid>
+
+
+
+            <Grid item xs={12} md={4} lg={4}>
+                <Paper className={fixedHeightPaper}>
+                    <Typography style={{ width: '100%', marginTop: '4rem', textAlign: 'center', justifyContent: 'center', fontSize: 69, fontWeight: 'bolder' }}>{analysisData.questions.questions.length}</Typography>
+                    <Typography style={{ width: '100%', textAlign: 'center', justifyContent: 'center', fontSize: 24 }}>Total Questions Asked</Typography>
+
+                </Paper>
+            </Grid>
+            <Grid item xs={12} md={8} lg={4}>
+                <Paper className={fixedHeightPaper}>
+                    {SimplePie}
+                    <Typography style={{ position: 'relative', top: '-69px', marginBottom: '2rem', width: '100%', textAlign: 'center', justifyContent: 'center', fontSize: 24 }}>Total Conversation Time</Typography>
+
+                </Paper>
+            </Grid>
+
+            <Grid item xs={12} md={4} lg={4}>
+                <Paper className={fixedHeightPaper}>
+                    <Typography style={{ position: 'relative', top: '-69px', marginBottom: '2rem', width: '100%', textAlign: 'center', justifyContent: 'center', fontSize: 24 }}>{averageEmotion}</Typography>
+
+                </Paper>
+            </Grid>
+
+            <Grid item xs={12}>
+                <Paper className={classes.paper}>
+                </Paper>
+            </Grid>
+            {/* <ThemeProvider theme={headlineTheme}>
                 <Typography style={{ display: 'block', width: '100%', textAlign: 'center', fontWeight: 'bold', fontSize: 40 }}>Summary</Typography>
             </ThemeProvider>
             <Grid container item xs={6} sm={6} md={4} spacing={4} className="card" style={{ padding: '1rem' }}>
@@ -127,9 +183,9 @@ const SummaryAnalysis = () => {
                         
                     <Typography style={{position: 'relative',top: '-69px', marginBottom: '2rem', width: '100%', textAlign: 'center', justifyContent: 'center', fontSize: 24}}>{averageEmotion}</Typography>
                 </>
-            </Grid>
+            </Grid> */}
         </>
-        
+
     )
 }
 

@@ -17,6 +17,7 @@ const AntTab = withStyles((theme) => ({
     root: {
         textTransform: 'none',
         minWidth: 72,
+        fontSize: 25,
         fontWeight: theme.typography.fontWeightRegular,
         marginRight: theme.spacing(4),
         fontFamily: [
@@ -89,21 +90,23 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function CustomizedTabs() {
+export default function CustomizedTabs(props) {
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
-
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-    };
+    const [selectedTab, setSelectedTab] = React.useState(0);
+    const handleTabChange = (e, newValue) => {
+        setSelectedTab(newValue)
+        props.onSelectTab(newValue);
+        console.log(newValue)
+    }
 
     return (
         <div className={classes.root}>
             <div className={classes.demo1}>
-                <AntTabs value={value} onChange={handleChange} aria-label="ant example" centered>
-                    <AntTab label="Tab 1" />
-                    <AntTab label="Tab 2" />
-                    <AntTab label="Tab 3" />
+                <AntTabs value={selectedTab} onChange={handleTabChange} aria-label="ant example" centered>
+                    <AntTab label="Summary Analysis" />
+                    <AntTab label="Language Analysis" />
+                    <AntTab label="Sentiment Analysis" />
                 </AntTabs>
                 {/* <Typography className={classes.padding} /> */}
             </div>
