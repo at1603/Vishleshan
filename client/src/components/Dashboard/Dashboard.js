@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import Grow from '@material-ui/core/Grow';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
-
+import Tables from './Tables'
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
@@ -106,12 +106,14 @@ export default function Dashboard() {
                                         </Paper>
                                     </Grid>
 
-                                    <Grid item xs={12}>
-                                        <Paper className={classes.paper}>
-                                        </Paper>
-                                    </Grid>
+
                                 </>
-                            ) : (<div>Nothing Here</div>)}
+                            ) : (
+                                <Grid item xs={12}>
+                                    <Paper className={classes.paper}>
+                                        <Tables />
+                                    </Paper>
+                                </Grid>)}
                         </Grid>
                     </Grid>
                     <Box pt={4}>

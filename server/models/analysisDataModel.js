@@ -8,10 +8,12 @@ const analysisDataSchema = new mongoose.Schema({
         ref: "User",
         default: null
     },
-    conversationId: [String],
-    createdAt: [{
-        type: Date,
-        default: Date.now
+    conversationIdData: [{
+        conversationId: String,
+        createdAt: {
+            type: Date,
+            default: Date.now()
+        }
     }],
     analysisData: [
         {
