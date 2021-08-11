@@ -71,6 +71,7 @@ const SummaryAnalysis = () => {
         cornerRadius={3}
         activeOuterRadiusOffset={8}
         borderWidth={1}
+        colors={{ scheme: 'category10' }}
         borderColor={{ from: 'color', modifiers: [['darker', 0.2]] }}
         arcLinkLabelsSkipAngle={10}
         arcLinkLabelsTextColor="#333333"
@@ -117,8 +118,6 @@ const SummaryAnalysis = () => {
                 </Paper>
             </Grid>
 
-
-
             <Grid item xs={12} md={4} lg={4}>
                 <Paper className={fixedHeightPaper}>
                     <Typography style={{ width: '100%', marginTop: '4rem', textAlign: 'center', justifyContent: 'center', fontSize: 69, fontWeight: 'bolder' }}>{analysisData.questions.questions.length}</Typography>
@@ -136,7 +135,15 @@ const SummaryAnalysis = () => {
 
             <Grid item xs={12} md={4} lg={4}>
                 <Paper className={fixedHeightPaper}>
-                    <Typography style={{ position: 'relative', top: '-69px', marginBottom: '2rem', width: '100%', textAlign: 'center', justifyContent: 'center', fontSize: 24 }}>{averageEmotion}</Typography>
+                    <span role="img" aria-label="sheep" style={{fontSize: '104px', textAlign: 'center'}}>
+                        { averageEmotion === 'Happy' && '🙂' }
+                        { averageEmotion === 'Sad' && '😐'}
+                        { averageEmotion === 'Angry' && '😠'}
+                        { averageEmotion === 'Bored' && '🙁'}
+                        { averageEmotion === 'Fear' && '😨'}
+                        { averageEmotion === 'Excited' && '😄'}
+                    </span>
+                    <Typography style={{ position: 'relative', top: '2.5rem', marginBottom: '2rem', width: '100%', textAlign: 'center', justifyContent: 'center', fontSize: 24 }}>Average Sentiment</Typography>
 
                 </Paper>
             </Grid>
