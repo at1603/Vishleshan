@@ -9,10 +9,10 @@ const analysisDataSchema = new mongoose.Schema({
         default: null
     },
     conversationId: [String],
-    createdAt: {
+    createdAt: [{
         type: Date,
         default: Date.now
-    },
+    }],
     analysisData: [
         {
             type: Object,
