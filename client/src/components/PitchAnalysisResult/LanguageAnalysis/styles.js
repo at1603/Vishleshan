@@ -7,7 +7,10 @@ const useStyles = makeStyles((theme) => ({
         margin: '1rem 1rem 2rem 1rem',
         padding: '5rem',
         backgroundColor: '#40dd67',
-    }
+    },
+    liItems: {
+        fontSize: '24px',
+    },
 }));
 
 export default useStyles;

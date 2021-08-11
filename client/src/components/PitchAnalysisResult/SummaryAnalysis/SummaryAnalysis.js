@@ -147,50 +147,6 @@ const SummaryAnalysis = () => {
 
                 </Paper>
             </Grid>
-
-            <Grid item xs={12}>
-                <Paper className={classes.paper}>
-                </Paper>
-            </Grid>
-            {/* <ThemeProvider theme={headlineTheme}>
-                <Typography style={{ display: 'block', width: '100%', textAlign: 'center', fontWeight: 'bold', fontSize: 40 }}>Summary</Typography>
-            </ThemeProvider>
-            <Grid container item xs={6} sm={6} md={4} spacing={4} className="card" style={{ padding: '1rem' }}>
-                <>
-                    <Typography style={{width: '100%', marginTop: '4rem', textAlign: 'center', justifyContent: 'center', fontSize:69, fontWeight: 'bolder'}}>{analysisData.analytics.members.length}</Typography>
-                    <Typography style={{marginTop: '2rem', width: '100%', textAlign: 'center', justifyContent: 'center', fontSize: 24}}>Total Members</Typography>
-                </>
-            </Grid>
-            <Grid container item xs={6} sm={6} md={4} spacing={4} className="card">
-                <>
-                    {SimplePie}
-                    <Typography style={{position: 'relative',top: '-55px', marginBottom: '2rem', width: '100%', textAlign: 'center', justifyContent: 'center', fontSize: 24}}>Total Conversation Time ( in % )</Typography>
-                </>
-            </Grid>
-            <Grid container item xs={6} sm={6} md={4} spacing={4} className="card" >
-                <>
-                    {gaugeChart}
-                    <Typography style={{position: 'relative', top: '-6px', width: '100%', textAlign: 'center', justifyContent: 'center', fontSize: 24}}>Pace</Typography>
-                </>
-            </Grid>
-            <Grid container item xs={6} sm={6} md={4} spacing={4} className="card" style={{padding: '1rem'}}>
-                <>
-                    <Typography style={{width: '100%', marginTop: '4rem', textAlign: 'center', justifyContent: 'center', fontSize:69, fontWeight: 'bolder'}}>{analysisData.questions.questions.length}</Typography>
-                    <Typography style={{width: '100%', textAlign: 'center', justifyContent: 'center', fontSize: 24}}>Total Questions Asked</Typography>
-                </>
-            </Grid>
-            <Grid container item xs={6} sm={6} md={4} spacing={4} className="card">
-                <>
-                        {SimplePie}
-                        <Typography style={{position: 'relative',top: '-69px', marginBottom: '2rem', width: '100%', textAlign: 'center', justifyContent: 'center', fontSize: 24}}>Total Conversation Time</Typography>
-                </>
-            </Grid>
-            <Grid container item xs={6} sm={6} md={4} spacing={4} className="card" >
-                <>
-                        
-                    <Typography style={{position: 'relative',top: '-69px', marginBottom: '2rem', width: '100%', textAlign: 'center', justifyContent: 'center', fontSize: 24}}>{averageEmotion}</Typography>
-                </>
-            </Grid> */}
         </>
 
     )

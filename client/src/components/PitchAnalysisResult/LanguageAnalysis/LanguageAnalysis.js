@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import ReactWordcloud from 'react-wordcloud';
 
-import { Paper, Grid, Typography } from '@material-ui/core'
+import { Paper, Grid, Typography, Chip } from '@material-ui/core'
 import { ThemeProvider } from '@material-ui/core/styles';
 import headlineTheme from '../../fonts/FontThemes';
 
@@ -47,7 +47,6 @@ const LanguageAnalysis = () => {
         
     }, [setWords]);
     console.log(analysisData)
-    console.log(Words)
 
 
     const options = {
@@ -75,6 +74,12 @@ const LanguageAnalysis = () => {
         words={Words}
         style={{margin: '0 0 0 14rem'}}
     />
+
+    const getTopicSentiment = (sentiment) => {
+        if (sentiment === "neutral") return "Overall Opinion: 🙂";
+        else if (sentiment === "positive") return "Overall Opinion: 😄";
+        else return "Overall Opinion: 🙁";
+    }
     
     return (
         <>
@@ -91,7 +96,7 @@ const LanguageAnalysis = () => {
                     </ThemeProvider>
                     <ul>
                         {analysisData.topics.topics.length > 0 ? analysisData.topics.topics.map(function(topic, index){
-                            return <li key={ index }><Typography>{topic.text}</Typography></li>;
+                            return <li key={ index }><span style={{display: 'inline-flex'}}><Typography className={classes.liItems}>{topic.text}</Typography><Chip style={{marginLeft: '1rem', fontSize: '18px'}} label={getTopicSentiment(topic.sentiment.suggested)} color="primary"/></span> </li>;
                         }) : <Typography>No Data Found</Typography> }
                     </ul>
                 </Paper>
@@ -101,7 +106,7 @@ const LanguageAnalysis = () => {
                     </ThemeProvider>
                     <ul>
                         {analysisData.questions.questions.length > 0 ? analysisData.questions.questions.map(function(question, index){
-                            return <li key={ index }><Typography>{question.text}</Typography></li>;
+                            return <li key={ index }><Typography className={classes.liItems}>{question.text}</Typography></li>;
                         }) : <Typography>No Data Found</Typography> }
                     </ul>
                 </Paper>
@@ -111,7 +116,7 @@ const LanguageAnalysis = () => {
                     </ThemeProvider>
                     <ul>
                         {analysisData.actionItems.actionItems.length > 0 ? analysisData.actionItems.actionItems.map(function(actionItem, index){
-                            return <li key={ index }><Typography>{actionItem.text}</Typography></li>;
+                            return <li key={ index }><Typography className={classes.liItems}>{actionItem.text}</Typography></li>
                         }) : <Typography>No Data Found</Typography> }
                     </ul>
                 </Paper>
@@ -121,7 +126,7 @@ const LanguageAnalysis = () => {
                     </ThemeProvider>
                     <ul>
                         {analysisData.followUps.followUps.length > 0 ? analysisData.followUps.followUps.map(function(followUp, index){
-                            return <li key={ index }><Typography>{followUp.text}</Typography></li>;
+                            return <li key={ index }><Typography className={classes.liItems}>{followUp.text}</Typography></li>;
                         }) : <Typography>No Data Found</Typography> }
                     </ul>
                 </Paper>
