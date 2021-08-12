@@ -1,6 +1,5 @@
 import { React, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -9,7 +8,6 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { useHistory } from 'react-router-dom';
 import { Button } from '@material-ui/core';
-import { getconversationlist } from '../../actions/pitchAnalysis';
 import { getvideodata } from '../../actions/pitchAnalysis';
 import PropTypes from "prop-types";
 import clsx from "clsx";
@@ -23,30 +21,8 @@ import Paper from "@material-ui/core/Paper";
 import Checkbox from "@material-ui/core/Checkbox";
 import IconButton from "@material-ui/core/IconButton";
 import Tooltip from "@material-ui/core/Tooltip";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Switch from "@material-ui/core/Switch";
-import DeleteIcon from "@material-ui/icons/Delete";
 import FilterListIcon from "@material-ui/icons/FilterList";
 
-function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-    createData("Cupcake", 305, 3.7, 67, 4.3),
-    createData("Donut", 452, 25.0, 51, 4.9),
-    createData("Eclair", 262, 16.0, 24, 6.0),
-    createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-    createData("Gingerbread", 356, 16.0, 49, 3.9),
-    createData("Honeycomb", 408, 3.2, 87, 6.5),
-    createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-    createData("Jelly Bean", 375, 0.0, 94, 0.0),
-    createData("KitKat", 518, 26.0, 65, 7.0),
-    createData("Lollipop", 392, 0.2, 98, 0.0),
-    createData("Marshmallow", 318, 0, 81, 2.0),
-    createData("Nougat", 360, 19.0, 9, 37.0),
-    createData("Oreo", 437, 18.0, 63, 4.0)
-];
 
 function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {
@@ -85,17 +61,13 @@ const headCells = [
     },
     { id: "calories", numeric: true, disablePadding: false, label: "Created At" },
     { id: "fat", numeric: true, disablePadding: false, label: "Conversation ID" },
-    { id: "carbs", numeric: true, disablePadding: false, label: "Carbs (g)" },
 ];
 
 function EnhancedTableHead(props) {
     const {
         classes,
-        onSelectAllClick,
         order,
         orderBy,
-        numSelected,
-        rowCount,
         onRequestSort
     } = props;
     const createSortHandler = (property) => (event) => {
@@ -126,14 +98,6 @@ function EnhancedTableHead(props) {
                         </TableSortLabel>
                     </TableCell>
                 ))}
-                {/* <TableCell padding="checkbox">
-                    <Checkbox
-                        indeterminate={numSelected > 0 && numSelected < rowCount}
-                        checked={rowCount > 0 && numSelected === rowCount}
-                        onChange={onSelectAllClick}
-                        inputProps={{ "aria-label": "select all meetings" }}
-                    />
-                </TableCell> */}
             </TableRow>
         </TableHead>
     );
@@ -201,9 +165,7 @@ const EnhancedTableToolbar = (props) => {
 
             {numSelected == 2 ? (
                 <Tooltip title="Delete">
-                    {/* <IconButton aria-label="delete">
-                        <DeleteIcon />
-                    </IconButton> */}
+
                     <Button>Compare</Button>
                 </Tooltip>
             ) : (
@@ -245,9 +207,6 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-// export default function EnhancedTable() {
-
-// }
 
 
 
@@ -255,11 +214,7 @@ function preventDefault(event) {
     event.preventDefault();
 }
 
-// const useStyles = makeStyles((theme) => ({
-//     seeMore: {
-//         marginTop: theme.spacing(3),
-//     },
-// }));
+
 
 export default function Tables() {
     const dispatch = useDispatch();
@@ -269,23 +224,20 @@ export default function Tables() {
     const conversationId1 = "5024370436079616";
     const conversationId2 = "5665967414706176";
 
-    useEffect(() => {
-        // dispatch(getvideodata(conversationId1, conversationId2, history));
-        dispatch(getconversationlist());
+    // useEffect(() => {
+    //     // dispatch(getvideodata(conversationId1, conversationId2, history));
+    //     dispatch(getconversationlist());
 
-    }, [dispatch]);
+    // }, [dispatch]);
 
     const conversationList = useSelector((state) => state);
     const tableData = conversationList.pitchAnalysis.conversationIdData;
-    // console.log(tableData.map((items) => items.conversationId));
-    console.log(conversationList);
 
-    // const classes = useStyles();
+
     const [order, setOrder] = useState("asc");
     const [orderBy, setOrderBy] = useState("calories");
     const [selected, setSelected] = useState([]);
     const [page, setPage] = useState(0);
-    const [dense, setDense] = useState(false);
     const [rowsPerPage, setRowsPerPage] = useState(5);
 
     const handleRequestSort = (event, property) => {
@@ -296,7 +248,8 @@ export default function Tables() {
 
     const handleSelectAllClick = (event) => {
         if (event.target.checked) {
-            const newSelecteds = rows.map((n) => n.name);
+            // const newSelecteds = tableData.map((n) => n.name);
+            const newSelecteds = tableData.map((n) => n.conversationId);
             setSelected(newSelecteds);
             return;
         }
@@ -333,14 +286,27 @@ export default function Tables() {
         setPage(0);
     };
 
-    const handleChangeDense = (event) => {
-        setDense(event.target.checked);
-    };
+    const isoToDate = (createdAt) => {
+        var date = new Date(createdAt);
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var dt = date.getDate();
 
-    const isSelected = (name) => selected.indexOf(name) !== -1;
+        if (dt < 10) {
+            dt = '0' + dt;
+        }
+        if (month < 10) {
+            month = '0' + month;
+        }
+        return (dt + '-' + month + '-' + year);
+
+    }
+
+    // const isSelected = (name) => selected.indexOf(name) !== -1;
+    const isSelected = (conversationId) => selected.indexOf(conversationId) !== -1;
 
     const emptyRows =
-        rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+        rowsPerPage - Math.min(rowsPerPage, tableData.length - page * rowsPerPage);
     return (
         <div className={classes.root}>
             <Paper className={classes.paper}>
@@ -357,25 +323,25 @@ export default function Tables() {
                             numSelected={selected.length}
                             order={order}
                             orderBy={orderBy}
-                            // onSelectAllClick={handleSelectAllClick}
                             onRequestSort={handleRequestSort}
-                            rowCount={rows.length}
+                            rowCount={tableData.length}
                         />
                         <TableBody>
-                            {stableSort(rows, getComparator(order, orderBy))
+                            {stableSort(tableData, getComparator(order, orderBy))
                                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                 .map((row, index) => {
-                                    const isItemSelected = isSelected(row.name);
+                                    // const isItemSelected = isSelected(row.name);
+                                    const isItemSelected = isSelected(row.conversationId);
                                     const labelId = `enhanced-table-checkbox-${index}`;
 
                                     return (
                                         <TableRow
                                             hover
                                             // onClick={(event) => handleClick(event, row.name)}
-                                            // role="checkbox"
                                             aria-checked={isItemSelected}
                                             tabIndex={-1}
-                                            key={row.name}
+                                            key={row.conversationId}
+                                            // key={row.name}
                                             selected={isItemSelected}
                                         >
                                             <TableCell
@@ -385,18 +351,18 @@ export default function Tables() {
                                                 padding="none"
                                                 align="center"
                                             >
-                                                {row.name}
+                                                {index + 1}
                                             </TableCell>
-                                            <TableCell align="center">{row.calories}</TableCell>
-                                            <TableCell align="center">{row.fat}</TableCell>
-                                            <TableCell align="center">{row.carbs}</TableCell>
-                                            <TableCell align="center">{row.protein}</TableCell>
+                                            <TableCell align="center">{123}</TableCell>
+                                            <TableCell align="center">{isoToDate(row.createdAt)}</TableCell>
+                                            <TableCell align="center">{row.conversationId}</TableCell>
                                             <TableCell padding="checkbox">
                                                 <Checkbox
                                                     checked={isItemSelected}
                                                     inputProps={{ "aria-labelledby": labelId }}
                                                     disabled={(selected.length == 2 && !isItemSelected) ? true : false}
-                                                    onClick={(event) => handleClick(event, row.name)}
+                                                    // onClick={(event) => handleClick(event, row.name)}
+                                                    onClick={(event) => handleClick(event, row.conversationId)}
                                                 />
                                             </TableCell>
                                         </TableRow>
@@ -413,7 +379,7 @@ export default function Tables() {
                 <TablePagination
                     rowsPerPageOptions={[5, 10, 25]}
                     component="div"
-                    count={rows.length}
+                    count={tableData.length}
                     rowsPerPage={rowsPerPage}
                     page={page}
                     onPageChange={handleChangePage}
@@ -422,35 +388,4 @@ export default function Tables() {
             </Paper>
         </div>
     );
-    // return (
-    //     <>
-    //         <Table size="medium">
-    //             <TableHead>
-    //                 <TableRow>
-    //                     <TableCell>Sr No.</TableCell>
-    //                     <TableCell>Meeting Name</TableCell>
-    //                     <TableCell>Created At</TableCell>
-    //                     <TableCell>Conversation Id</TableCell>
-    //                     <TableCell align="right">Comparison</TableCell>
-    //                 </TableRow>
-    //             </TableHead>
-    //             <TableBody>
-    //                 {tableData.map((row, index) => (
-    //                     <TableRow key={row._id}>
-    //                         <TableCell>{index + 1}</TableCell>
-    //                         <TableCell>{123}</TableCell>
-    //                         <TableCell>{row.createdAt}</TableCell>
-    //                         <TableCell>{row.conversationId}</TableCell>
-    //                         <TableCell align="right">{890}</TableCell>
-    //                     </TableRow>
-    //                 ))}
-    //             </TableBody>
-    //         </Table>
-    //         <div className={classes.seeMore}>
-    //             <Link color="primary" href="#" onClick={preventDefault}>
-    //                 See more orders
-    //             </Link>
-    //         </div>
-    //     </>
-    // );
 }

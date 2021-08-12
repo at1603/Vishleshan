@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import clsx from 'clsx';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
@@ -12,8 +12,11 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Link from '@material-ui/core/Link';
 import Tabs from './Tabs'
-
 import useStyles from './styles'
+import { useDispatch, useSelector } from 'react-redux';
+
+import { getconversationlist } from '../../actions/pitchAnalysis';
+
 
 function Copyright() {
     return (
@@ -33,6 +36,7 @@ export default function Dashboard() {
     const [open, setOpen] = React.useState(true);
     const [gulag, setGulag] = React.useState(true);
     const [tab, setTab] = React.useState(0);
+    const dispatch = useDispatch();
     const handleTabValue = (tabValue) => {
         setTab(tabValue)
     }
@@ -46,6 +50,10 @@ export default function Dashboard() {
         // }, 1000)
         setGulag(!gulag);
     }
+    useEffect(() => {
+        dispatch(getconversationlist());
+
+    }, [dispatch]);
 
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
