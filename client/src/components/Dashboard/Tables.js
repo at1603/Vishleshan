@@ -286,9 +286,6 @@ export default function Tables() {
         setPage(0);
     };
 
-    const handleChangeDense = (event) => {
-        setDense(event.target.checked);
-    };
     const isoToDate = (createdAt) => {
         var date = new Date(createdAt);
         var year = date.getFullYear();
