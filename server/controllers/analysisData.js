@@ -2,7 +2,8 @@ import mongoose from 'mongoose';
 import AnalysisData from '../models/analysisDataModel.js';
 
 
-export const getDataToCompare = async (conversationId1, conversationId2, req) => {
+export const getDataToCompare = async (req, res) => {
+    const { conversationId1, conversationId2 } = req.params;
     await AnalysisData.findOne({ handlerId: req.userId, conversationIdData: { $elemMatch: { conversationId: conversationId1 } } }).exec(async (err, response1) => {
         if (err) {
             console.log(err)
@@ -26,10 +27,11 @@ export const getDataToCompare = async (conversationId1, conversationId2, req) =>
 }
 
 
-export const getConversationList = async () => {
+export const getConversationList = async (req, res) => {
     await AnalysisData.findOne({ handlerId: req.userId }).exec((err, response) => {
         if (err) {
             console.log(err)
+            res.status(404).json({ message: "No data found" });
         }
         else {
             console.log(response)
