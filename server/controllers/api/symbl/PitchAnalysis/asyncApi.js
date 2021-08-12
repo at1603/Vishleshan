@@ -184,20 +184,20 @@ export const sendVideoData = (req, res) => {
                             const existingUser = await AnalysisData.findOne({ handlerId: req.userId })
                             if (!existingUser) {
                                 try {
-                                    await AnalysisData.create({ handlerId: req.userId, conversationIdData: { conversationId: data.messages.messages[0].conversationId, createdAt: Date.now(), meetingName: req.body.meetingName }, analysisData: data });
-                                    // mongoose.connection.close()
                                     const finalData = data.messages.messages
                                     let i;
                                     for (i = 0; i < finalData.length; i++) {
-                                        let tempEmotion = analysisData.extraAnalysis.emotion[i].emotion
-                                        let tempIntent = analysisData.extraAnalysis.intent[i].intent
-                                        let tempProfane = analysisData.extraAnalysis.profaneWord[i]
-                                        let tempSarcasm = analysisData.extraAnalysis.sarcasm[i]
+                                        let tempEmotion = data.extraAnalysis.emotion[i].emotion
+                                        let tempIntent = data.extraAnalysis.intent[i].intent
+                                        let tempProfane = data.extraAnalysis.profaneWord[i]
+                                        let tempSarcasm = data.extraAnalysis.sarcasm[i]
                                         finalData[i].emotion = Object.keys(tempEmotion).reduce((a, b) => tempEmotion[a] > tempEmotion[b] ? a : b)
                                         finalData[i].intent = Object.keys(tempIntent).reduce((a, b) => tempIntent[a] > tempIntent[b] ? a : b)
                                         finalData[i].profane = Object.keys(tempProfane).reduce((a, b) => tempProfane[a] > tempProfane[b] ? a : b)
                                         finalData[i].sarcasm = Object.keys(tempSarcasm).reduce((a, b) => tempSarcasm[a] > tempSarcasm[b] ? a : b)
                                     }
+                                    //Creating the Final data
+                                    await AnalysisData.create({ handlerId: req.userId, conversationIdData: { conversationId: data.messages.messages[0].conversationId, createdAt: Date.now(), meetingName: req.body.meetingName }, analysisData: finalData });
                                     res.status(200).json(finalData)
                                 }
                                 catch (error) {
@@ -205,23 +205,23 @@ export const sendVideoData = (req, res) => {
                                 }
                             }
                             else {
-                                await AnalysisData.updateOne({ _id: existingUser._id }, { $push: { conversationIdData: { conversationId: data.messages.messages[0].conversationId, createdAt: Date.now(), meetingName: req.body.meetingName }, analysisData: data } }).exec(function (err, response) {
+                                const finalData = data.messages.messages
+                                let i;
+                                for (i = 0; i < finalData.length; i++) {
+                                    let tempEmotion = data.extraAnalysis.emotion[i].emotion
+                                    let tempIntent = data.extraAnalysis.intent[i].intent
+                                    let tempProfane = data.extraAnalysis.profaneWord[i]
+                                    let tempSarcasm = data.extraAnalysis.sarcasm[i]
+                                    finalData[i].emotion = Object.keys(tempEmotion).reduce((a, b) => tempEmotion[a] > tempEmotion[b] ? a : b)
+                                    finalData[i].intent = Object.keys(tempIntent).reduce((a, b) => tempIntent[a] > tempIntent[b] ? a : b)
+                                    finalData[i].profane = Object.keys(tempProfane).reduce((a, b) => tempProfane[a] > tempProfane[b] ? a : b)
+                                    finalData[i].sarcasm = Object.keys(tempSarcasm).reduce((a, b) => tempSarcasm[a] > tempSarcasm[b] ? a : b)
+                                }
+                                await AnalysisData.updateOne({ _id: existingUser._id }, { $push: { conversationIdData: { conversationId: data.messages.messages[0].conversationId, createdAt: Date.now(), meetingName: req.body.meetingName }, analysisData: finalData } }).exec(function (err, response) {
                                     if (err) {
                                         console.log(err)
                                     }
                                     else {
-                                        const finalData = data.messages.messages
-                                        let i;
-                                        for (i = 0; i < finalData.length; i++) {
-                                            let tempEmotion = analysisData.extraAnalysis.emotion[i].emotion
-                                            let tempIntent = analysisData.extraAnalysis.intent[i].intent
-                                            let tempProfane = analysisData.extraAnalysis.profaneWord[i]
-                                            let tempSarcasm = analysisData.extraAnalysis.sarcasm[i]
-                                            finalData[i].emotion = Object.keys(tempEmotion).reduce((a, b) => tempEmotion[a] > tempEmotion[b] ? a : b)
-                                            finalData[i].intent = Object.keys(tempIntent).reduce((a, b) => tempIntent[a] > tempIntent[b] ? a : b)
-                                            finalData[i].profane = Object.keys(tempProfane).reduce((a, b) => tempProfane[a] > tempProfane[b] ? a : b)
-                                            finalData[i].sarcasm = Object.keys(tempSarcasm).reduce((a, b) => tempSarcasm[a] > tempSarcasm[b] ? a : b)
-                                        }
                                         // mongoose.connection.close()
                                         res.status(200).json(finalData)
                                     }
