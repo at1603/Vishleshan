@@ -19,7 +19,11 @@ export const getAnalysis = (formData) => API.post('/analysis/interviewAnalysisRe
 export const stopAnalysis = (formData) => API.post('/analysis/stopInterviewAnalysis', formData)
 
 //---------------Pitch Analysis axios APIs------------//
-export const sendVideoData = (formData) => API.post('/analysis/pitchAnalysis/sendVideoData', formData)
+export const sendVideoData = (formData) => API.post('/analysis/pitchAnalysis/sendVideoData', formData, {
+    headers: {
+        "Content-Type": "multipart/form-data"
+    }
+})
 export const getVideoData = (conversationId1, conversationId2) => API.get(`/analysis/pitchAnalysis/getVideoData/${conversationId1}/${conversationId2}`)
 export const getConversationList = () => API.get('/analysis/pitchAnalysis/getConversationList');
 

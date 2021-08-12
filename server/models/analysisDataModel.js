@@ -13,7 +13,8 @@ const analysisDataSchema = new mongoose.Schema({
         createdAt: {
             type: Date,
             default: Date.now()
-        }
+        },
+        meetingName: String
     }],
     analysisData: [
         {

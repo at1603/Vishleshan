@@ -353,7 +353,7 @@ export default function Tables() {
                                             >
                                                 {index + 1}
                                             </TableCell>
-                                            <TableCell align="center">{123}</TableCell>
+                                            <TableCell align="center">{row.meetingName}</TableCell>
                                             <TableCell align="center">{isoToDate(row.createdAt)}</TableCell>
                                             <TableCell align="center">{row.conversationId}</TableCell>
                                             <TableCell padding="checkbox">

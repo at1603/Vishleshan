@@ -35,7 +35,7 @@ export const getConversationList = async (req, res) => {
         }
         else {
             console.log(response)
-            res.status(200).json({ conversationIdData: response.conversationIdData, meetingName: 'meetingName' })
+            res.status(200).json({ conversationIdData: response.conversationIdData })
         }
     })
 }

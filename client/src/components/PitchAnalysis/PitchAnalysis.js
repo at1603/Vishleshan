@@ -16,7 +16,7 @@ const PitchAnalysis = () => {
     const dispatch = useDispatch();
     const classes = useStyles();
     const history = useHistory();
-    const [formData, setFormData] = useState({ videoTitle: "", file: null })
+    const [formData, setFormData] = useState({ meetingName: "", fileName: "", file: null })
     const [isSubmit, setIsSubmit] = useState(false)
     const [selectedFileName, setSelectedFileName] = useState("");
 
@@ -24,17 +24,20 @@ const PitchAnalysis = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
         const data = new FormData();
+        data.append('meetingName', formData.meetingName)
+        console.log(formData.meetingName, "iiiiiiiiiiiiiiiii")
+        data.append('fileName', formData.fileName)
         data.append('file', formData.file);
         dispatch(sendvideodata(data, history))
         setIsSubmit(true)
     }
 
     const handleChange = (e) => {
-        setFormData({ ...formData, videoTitle: e.target.value })
+        setFormData({ ...formData, [e.target.name]: e.target.value })
     }
     const handleUploadClick = (event) => {
         console.log(event.target.files[0]);
-        setFormData({ file: event.target.files[0] });
+        setFormData({ ...formData, file: event.target.files[0], fileName: event.target.files[0].name });
         setSelectedFileName(event.target.files[0].name);
     };
 
@@ -49,7 +52,7 @@ const PitchAnalysis = () => {
                     {isSubmit ? spinner :
                         <div className={classes.paper}>
                             <form onSubmit={handleSubmit} className={classes.form}>
-                                {/*<TextField className={classes.input} name='videoTitle' value={formData.videoTitle} onChange={handleChange} variant="outlined" required fullWidth label='Video Title' />*/}
+                                <TextField className={classes.input} name='meetingName' value={formData.meetingName} onChange={handleChange} variant="outlined" required fullWidth label='Meeting Name' />
                                 {/* <TextField className={classes.input} name='url'value={formData.url} onChange={handleChange} variant="outlined" required fullWidth label='URL' /> */}
                                 <>
                                     <input
@@ -66,8 +69,9 @@ const PitchAnalysis = () => {
                                         </Button>
 
                                     </label>
-                                    { selectedFileName === "" ? <Typography component="span" className={classes.input}>No File Chosen</Typography> : 
-                                    <Typography component="span" className={classes.input}>{selectedFileName}</Typography>}
+                                    <input type='hidden' name="fileName" value={formData.fileName} onChange={handleChange} ></input>
+                                    {selectedFileName === "" ? <Typography component="span" className={classes.input}>No File Chosen</Typography> :
+                                        <Typography component="span" className={classes.input}>{selectedFileName}</Typography>}
                                 </>
                                 <Button style={{ marginLeft: '0.5rem' }} variant='contained' color='primary' size='large' type='submit' className={classes.submit} fullWidth>Submit</Button>
                             </form>
