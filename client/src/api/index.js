@@ -20,4 +20,6 @@ export const stopAnalysis = (formData) => API.post('/analysis/stopInterviewAnaly
 
 //---------------Pitch Analysis axios APIs------------//
 export const sendVideoData = (formData) => API.post('/analysis/pitchAnalysis/sendVideoData', formData)
+export const getVideoData = (conversationId1, conversationId2) => API.get(`/analysis/pitchAnalysis/getVideoData/${conversationId1}/${conversationId2}`)
+export const getConversationList = () => API.get('/analysis/pitchAnalysis/getConversationList');
 
