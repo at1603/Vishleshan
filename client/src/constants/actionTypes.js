@@ -8,3 +8,5 @@ export const STOP_ANALYSIS = 'STOP_ANALYSIS'
 export const SEND_VIDEO_DATA = 'SEND_VIDEO_DATA'
 export const GET_VIDEO_DATA = 'GET_VIDEO_DATA'
 export const GET_CONVO_LIST = 'GET_CONVO_LIST'
+export const GET_COMPARE_DATA = 'GET_COMPARE_DATA'
+
