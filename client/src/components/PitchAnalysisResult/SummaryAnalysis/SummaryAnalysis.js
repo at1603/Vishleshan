@@ -41,7 +41,7 @@ const SummaryAnalysis = () => {
         setAverageEmotion(Object.keys(averageEmotionObject).find(key => averageEmotionObject[key] === maxEmotionValue))
         setMeterValue(((analysisData.analytics.members[0].pace.wpm) / 150) * 0.5)
     }, [meterValue, analysisData.analytics.members, analysisData.extraAnalysis.emotion])
-    console.log(analysisData)
+    console.log(analysisData, analysisData.messages.messages[0].emotion)
     const data = [
         {
             "id": "Total Silence",
@@ -135,13 +135,13 @@ const SummaryAnalysis = () => {
 
             <Grid item xs={12} md={4} lg={4}>
                 <Paper className={fixedHeightPaper}>
-                    <span role="img" aria-label="sheep" style={{fontSize: '104px', textAlign: 'center'}}>
-                        { averageEmotion === 'Happy' && '🙂' }
-                        { averageEmotion === 'Sad' && '😐'}
-                        { averageEmotion === 'Angry' && '😠'}
-                        { averageEmotion === 'Bored' && '🙁'}
-                        { averageEmotion === 'Fear' && '😨'}
-                        { averageEmotion === 'Excited' && '😄'}
+                    <span role="img" aria-label="sheep" style={{ fontSize: '104px', textAlign: 'center' }}>
+                        {averageEmotion === 'Happy' && '🙂'}
+                        {averageEmotion === 'Sad' && '😐'}
+                        {averageEmotion === 'Angry' && '😠'}
+                        {averageEmotion === 'Bored' && '🙁'}
+                        {averageEmotion === 'Fear' && '😨'}
+                        {averageEmotion === 'Excited' && '😄'}
                     </span>
                     <Typography style={{ position: 'relative', top: '2.5rem', marginBottom: '2rem', width: '100%', textAlign: 'center', justifyContent: 'center', fontSize: 24 }}>Average Sentiment</Typography>
 
