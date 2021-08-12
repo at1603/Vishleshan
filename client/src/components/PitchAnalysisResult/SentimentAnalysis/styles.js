@@ -8,6 +8,9 @@ const useStyles = makeStyles((theme) => ({
         padding: '5rem',
         backgroundColor: '#40dd67',
     },
+    liItems: {
+        fontSize: '24px',
+    },
 }));
 
 export default useStyles;

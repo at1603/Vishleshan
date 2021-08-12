@@ -24,7 +24,6 @@ const Copyright = () => {
     );
 }
 
-
 const Auth = () => {
     const [formData, setFormData] = useState({
         firstName: '',
