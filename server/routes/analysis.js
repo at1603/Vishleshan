@@ -2,7 +2,7 @@ import express from 'express';
 
 import { startInterviewAnalysis, InterviewAnalysisResult, stopInterviewAnalysis } from '../controllers/api/symbl/InterviewAnalysis/zoomApi.js'
 import { sendVideoData } from '../controllers/api/symbl/PitchAnalysis/asyncApi.js'
-import { getDataToCompare } from '../controllers/analysisData.js'
+import { getDataToCompare, getConversationList } from '../controllers/analysisData.js'
 import auth from '../middleware/auth.js';
 
 const router = express.Router();
@@ -14,6 +14,7 @@ router.post('/interviewAnalysis', auth, startInterviewAnalysis);
 
 //------------Pitch Analysis routes------------//
 router.post('/pitchAnalysis/sendVideoData', auth, sendVideoData);
-router.get('/pitchAnalysis/getVideoData', auth, getDataToCompare)
+router.get('/pitchAnalysis/getVideoData/:conversationId1/:conversationId2', auth, getDataToCompare)
+router.get('/pitchAnalysis/getConversationList/', auth, getConversationList);
 
 export default router;
