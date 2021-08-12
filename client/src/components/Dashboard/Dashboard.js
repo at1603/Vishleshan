@@ -14,9 +14,7 @@ import Link from '@material-ui/core/Link';
 import Tabs from './Tabs'
 import useStyles from './styles'
 import { useDispatch, useSelector } from 'react-redux';
-
-import { getconversationlist } from '../../actions/pitchAnalysis';
-
+import { getconversationlist } from '../../actions/dashboard';
 
 function Copyright() {
     return (

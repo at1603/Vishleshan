@@ -22,6 +22,8 @@ import Checkbox from "@material-ui/core/Checkbox";
 import IconButton from "@material-ui/core/IconButton";
 import Tooltip from "@material-ui/core/Tooltip";
 import FilterListIcon from "@material-ui/icons/FilterList";
+import { getconversationlist } from '../../actions/dashboard';
+
 
 
 function descendingComparator(a, b, orderBy) {
@@ -135,7 +137,16 @@ const useToolbarStyles = makeStyles((theme) => ({
 
 const EnhancedTableToolbar = (props) => {
     const classes = useToolbarStyles();
-    const { numSelected } = props;
+    const { selected, numSelected } = props;
+    const dispatch = useDispatch()
+    const history = useHistory();
+
+    const handleCompareClick = () => {
+        console.log(selected, "Sssa")
+        const [conversationId1, conversationId2] = selected
+        console.log(conversationId1, conversationId2, "hghghghg")
+        dispatch(getvideodata(conversationId1, conversationId2, history));
+    }
 
     return (
         <Toolbar
@@ -166,7 +177,7 @@ const EnhancedTableToolbar = (props) => {
             {numSelected == 2 ? (
                 <Tooltip title="Delete">
 
-                    <Button>Compare</Button>
+                    <Button onClick={handleCompareClick} >Compare</Button>
                 </Tooltip>
             ) : (
                 <Tooltip title="Filter list">
@@ -225,13 +236,12 @@ export default function Tables() {
     const conversationId2 = "5665967414706176";
 
     // useEffect(() => {
-    //     // dispatch(getvideodata(conversationId1, conversationId2, history));
     //     dispatch(getconversationlist());
 
     // }, [dispatch]);
 
-    const conversationList = useSelector((state) => state);
-    const tableData = conversationList.pitchAnalysis.conversationIdData;
+    const tableData = useSelector((state) => state.dashboard.conversationList.conversationIdData);
+    console.log(tableData, "meow")
 
 
     const [order, setOrder] = useState("asc");
@@ -245,6 +255,8 @@ export default function Tables() {
         setOrder(isAsc ? "desc" : "asc");
         setOrderBy(property);
     };
+
+
 
     const handleSelectAllClick = (event) => {
         if (event.target.checked) {
@@ -274,7 +286,7 @@ export default function Tables() {
         }
 
         setSelected(newSelected);
-        console.log(newSelected);
+        console.log(newSelected, "ff");
     };
 
     const handleChangePage = (event, newPage) => {
@@ -310,7 +322,7 @@ export default function Tables() {
     return (
         <div className={classes.root}>
             <Paper className={classes.paper}>
-                <EnhancedTableToolbar numSelected={selected.length} />
+                <EnhancedTableToolbar selected={selected} numSelected={selected.length} />
                 <TableContainer>
                     <Table
                         className={classes.table}
