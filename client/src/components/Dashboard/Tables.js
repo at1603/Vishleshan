@@ -8,7 +8,6 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { useHistory } from 'react-router-dom';
 import { Button } from '@material-ui/core';
-import { getvideodata } from '../../actions/pitchAnalysis';
 import PropTypes from "prop-types";
 import clsx from "clsx";
 import { lighten } from "@material-ui/core/styles";
@@ -22,7 +21,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import IconButton from "@material-ui/core/IconButton";
 import Tooltip from "@material-ui/core/Tooltip";
 import FilterListIcon from "@material-ui/icons/FilterList";
-import { getconversationlist } from '../../actions/dashboard';
+import { getcomparisondata } from '../../actions/dashboard';
 
 
 
@@ -145,7 +144,7 @@ const EnhancedTableToolbar = (props) => {
         console.log(selected, "Sssa")
         const [conversationId1, conversationId2] = selected
         console.log(conversationId1, conversationId2, "hghghghg")
-        dispatch(getvideodata(conversationId1, conversationId2, history));
+        dispatch(getcomparisondata(conversationId1, conversationId2, history));
     }
 
     return (

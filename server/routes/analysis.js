@@ -14,7 +14,7 @@ router.post('/interviewAnalysis', auth, startInterviewAnalysis);
 
 //------------Pitch Analysis routes------------//
 router.post('/pitchAnalysis/sendVideoData', auth, sendVideoData);
-router.get('/pitchAnalysis/getVideoData/:conversationId1/:conversationId2', auth, getDataToCompare)
+router.get('/pitchAnalysis/getComparisonData/:conversationId1/:conversationId2', auth, getDataToCompare)
 router.get('/pitchAnalysis/getConversationList/', auth, getConversationList);
 
 export default router;
