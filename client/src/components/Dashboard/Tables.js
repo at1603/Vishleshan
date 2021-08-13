@@ -256,17 +256,6 @@ export default function Tables() {
     };
 
 
-
-    const handleSelectAllClick = (event) => {
-        if (event.target.checked) {
-            // const newSelecteds = tableData.map((n) => n.name);
-            const newSelecteds = tableData.map((n) => n.conversationId);
-            setSelected(newSelecteds);
-            return;
-        }
-        setSelected([]);
-    };
-
     const handleClick = (event, name) => {
         const selectedIndex = selected.indexOf(name);
         let newSelected = [];
