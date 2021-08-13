@@ -1,21 +1,20 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { TextField, Button, Typography, Paper, Grid } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux'
-import { joinZoomCall } from '../../actions/InterviewAnalysis/interviewAnalysis'
+import { joinZoomCall, stopAnalysis } from '../../actions/InterviewAnalysis/interviewAnalysis'
 import { useHistory } from 'react-router-dom';
 
 import useStyles from './styles';
 import { ThemeProvider } from '@material-ui/core/styles';
 import headlineTheme from '../fonts/FontThemes';
 
-// import { w3cwebsocket as W3CWebSocket } from "websocket";
+import { w3cwebsocket as W3CWebSocket } from "websocket";
 
 
 // let SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 const InterviewAnalysis = () => {
     let message = ""
 
-    // const recognition = new SpeechRecognition()
 
 
 
@@ -28,39 +27,22 @@ const InterviewAnalysis = () => {
     const history = useHistory();
     const classes = useStyles();
 
-    message = useSelector(state => state.interviewAnalysis.connection.message)
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        dispatch(joinZoomCall(formData))
-        // setTimeout(() => {
-        //     const client = new WebSocket('ws://127.0.0.1:8000');
-        //     recognition.continuous = true
-        //     recognition.start()
-        //     recognition.onspeechstart = () => {
-        //         console.log('Speech has been detected');
-
-        //     }
-
-        //     recognition.onresult = (event) => {
-        //         client.send(JSON.stringify({
-        //             flag: 1
-        //         }));
-        //         console.log(event.results)
-        //     }
+        dispatch(joinZoomCall(formData, history))
 
 
 
+        // ws.onclose = () => {
+        //     console.log("gadbadd")
+        //     // dispatch(stopAnalysis(connectionData.connectionId))
+        // }
 
-        // }, 10000);
+
+
 
     }
-
-    // const handleStopSubmit = (e) => {
-    //     e.preventDefault()
-    //     dispatch(stopAnalysis({ connectionId }, history))
-
-    // }
 
 
 
