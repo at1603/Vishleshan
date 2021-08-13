@@ -18,7 +18,7 @@ export const getcomparisondata = (conversationId1, conversationId2, history) => 
         const { data } = await api.getComparisonData(conversationId1, conversationId2);
         dispatch({ type: GET_COMPARISON_DATA, data })
         console.log(data);
-        history.push('/home');
+        history.push('/comparison');
 
     } catch (error) {
         console.log(error);
