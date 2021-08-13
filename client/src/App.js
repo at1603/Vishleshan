@@ -16,6 +16,7 @@ import PitchAnalysis from './components/PitchAnalysis/PitchAnalysis';
 import PitchAnalysisResult from './components/PitchAnalysisResult/PitchAnalysisResult';
 import InterviewAnalysis from './components/InterviewAnalysis/InterviewAnalysis';
 import InterviewAnalysisResult from './components/InterviewAnalysisResult/InterviewAnalysisResult';
+import Comparison from './components/Comparison/Comparison';
 
 
 const THEME = createTheme({
@@ -42,6 +43,8 @@ const App = () => {
                         <Route path="/auth" exact component={Auth} />
                         <Route path="/home" exact component={Home} />
                         <Route path="/dashboard" exact component={Dashboard} />
+                        <Route path="/comparison" exact component={Comparison} />
+
                         <Route path="/pitchAnalysis" exact component={PitchAnalysis} />
                         <Route path="/pitchAnalysisResult" exact component={PitchAnalysisResult} />
                         <Route path="/interviewAnalysis" exact component={InterviewAnalysis} />

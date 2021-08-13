@@ -14,7 +14,6 @@ export const getDataToCompare = async (req, res) => {
                     console.log(err)
                 }
                 else {
-                    mongoose.connection.close()
                     let data = {
                         performance1: response1,
                         performance2: response2
