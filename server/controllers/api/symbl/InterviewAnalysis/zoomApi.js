@@ -94,7 +94,6 @@ export const startInterviewAnalysis = (req, res) => {
 const addConversationId = async (conversationId, req) => {
   try {
     await InterviewAnalysisUser.create({ handlerId: req.userId, conversationId: conversationId });
-    mongoose.connection.close()
   } catch (error) {
     console.log(error.message)
   }
