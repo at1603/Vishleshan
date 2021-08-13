@@ -196,7 +196,7 @@ export const sendVideoData = (req, res) => {
                                         messageData[i].sarcasm = Object.keys(tempSarcasm).reduce((a, b) => tempSarcasm[a] > tempSarcasm[b] ? a : b)
                                     }
                                     //Creating the Final data
-                                    await AnalysisData.create({ handlerId: req.userId, conversationIdData: { conversationId: data.messages.messages[0].conversationId, createdAt: Date.now(), meetingName: req.body.meetingName }, analysisData: data });
+                                    await AnalysisData.create({ handlerId: req.userId, conversationIdData: { conversationId: data.messages.messages[0].conversationId, createdAt: Date.now(), meetingName: req.body.meetingName, analysisData: data } });
                                     res.status(200).json(data)
                                 }
                                 catch (error) {
@@ -218,7 +218,7 @@ export const sendVideoData = (req, res) => {
                                         messageData[i].profane = Object.keys(tempProfane).reduce((a, b) => tempProfane[a] > tempProfane[b] ? a : b)
                                         messageData[i].sarcasm = Object.keys(tempSarcasm).reduce((a, b) => tempSarcasm[a] > tempSarcasm[b] ? a : b)
                                     }
-                                    await AnalysisData.updateOne({ _id: existingUser._id }, { $push: { conversationIdData: { conversationId: data.messages.messages[0].conversationId, createdAt: Date.now(), meetingName: req.body.meetingName }, analysisData: data } }).exec(function (err, response) {
+                                    await AnalysisData.updateOne({ _id: existingUser._id }, { $push: { conversationIdData: { conversationId: data.messages.messages[0].conversationId, createdAt: Date.now(), meetingName: req.body.meetingName, analysisData: data } } }).exec(function (err, response) {
                                         if (err) {
                                             console.log(err)
                                         }
