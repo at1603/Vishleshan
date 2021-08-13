@@ -9,18 +9,25 @@ const analysisDataSchema = new mongoose.Schema({
         default: null
     },
     conversationIdData: [{
-        conversationId: String,
+        conversationId: {
+            type: String,
+            default: ''
+        },
         createdAt: {
             type: Date,
             default: Date.now()
         },
-        meetingName: String
-    }],
-    analysisData: [
+        meetingName: {
+            type: String,
+            default: ""
+        },
+        analysisData:
         {
             type: Object,
             default: null
-        }]
+        }
+    }],
+
 
 
 });
