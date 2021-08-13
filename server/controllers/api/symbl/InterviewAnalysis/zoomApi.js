@@ -1,5 +1,5 @@
 import pkg from "symbl-node";
-const { sdk, SpeakerEvent } = pkg
+const { sdk } = pkg
 import mongoose from 'mongoose';
 import InterviewAnalysisUser from "../../../../models/interviewAnalysisModel.js";
 import { listenToZoomCall } from "./socket.js";
@@ -71,7 +71,8 @@ export const startInterviewAnalysis = (req, res) => {
         console.log("Calling into Zoom now, please wait about 30-60 seconds.");
 
         generateAuthToken((authToken) => {
-          listenToZoomCall(req, res, connectionId, authToken.accessToken)
+          // listenToZoomCall(req, res, connectionId, authToken.accessToken)
+          res.status(200).json({ authToken: authToken.accessToken, connectionId: connectionId })
         })
 
 
@@ -120,12 +121,12 @@ export const InterviewAnalysisResult = async (req, res, conversationId) => {
 }
 
 //----------------Stop Interview Analysis------------------------//
-export const stopInterviewAnalysis = (req, res, connectionId) => {
-  sdk.stopEndpoint({ connectionId: connectionId })
+export const stopInterviewAnalysis = async (req, res) => {
+  await sdk.stopEndpoint({ connectionId: req.params.connectionId })
     .then((response) => {
       console.log("Your connection has been disabled succesfully")
-      InterviewAnalysisResult(req, res, response._conversationId)
-      res.status(200).json({ message: 'Analysis stopped successfully', connectionId: response._connectionId, conversationId: response._conversationId })
+      // InterviewAnalysisResult(req, res, response._conversationId)
+      res.status(200).json({ message: 'Analysis stopped successfully' })
 
     })
     .catch((err) => {
