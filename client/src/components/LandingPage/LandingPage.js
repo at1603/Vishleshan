@@ -196,7 +196,6 @@ const LandingPage = () => {
                                             name="name"
                                             style={{ marginRight: '2rem' }}
                                             autoComplete="name"
-                                            autoFocus
                                         />
                                         <TextField
                                             variant="outlined"
@@ -207,7 +206,6 @@ const LandingPage = () => {
                                             label="Email Address"
                                             name="email"
                                             autoComplete="email"
-                                            autoFocus
                                         />
                                         <TextField
                                             variant="outlined"
