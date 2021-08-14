@@ -99,7 +99,6 @@ const SummaryAnalysis = () => {
                 <Paper className={fixedHeightPaper}>
                     <Typography style={{ width: '100%', marginTop: '4rem', textAlign: 'center', justifyContent: 'center', fontSize: 69, fontWeight: 'bolder' }}>{analysisData.analytics.members.length}</Typography>
                     <Typography style={{ marginTop: '2rem', width: '100%', textAlign: 'center', justifyContent: 'center', fontSize: 24 }}>Total Members</Typography>
-
                 </Paper>
             </Grid>
 
