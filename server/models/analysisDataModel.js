@@ -25,6 +25,10 @@ const analysisDataSchema = new mongoose.Schema({
         {
             type: Object,
             default: null
+        },
+        url: {
+            type: String,
+            default: ''
         }
     }],
 
