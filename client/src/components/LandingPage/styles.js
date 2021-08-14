@@ -53,7 +53,8 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         width: '80%',
         justifyContent: 'center',
-        margin: '3rem auto'
+        margin: '3rem auto',
+        padding: '5rem 0'
     },
     aboutLeftGrid: {
         justifyContent: 'center',

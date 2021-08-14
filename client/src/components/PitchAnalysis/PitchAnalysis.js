@@ -16,7 +16,7 @@ const PitchAnalysis = () => {
     const dispatch = useDispatch();
     const classes = useStyles();
     const history = useHistory();
-    const [formData, setFormData] = useState({ meetingName: "", fileName: "", file: null })
+    const [formData, setFormData] = useState({ meetingName: "", fileName: "video.mp4", file: null })
     const [isSubmit, setIsSubmit] = useState(false)
     const [selectedFileName, setSelectedFileName] = useState("");
 
@@ -28,6 +28,7 @@ const PitchAnalysis = () => {
         console.log(formData.meetingName, "iiiiiiiiiiiiiiiii")
         data.append('fileName', formData.fileName)
         data.append('file', formData.file);
+        // data.append('url', formData.url)
         dispatch(sendvideodata(data, history))
         setIsSubmit(true)
     }
@@ -53,7 +54,7 @@ const PitchAnalysis = () => {
                         <div className={classes.paper}>
                             <form onSubmit={handleSubmit} className={classes.form}>
                                 <TextField className={classes.input} name='meetingName' value={formData.meetingName} onChange={handleChange} variant="outlined" required fullWidth label='Meeting Name' />
-                                {/* <TextField className={classes.input} name='url'value={formData.url} onChange={handleChange} variant="outlined" required fullWidth label='URL' /> */}
+                                {/*<TextField className={classes.input} name='url' value={formData.url} onChange={handleChange} variant="outlined" required fullWidth label='URL' />*/}
                                 <>
                                     <input
                                         type="file"

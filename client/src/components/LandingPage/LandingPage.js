@@ -10,7 +10,11 @@ import './styles.css'
 // import MenuBook from '@material-ui/icons/menu_book';
 import { Element } from 'react-scroll'
 
-
+function iframe() {
+    return {
+        __html: '<iframe style="border:none" src="./grid2.html" width="700" height="450"></iframe>'
+    }
+}
 
 const LandingPage = () => {
     const classes = useStyles();
@@ -32,17 +36,18 @@ const LandingPage = () => {
                         <Typography variant="body1" style={{ width: '80%', marginTop: '2rem' }}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and </Typography>
                         <Button component={Link} className={classes.button} to="/auth" variant="contained" color="primary" >Sign In</Button>
                     </Grid>
-                    <Grid item xs={5} className={classes.rightGrid} data-aos="fade-left">
-                        This is Secod Grid
+                    <Grid item xs={5} className={classes.rightGrid} data-aos="fade-left" style={{ border: 'none' }}>
+                        <div style={{ border: 'none' }} dangerouslySetInnerHTML={iframe()} />
                     </Grid>
                 </Grid>
             </div>
 
+            {/* About Us Part */}
             <Element id='about-us' name='about-us'>
-                {/* About Us Part */}
                 <div data-aos="fade-up">
+
                     <ThemeProvider theme={headlineTheme}>
-                        <Typography style={{ textAlign: 'center', fontSize: 32, fontWeight: 'bold', marginTop: '5rem ' }}>About Us</Typography>
+                        <Typography style={{ textAlign: 'center', fontSize: 32, fontWeight: 'bold', marginTop: '8rem', paddingTop: '6rem' }}>About Us</Typography>
                     </ThemeProvider>
                     <hr className="hrStyle" />
                     <Grid container component="main" className={classes.aboutGrid}>
@@ -66,7 +71,7 @@ const LandingPage = () => {
 
             {/* Services Part */}
             <Element id='our-services' name='our-services'>
-                <div style={{ backgroundColor: '#f9f9f9' }} data-aos="fade-down">
+                <div style={{ backgroundColor: '#dce8ff' }} data-aos="fade-up">
                     <ThemeProvider theme={headlineTheme}>
                         <Typography variant="h2" style={{ textAlign: 'center', fontSize: 32, fontWeight: 'bold', marginTop: '8rem', paddingTop: '6rem' }}>Our Services</Typography>
                     </ThemeProvider>
@@ -110,7 +115,7 @@ const LandingPage = () => {
             <Element id='our-team' name='our-team'>
                 <div data-aos="fade-up">
                     <ThemeProvider theme={headlineTheme}>
-                        <Typography variant="h2" style={{ textAlign: 'center', fontSize: 32, fontWeight: 'bold', marginTop: '6rem', paddingTop: '3rem' }}>Our Team</Typography>
+                        <Typography variant="h2" style={{ textAlign: 'center', fontSize: 32, fontWeight: 'bold', marginTop: '8rem', paddingTop: '6rem' }}>Our Team</Typography>
                     </ThemeProvider>
                     <hr className="hrStyle" />
                     <div className="teamCardWrapper">
@@ -174,9 +179,10 @@ const LandingPage = () => {
 
             {/* Contact Us */}
             <Element id='contact-us' name='contact-us'>
-                <div data-aos="fade-up">
+                <div style={{ backgroundColor: '#dce8ff' }} data-aos="fade-up">
+
                     <ThemeProvider theme={headlineTheme}>
-                        <Typography style={{ textAlign: 'center', fontSize: 32, fontWeight: 'bold', marginTop: '5rem ' }}>Contact Us</Typography>
+                        <Typography style={{ textAlign: 'center', fontSize: 32, fontWeight: 'bold', marginTop: '8rem', paddingTop: '6rem' }}>Contact Us</Typography>
                     </ThemeProvider>
                     <hr className="hrStyle" />
                     <Grid container component="main" className={classes.aboutGrid}>
