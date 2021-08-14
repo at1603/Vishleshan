@@ -1,17 +1,15 @@
-import React from 'react';
-import clsx from 'clsx';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import useStyles from './styles';
+
+import clsx from 'clsx';
+import { withStyles } from '@material-ui/core/styles';
+import { Container, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableRow, TableHead } from '@material-ui/core'
+
+import { ResponsivePie } from '@nivo/pie';
+import GaugeChart from 'react-advanced-gauge-chart';
+import ReactWordcloud from 'react-wordcloud';
+
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -30,60 +28,276 @@ const StyledTableRow = withStyles((theme) => ({
         },
     },
 }))(TableRow);
-function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
-}
 
-const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-    createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
-const useStyles = makeStyles((theme) => ({
-    root: {
-        display: 'flex',
-    },
-    content: {
-        flexGrow: 1,
-        height: '100vh',
-        // overflow: 'auto',
-    },
-    container: {
-        paddingTop: theme.spacing(4),
-        paddingBottom: theme.spacing(4),
-        maxWidth: '1665px'
-    },
-    paper: {
-        padding: theme.spacing(2),
-        display: 'flex',
-        overflow: 'auto',
-        flexDirection: 'column',
-        borderRadius: '25px',
-        boxShadow: '0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22)'
-
-    },
-    fixedHeight: {
-        height: 240,
-    },
-    seeMore: {
-        marginTop: theme.spacing(3),
-    },
-    // table: {
-    //     minWidth: 700,
-    // },
-}));
 
 export default function Comparison() {
+    const comparisonData = JSON.parse(localStorage.getItem('comparisonData'))
     const classes = useStyles();
-    const { performance1, performance2 } = useSelector((state) => state.dashboard.comparisonData);
+
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+    const [meter1Value, setMeter1Value] = useState(0)
+    const [meter2Value, setMeter2Value] = useState(0)
+    const [averageEmotion1, setAverageEmotion1] = useState('Happy');
+    const [averageEmotion2, setAverageEmotion2] = useState('Happy');
+    const [Words1, set1Words] = useState({});
+    const [Words2, set2Words] = useState({});
+    const [lineData1, setLineData1] = useState([])
+    const [lineData2, setLineData2] = useState([])
+
+    const countWords = (resultantString) => {
+        const convertToObject = resultantString.split(" ").map( (i, k) => {
+            return {
+              
+                  text: i,
+                  value: resultantString.split(" ").filter(j => j === i).length,
+            }
+      });
+        return Array.from(new Set(convertToObject.map(JSON.stringify))).map(JSON.parse)
+    };
+
+    useEffect(() => {
+        let msgs = comparisonData.performance1.conversationIdData[0].analysisData.messages.messages;
+        let updatedDataArray = []
+        for(let i = 0; i< msgs.length; i++){
+            if (msgs[i].emotion === "Excited") updatedDataArray.push({ "x": i+1, "y": 6});
+            else if (msgs[i].emotion === "Happy") updatedDataArray.push({ "x": i+1, "y": 5});
+            else if (msgs[i].emotion === "Sad") updatedDataArray.push({ "x": i+1, "y": 4});
+            else if (msgs[i].emotion === "Bored") updatedDataArray.push({ "x": i+1, "y": 3});
+            else if (msgs[i].emotion === "Angry") updatedDataArray.push({ "x": i+1, "y": 2});
+            else if (msgs[i].emotion === "Fear") updatedDataArray.push({ "x": i+1, "y": 1});
+        };
+
+        setLineData1([ ...lineData1, updatedDataArray])
+
+
+        let maxEmotionValue = 0
+        let averageEmotionObject = { Bored: 0, Angry: 0, Sad: 0, Fear: 0, Excited: 0, Happy: 0 }
+        comparisonData.performance1.conversationIdData[0].analysisData.extraAnalysis.emotion.forEach((v, i) => {
+            averageEmotionObject.Bored += v.emotion.Bored;
+            averageEmotionObject.Angry += v.emotion.Angry;
+            averageEmotionObject.Sad += v.emotion.Sad;
+            averageEmotionObject.Fear += v.emotion.Fear;
+            averageEmotionObject.Excited += v.emotion.Excited;
+            averageEmotionObject.Happy += v.emotion.Happy;
+
+            maxEmotionValue = Math.max(averageEmotionObject.Bored, averageEmotionObject.Angry, averageEmotionObject.Sad, averageEmotionObject.Fear, averageEmotionObject.Excited
+                , averageEmotionObject.Happy)
+        });
+        setAverageEmotion1(Object.keys(averageEmotionObject).find(key => averageEmotionObject[key] === maxEmotionValue))
+        
+        maxEmotionValue = 0
+        averageEmotionObject = { Bored: 0, Angry: 0, Sad: 0, Fear: 0, Excited: 0, Happy: 0 }
+        comparisonData.performance2.conversationIdData[0].analysisData.extraAnalysis.emotion.forEach((v, i) => {
+            averageEmotionObject.Bored += v.emotion.Bored;
+            averageEmotionObject.Angry += v.emotion.Angry;
+            averageEmotionObject.Sad += v.emotion.Sad;
+            averageEmotionObject.Fear += v.emotion.Fear;
+            averageEmotionObject.Excited += v.emotion.Excited;
+            averageEmotionObject.Happy += v.emotion.Happy;
+
+            maxEmotionValue = Math.max(averageEmotionObject.Bored, averageEmotionObject.Angry, averageEmotionObject.Sad, averageEmotionObject.Fear, averageEmotionObject.Excited
+                , averageEmotionObject.Happy)
+        });
+        setAverageEmotion2(Object.keys(averageEmotionObject).find(key => averageEmotionObject[key] === maxEmotionValue))
+
+        setMeter1Value(((comparisonData.performance1.conversationIdData[0].analysisData.analytics.members[0].pace.wpm) / 150) * 0.5)
+        setMeter2Value(((comparisonData.performance1.conversationIdData[0].analysisData.analytics.members[0].pace.wpm) / 150) * 0.5)
+
+        let resultantString = "";
+        comparisonData.performance1.conversationIdData[0].analysisData.messages.messages.map(function(msg){
+            resultantString += " " + msg.text
+        });
+        resultantString = resultantString.replace("to ", "");
+        resultantString = resultantString.replace("am ", "");
+        resultantString = resultantString.replace("are ", "");
+        resultantString = resultantString.replace("is ", "");
+        resultantString = resultantString.replace("the ", "");
+        resultantString = resultantString.replace("were ", "");
+        resultantString = resultantString.replace("was ", "");
+        resultantString = resultantString.replace("a ", "");
+        resultantString = resultantString.replace("has ", "");
+        resultantString = resultantString.replace("can ", "");
+        resultantString = resultantString.replace("could ", "");
+        resultantString = resultantString.replace("do ", "");
+        resultantString = resultantString.replace("you ", "");
+        set1Words(countWords(resultantString));
+
+        resultantString = "";
+        comparisonData.performance2.conversationIdData[0].analysisData.messages.messages.map(function(msg){
+            resultantString += " " + msg.text
+        });
+        resultantString = resultantString.replace("to ", "");
+        resultantString = resultantString.replace("am ", "");
+        resultantString = resultantString.replace("are ", "");
+        resultantString = resultantString.replace("is ", "");
+        resultantString = resultantString.replace("the ", "");
+        resultantString = resultantString.replace("were ", "");
+        resultantString = resultantString.replace("was ", "");
+        resultantString = resultantString.replace("a ", "");
+        resultantString = resultantString.replace("has ", "");
+        resultantString = resultantString.replace("can ", "");
+        resultantString = resultantString.replace("could ", "");
+        resultantString = resultantString.replace("do ", "");
+        resultantString = resultantString.replace("you ", "");
+        set2Words(countWords(resultantString));
+    }, [meter1Value, meter2Value, averageEmotion1, averageEmotion2, set1Words, set2Words, setLineData1])
+
+    const options = {
+        colors: ["#1f77b4", "#ff7f0e", "#2ca02c"],
+        // colors: ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b"],
+        enableTooltip: true,
+        deterministic: false,
+        fontFamily: "impact",
+        fontSizes: [30, 90],
+        fontStyle: "normal",
+        fontWeight: "normal",
+        padding: 1,
+        rotations: 1,
+        rotationAngles: [0],
+        scale: "sqrt",
+        spiral: "archimedean",
+        transitionDuration: 1000
+    };
+    const size = [600, 300];
+
+    //WordCloud code
+    const wordCloud1 = <ReactWordcloud
+        options={options}
+        size={size}
+        words={Words1}
+        style={{margin: '0 auto'}}
+    />
+    const wordCloud2 = <ReactWordcloud
+        options={options}
+        size={size}
+        words={Words2}
+        style={{margin: '0 auto'}}
+    />
+
+    const getAverageEmotionEmoji = (averageEmotion) => {
+        if (averageEmotion === 'Happy') return  '🙂'
+        if (averageEmotion === 'Sad'  ) return  '😐'
+        if (averageEmotion === 'Angry') return  '😠'
+        if (averageEmotion === 'Bored') return  '🙁'
+        if (averageEmotion === 'Fear' ) return  '😨'
+        if (averageEmotion === 'Excited') return  '😄'
+    }
+    console.log(comparisonData, 'sfdhksf')
+    const performance1data = [
+        {
+            "id": "Total Silence",
+            "label": "Total Silence",
+            "value": comparisonData.performance1.conversationIdData[0].analysisData.analytics.metrics[0].percent,
+            "color": "hsl(36, 70%, 50%)"
+        },
+        {
+            "id": "Total Talk Time",
+            "label": "Total Talk Time",
+            "value": comparisonData.performance1.conversationIdData[0].analysisData.analytics.metrics[1].percent,
+            "color": "hsl(292, 70%, 50%)"
+        },
+        {
+            "id": "Total Overlap",
+            "label": "Total Overlap",
+            "value": comparisonData.performance1.conversationIdData[0].analysisData.analytics.metrics[2].percent,
+            "color": "hsl(186, 70%, 50%)"
+        },
+    ]
+
+    const performance2data = [
+        {
+            "id": "Total Silence",
+            "label": "Total Silence",
+            "value": comparisonData.performance1.conversationIdData[0].analysisData.analytics.metrics[0].percent,
+            "color": "hsl(36, 70%, 50%)"
+        },
+        {
+            "id": "Total Talk Time",
+            "label": "Total Talk Time",
+            "value": comparisonData.performance1.conversationIdData[0].analysisData.analytics.metrics[1].percent,
+            "color": "hsl(292, 70%, 50%)"
+        },
+        {
+            "id": "Total Overlap",
+            "label": "Total Overlap",
+            "value": comparisonData.performance1.conversationIdData[0].analysisData.analytics.metrics[2].percent,
+            "color": "hsl(186, 70%, 50%)"
+        },
+    ]
+
+    const performance1Pie = <ResponsivePie
+        data={performance1data}
+        margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
+        innerRadius={0.5}
+        padAngle={0.7}
+        cornerRadius={3}
+        activeOuterRadiusOffset={8}
+        borderWidth={1}
+        colors={{ scheme: 'category10' }}
+        borderColor={{ from: 'color', modifiers: [['darker', 0.2]] }}
+        arcLinkLabelsSkipAngle={10}
+        arcLinkLabelsTextColor="#333333"
+        arcLinkLabelsThickness={2}
+        arcLinkLabelsColor={{ from: 'color' }}
+        arcLabelsSkipAngle={10}
+        arcLabelsTextColor={{ from: 'color', modifiers: [['darker', 2]] }}
+        legends={[]}
+    />
+
+    const performance2Pie = <ResponsivePie
+        data={performance2data}
+        margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
+        innerRadius={0.5}
+        padAngle={0.7}
+        cornerRadius={3}
+        activeOuterRadiusOffset={8}
+        borderWidth={1}
+        colors={{ scheme: 'category10' }}
+        borderColor={{ from: 'color', modifiers: [['darker', 0.2]] }}
+        arcLinkLabelsSkipAngle={10}
+        arcLinkLabelsTextColor="#333333"
+        arcLinkLabelsThickness={2}
+        arcLinkLabelsColor={{ from: 'color' }}
+        arcLabelsSkipAngle={10}
+        arcLabelsTextColor={{ from: 'color', modifiers: [['darker', 2]] }}
+        legends={[]}
+    />
+
+    const gauge1Chart = <GaugeChart style={{ margin: '2rem auto', width: '100%' }} id="gauge-chart1"
+        nrOfLevels={3}
+        percent={meter1Value / 1}
+        colors={["#f4e361", "#1eea21", "#ea1e1e"]}
+        formatTextValue={value => Math.ceil((value * 300) / 100) + ' wpm'}
+        textColor="#000000"
+        marginInPercent={0.06}
+    />
+    const gauge2Chart = <GaugeChart style={{ margin: '2rem auto', width: '100%' }} id="gauge-chart2"
+        nrOfLevels={3}
+        percent={meter2Value / 1}
+        colors={["#f4e361", "#1eea21", "#ea1e1e"]}
+        formatTextValue={value => Math.ceil((value * 300) / 100) + ' wpm'}
+        textColor="#000000"
+        marginInPercent={0.06}
+    />
+
+
+    console.log(lineData1, 'sdfsdf')
     return (
         <div className={classes.root}>
             <main className={classes.content}>
                 <Container maxWidth="lg" className={classes.container}>
                     <Grid container spacing={3}>
+                        <Grid container xs={12}>
+                            <Paper className={fixedHeightPaper} style={{diplay: 'flex', width: '100vw'}}>
+                            <Grid xs={5}>
+                            sdfksf,saf
+                            </Grid>
+
+                            <Grid xs={5}>
+                            sdfskljfklsd
+                            </Grid>
+                            </Paper>
+                        </Grid>
                         <Grid item xs={12}>
                             <Paper className={fixedHeightPaper}>
 
@@ -95,27 +309,45 @@ export default function Comparison() {
                                     <Table className={classes.table} aria-label="customized table">
                                         <TableHead>
                                             <TableRow>
-                                                <StyledTableCell align="center">&lt;Meeting Name1&gt;</StyledTableCell>
+                                                <StyledTableCell align="center">{comparisonData.performance1.conversationIdData[0].meetingName}</StyledTableCell>
                                                 <StyledTableCell align="center"></StyledTableCell>
-                                                <StyledTableCell align="center">&lt;Meeting Name2&gt;</StyledTableCell>
+                                                <StyledTableCell align="center">{comparisonData.performance2.conversationIdData[0].meetingName}</StyledTableCell>
                                             </TableRow>
                                         </TableHead>
                                         <TableBody>
-                                            {rows.map((row) => (
                                                 <StyledTableRow>
-                                                    <StyledTableCell align="center">{row.fat}</StyledTableCell>
-                                                    <StyledTableCell align="center">{row.fat}</StyledTableCell>
-                                                    <StyledTableCell align="center">{row.fat}</StyledTableCell>
+                                                    <StyledTableCell align="center">{comparisonData.performance1.conversationIdData[0].analysisData.analytics.members.length}</StyledTableCell>
+                                                    <StyledTableCell align="center">Members</StyledTableCell>
+                                                    <StyledTableCell align="center">{comparisonData.performance2.conversationIdData[0].analysisData.analytics.members.length}</StyledTableCell>
                                                 </StyledTableRow>
-                                            ))}
+                                                <StyledTableRow>
+                                                    <StyledTableCell align="center">{comparisonData.performance2.conversationIdData[0].analysisData.questions.questions.length}</StyledTableCell>
+                                                    <StyledTableCell align="center">Questions Asked</StyledTableCell>
+                                                    <StyledTableCell align="center">{comparisonData.performance2.conversationIdData[0].analysisData.questions.questions.length}</StyledTableCell>
+                                                </StyledTableRow>
+                                                <StyledTableRow>
+                                                    <StyledTableCell align="center"><div style={{height: '20rem', width: '20rem', margin: 'auto'}}>{performance1Pie}</div></StyledTableCell>
+                                                    <StyledTableCell align="center">Conversation Ratio</StyledTableCell>
+                                                    <StyledTableCell align="center"><div style={{height: '20rem', width: '20rem', margin: 'auto'}}>{performance2Pie}</div></StyledTableCell>
+                                                </StyledTableRow>
+                                                <StyledTableRow>
+                                                    <StyledTableCell align="center"><div style={{height: 'fit-content', width: '15rem', margin: '3rem auto 0'}}>{gauge1Chart}</div></StyledTableCell>
+                                                    <StyledTableCell align="center">Pace of Speaker</StyledTableCell>
+                                                    <StyledTableCell align="center"><div style={{height: 'fit-content', width: '15rem', margin: '3rem auto 0'}}>{gauge2Chart}</div></StyledTableCell>
+                                                </StyledTableRow>
+                                                <StyledTableRow>
+                                                    <StyledTableCell align="center"><div style={{fontSize: '100px'}}>{getAverageEmotionEmoji(averageEmotion1)}</div></StyledTableCell>
+                                                    <StyledTableCell align="center">Average Emotion</StyledTableCell>
+                                                    <StyledTableCell align="center"><div style={{fontSize: '100px'}}>{getAverageEmotionEmoji(averageEmotion2)}</div></StyledTableCell>
+                                                </StyledTableRow>
+                                                <StyledTableRow>
+                                                    <StyledTableCell align="center">{wordCloud1}</StyledTableCell>
+                                                    <StyledTableCell align="center">Grammar</StyledTableCell>
+                                                    <StyledTableCell align="center">{wordCloud2}</StyledTableCell>
+                                                </StyledTableRow>
                                         </TableBody>
                                     </Table>
                                 </TableContainer>
-                            </Paper>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Paper className={fixedHeightPaper}>
-
                             </Paper>
                         </Grid>
                     </Grid>
