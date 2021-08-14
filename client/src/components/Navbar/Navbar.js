@@ -50,7 +50,7 @@ const Navbar = () => {
                             to="about-us"
                             spy={true}
                             smooth={true}
-                            duration={500}
+                            duration={800}
                             // className='some-class' 
                             activeClass={classes.selected}
                         >
@@ -62,7 +62,7 @@ const Navbar = () => {
                             to="our-services"
                             spy={true}
                             smooth={true}
-                            duration={500}
+                            duration={800}
                             // className='some-class'
                             activeClass={classes.selected}
                         >
@@ -74,7 +74,7 @@ const Navbar = () => {
                             to="our-team"
                             spy={true}
                             smooth={true}
-                            duration={500}
+                            duration={800}
                             // className='some-class'
                             activeClass={classes.selected}
                         >
@@ -86,7 +86,7 @@ const Navbar = () => {
                             to="contact-us"
                             spy={true}
                             smooth={true}
-                            duration={500}
+                            duration={800}
                             // className='some-class'
                             activeClass={classes.selected}
                         >
