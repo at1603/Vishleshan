@@ -176,7 +176,9 @@ export const sendVideoData = async (req, res) => {
             }
             console.log("ss")
             let path = `public/${req.body.fileName}`
+            let url = ''
             if (req.file == undefined) {
+                url = req.body.url
                 var stream = ytdl('https://www.youtube.com/watch?v=9IEys7g2YFc&ab_channel=ImproveYourVoice')
                     .pipe(fs.createWriteStream('./public/video.mp4'))
             }
@@ -207,7 +209,7 @@ export const sendVideoData = async (req, res) => {
                                             messageData[i].sarcasm = Object.keys(tempSarcasm).reduce((a, b) => tempSarcasm[a] > tempSarcasm[b] ? a : b)
                                         }
                                         //Creating the Final data
-                                        await AnalysisData.create({ handlerId: req.userId, conversationIdData: { conversationId: data.messages.messages[0].conversationId, createdAt: Date.now(), meetingName: req.body.meetingName, analysisData: data } });
+                                        await AnalysisData.create({ handlerId: req.userId, conversationIdData: { conversationId: data.messages.messages[0].conversationId, createdAt: Date.now(), meetingName: req.body.meetingName, analysisData: data, url: url } });
                                         res.status(200).json(data)
                                     }
                                     catch (error) {
@@ -229,7 +231,7 @@ export const sendVideoData = async (req, res) => {
                                             messageData[i].profane = Object.keys(tempProfane).reduce((a, b) => tempProfane[a] > tempProfane[b] ? a : b)
                                             messageData[i].sarcasm = Object.keys(tempSarcasm).reduce((a, b) => tempSarcasm[a] > tempSarcasm[b] ? a : b)
                                         }
-                                        await AnalysisData.updateOne({ _id: existingUser._id }, { $push: { conversationIdData: { conversationId: data.messages.messages[0].conversationId, createdAt: Date.now(), meetingName: req.body.meetingName, analysisData: data } } }).exec(function (err, response) {
+                                        await AnalysisData.updateOne({ _id: existingUser._id }, { $push: { conversationIdData: { conversationId: data.messages.messages[0].conversationId, createdAt: Date.now(), meetingName: req.body.meetingName, analysisData: data, url: url } } }).exec(function (err, response) {
                                             if (err) {
                                                 console.log(err)
                                             }
