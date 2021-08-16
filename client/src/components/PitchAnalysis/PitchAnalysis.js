@@ -37,6 +37,7 @@ const PitchAnalysis = () => {
         setFormData({ ...formData, [e.target.name]: e.target.value })
     }
     const handleUploadClick = (event) => {
+        setSelectedFileName("")
         console.log(event.target.files[0]);
         setFormData({ ...formData, file: event.target.files[0], fileName: event.target.files[0].name });
         setSelectedFileName(event.target.files[0].name);
