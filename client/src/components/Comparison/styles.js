@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
 
     },
     fixedHeight: {
-        height: 240,
+        height: 'fit-content',
     },
     seeMore: {
         marginTop: theme.spacing(3),

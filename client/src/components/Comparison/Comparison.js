@@ -4,9 +4,10 @@ import useStyles from './styles';
 
 import clsx from 'clsx';
 import { withStyles } from '@material-ui/core/styles';
-import { Container, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableRow, TableHead } from '@material-ui/core'
+import { Typography, Container, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableRow, TableHead } from '@material-ui/core'
 
 import { ResponsivePie } from '@nivo/pie';
+import { ResponsiveLine } from '@nivo/line'
 import GaugeChart from 'react-advanced-gauge-chart';
 import ReactWordcloud from 'react-wordcloud';
 
@@ -59,17 +60,30 @@ export default function Comparison() {
         let msgs = comparisonData.performance1.conversationIdData[0].analysisData.messages.messages;
         let updatedDataArray = []
         for(let i = 0; i< msgs.length; i++){
-            if (msgs[i].emotion === "Excited") updatedDataArray.push({ "x": i+1, "y": 6});
-            else if (msgs[i].emotion === "Happy") updatedDataArray.push({ "x": i+1, "y": 5});
-            else if (msgs[i].emotion === "Sad") updatedDataArray.push({ "x": i+1, "y": 4});
-            else if (msgs[i].emotion === "Bored") updatedDataArray.push({ "x": i+1, "y": 3});
-            else if (msgs[i].emotion === "Angry") updatedDataArray.push({ "x": i+1, "y": 2});
-            else if (msgs[i].emotion === "Fear") updatedDataArray.push({ "x": i+1, "y": 1});
+            if (msgs[i].emotion === "Excited") updatedDataArray.push({ "x": i+1, "y": "Excited"});
+            else if (msgs[i].emotion === "Happy") updatedDataArray.push({ "x": i+1, "y": "Happy"});
+            else if (msgs[i].emotion === "Sad") updatedDataArray.push({ "x": i+1, "y": "Sad"});
+            else if (msgs[i].emotion === "Bored") updatedDataArray.push({ "x": i+1, "y": "Bored"});
+            else if (msgs[i].emotion === "Angry") updatedDataArray.push({ "x": i+1, "y": "Fear"});
+            else if (msgs[i].emotion === "Fear") updatedDataArray.push({ "x": i+1, "y": "Angry"});
         };
-
         setLineData1([ ...lineData1, updatedDataArray])
 
+        msgs = comparisonData.performance2.conversationIdData[0].analysisData.messages.messages;
+        updatedDataArray = []
+        for(let i = 0; i< msgs.length; i++){
+            if (msgs[i].emotion === "Excited") updatedDataArray.push({ "x": i+1, "y": "Excited"});
+            else if (msgs[i].emotion === "Happy") updatedDataArray.push({ "x": i+1, "y": "Happy"});
+            else if (msgs[i].emotion === "Sad") updatedDataArray.push({ "x": i+1, "y": "Sad"});
+            else if (msgs[i].emotion === "Bored") updatedDataArray.push({ "x": i+1, "y": "Bored"});
+            else if (msgs[i].emotion === "Angry") updatedDataArray.push({ "x": i+1, "y": "Fear"});
+            else if (msgs[i].emotion === "Fear") updatedDataArray.push({ "x": i+1, "y": "Angry"});
+        };
 
+        setLineData2([ ...lineData2, updatedDataArray])
+    }, [])
+
+    useEffect(() => {
         let maxEmotionValue = 0
         let averageEmotionObject = { Bored: 0, Angry: 0, Sad: 0, Fear: 0, Excited: 0, Happy: 0 }
         comparisonData.performance1.conversationIdData[0].analysisData.extraAnalysis.emotion.forEach((v, i) => {
@@ -101,7 +115,7 @@ export default function Comparison() {
         setAverageEmotion2(Object.keys(averageEmotionObject).find(key => averageEmotionObject[key] === maxEmotionValue))
 
         setMeter1Value(((comparisonData.performance1.conversationIdData[0].analysisData.analytics.members[0].pace.wpm) / 150) * 0.5)
-        setMeter2Value(((comparisonData.performance1.conversationIdData[0].analysisData.analytics.members[0].pace.wpm) / 150) * 0.5)
+        setMeter2Value(((comparisonData.performance2.conversationIdData[0].analysisData.analytics.members[0].pace.wpm) / 150) * 0.5)
 
         let resultantString = "";
         comparisonData.performance1.conversationIdData[0].analysisData.messages.messages.map(function(msg){
@@ -142,6 +156,7 @@ export default function Comparison() {
         set2Words(countWords(resultantString));
     }, [meter1Value, meter2Value, averageEmotion1, averageEmotion2, set1Words, set2Words, setLineData1])
 
+    
     const options = {
         colors: ["#1f77b4", "#ff7f0e", "#2ca02c"],
         // colors: ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b"],
@@ -208,19 +223,19 @@ export default function Comparison() {
         {
             "id": "Total Silence",
             "label": "Total Silence",
-            "value": comparisonData.performance1.conversationIdData[0].analysisData.analytics.metrics[0].percent,
+            "value": comparisonData.performance2.conversationIdData[0].analysisData.analytics.metrics[0].percent,
             "color": "hsl(36, 70%, 50%)"
         },
         {
             "id": "Total Talk Time",
             "label": "Total Talk Time",
-            "value": comparisonData.performance1.conversationIdData[0].analysisData.analytics.metrics[1].percent,
+            "value": comparisonData.performance2.conversationIdData[0].analysisData.analytics.metrics[1].percent,
             "color": "hsl(292, 70%, 50%)"
         },
         {
             "id": "Total Overlap",
             "label": "Total Overlap",
-            "value": comparisonData.performance1.conversationIdData[0].analysisData.analytics.metrics[2].percent,
+            "value": comparisonData.performance2.conversationIdData[0].analysisData.analytics.metrics[2].percent,
             "color": "hsl(186, 70%, 50%)"
         },
     ]
@@ -265,7 +280,7 @@ export default function Comparison() {
 
     const gauge1Chart = <GaugeChart style={{ margin: '2rem auto', width: '100%' }} id="gauge-chart1"
         nrOfLevels={3}
-        percent={meter1Value / 1}
+        percent={meter1Value}
         colors={["#f4e361", "#1eea21", "#ea1e1e"]}
         formatTextValue={value => Math.ceil((value * 300) / 100) + ' wpm'}
         textColor="#000000"
@@ -273,15 +288,90 @@ export default function Comparison() {
     />
     const gauge2Chart = <GaugeChart style={{ margin: '2rem auto', width: '100%' }} id="gauge-chart2"
         nrOfLevels={3}
-        percent={meter2Value / 1}
+        percent={meter2Value}
         colors={["#f4e361", "#1eea21", "#ea1e1e"]}
         formatTextValue={value => Math.ceil((value * 300) / 100) + ' wpm'}
         textColor="#000000"
         marginInPercent={0.06}
     />
 
+    //LineGraph Data and Code
 
-    console.log(lineData1, 'sdfsdf')
+    const finalData = [
+        {
+          "id": comparisonData.performance1.conversationIdData[0].meetingName,
+          "color": "hsl(189, 70%, 50%)",
+          "data": lineData1[0]
+        },
+        {
+          "id": comparisonData.performance2.conversationIdData[0].meetingName,
+          "color": "hsl(255, 70%, 50%)",
+          "data": lineData2[0]
+        }
+      ]
+    console.log(lineData1[0], lineData2[0])
+    console.log(finalData, 'ApnaFinalData')
+    const ComparisonLineGraph =
+        <ResponsiveLine
+        data={finalData}
+        margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
+        xScale={{ type: 'point' }}
+        yScale={{ type: 'point', min: 'Angry', max: 'Excited' ,stacked: false, reverse: false }}
+        curve="catmullRom"
+        axisTop={null}
+        axisRight={null}
+        axisBottom={{
+            orient: 'bottom',
+            tickSize: 5,
+            tickPadding: 5,
+            tickRotation: 0,
+            legend: 'Sentence Counter',
+            legendOffset: 36,
+            legendPosition: 'middle'
+        }}
+        axisLeft={{
+            orient: 'left',
+            tickSize: 5,
+            tickPadding: 5,
+            tickRotation: 0,
+            legend: 'Emotion',
+            legendOffset: -40,
+            legendPosition: 'middle'
+        }}
+        colors={{ scheme: 'category10' }}
+        pointSize={10}
+        pointColor={{ theme: 'background' }}
+        pointBorderWidth={2}
+        pointBorderColor={{ from: 'serieColor' }}
+        pointLabelYOffset={-12}
+        useMesh={true}
+        legends={[
+            {
+                anchor: 'bottom-right',
+                direction: 'column',
+                justify: false,
+                translateX: 100,
+                translateY: 0,
+                itemsSpacing: 0,
+                itemDirection: 'left-to-right',
+                itemWidth: 80,
+                itemHeight: 20,
+                itemOpacity: 0.75,
+                symbolSize: 12,
+                symbolShape: 'circle',
+                symbolBorderColor: 'rgba(0, 0, 0, .5)',
+                effects: [
+                    {
+                        on: 'hover',
+                        style: {
+                            itemBackground: 'rgba(0, 0, 0, .03)',
+                            itemOpacity: 1
+                        }
+                    }
+                ]
+            }
+        ]}
+    />
     return (
         <div className={classes.root}>
             <main className={classes.content}>
@@ -300,7 +390,10 @@ export default function Comparison() {
                         </Grid>
                         <Grid item xs={12}>
                             <Paper className={fixedHeightPaper}>
-
+                                <Typography variant="h4" style={{textAlign: 'center'}}>Emotion Per Sentence Graph</Typography>
+                                <div style={{height: '25rem', width: '99rem'}}>
+                                    {ComparisonLineGraph}
+                                </div>
                             </Paper>
                         </Grid>
                         <Grid item xs={12}>
@@ -321,7 +414,7 @@ export default function Comparison() {
                                                     <StyledTableCell align="center">{comparisonData.performance2.conversationIdData[0].analysisData.analytics.members.length}</StyledTableCell>
                                                 </StyledTableRow>
                                                 <StyledTableRow>
-                                                    <StyledTableCell align="center">{comparisonData.performance2.conversationIdData[0].analysisData.questions.questions.length}</StyledTableCell>
+                                                    <StyledTableCell align="center">{comparisonData.performance1.conversationIdData[0].analysisData.questions.questions.length}</StyledTableCell>
                                                     <StyledTableCell align="center">Questions Asked</StyledTableCell>
                                                     <StyledTableCell align="center">{comparisonData.performance2.conversationIdData[0].analysisData.questions.questions.length}</StyledTableCell>
                                                 </StyledTableRow>
@@ -337,7 +430,7 @@ export default function Comparison() {
                                                 </StyledTableRow>
                                                 <StyledTableRow>
                                                     <StyledTableCell align="center"><div style={{fontSize: '100px'}}>{getAverageEmotionEmoji(averageEmotion1)}</div></StyledTableCell>
-                                                    <StyledTableCell align="center">Average Emotion</StyledTableCell>
+                                                    <StyledTableCell align="center">Overall Emotion</StyledTableCell>
                                                     <StyledTableCell align="center"><div style={{fontSize: '100px'}}>{getAverageEmotionEmoji(averageEmotion2)}</div></StyledTableCell>
                                                 </StyledTableRow>
                                                 <StyledTableRow>
