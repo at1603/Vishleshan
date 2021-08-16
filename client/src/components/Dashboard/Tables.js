@@ -310,7 +310,7 @@ export default function Tables() {
     const emptyRows =
         rowsPerPage - Math.min(rowsPerPage, tableData.length - page * rowsPerPage);
     const handleButtonClick = (conversationId) => {
-        dispatch(fetchanalysisresult(conversationId))
+        dispatch(fetchanalysisresult(conversationId, history))
     }
     return (
         <div className={classes.root}>
@@ -362,7 +362,7 @@ export default function Tables() {
                                             <TableCell align="center">{isoToDate(row.createdAt)}</TableCell>
                                             <TableCell align="center">{row.conversationId}</TableCell>
                                             <TableCell align="center">
-                                                <Button variant="contained" color="primary" onClick={handleButtonClick(row.conversationId)}>
+                                                <Button variant="contained" color="primary" onClick={() => (handleButtonClick(row.conversationId))}>
                                                     View
                                                 </Button>
 
