@@ -1,6 +1,6 @@
 import * as api from '../api';
 
-import { GET_CONVO_LIST, GET_COMPARISON_DATA } from '../constants/actionTypes';
+import { GET_CONVO_LIST, GET_COMPARISON_DATA, FETCH_ANALYSIS_RESULT } from '../constants/actionTypes';
 
 export const getconversationlist = () => async (dispatch) => {
     try {
@@ -22,5 +22,16 @@ export const getcomparisondata = (conversationId1, conversationId2, history) => 
 
     } catch (error) {
         console.log(error);
+    }
+}
+
+export const fetchanalysisresult = (conversationId, history) => async (dispatch) => {
+    try {
+        const { data } = await api.fetchAnalysisResult(conversationId);
+        dispatch({ type: FETCH_ANALYSIS_RESULT, data });
+        history.push('/pitchAnalysisResult');
+    } catch (error) {
+        console.log(error);
+
     }
 }
