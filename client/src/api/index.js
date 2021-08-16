@@ -26,4 +26,5 @@ export const sendVideoData = (formData) => API.post('/analysis/pitchAnalysis/sen
 })
 export const getComparisonData = (conversationId1, conversationId2) => API.get(`/analysis/pitchAnalysis/getComparisonData/${conversationId1}/${conversationId2}`)
 export const getConversationList = () => API.get('/analysis/pitchAnalysis/getConversationList');
+export const fetchAnalysisResult = (conversationId) => API.get(`/analysis/pitchAnalysis/fetchAnalysisResult/${conversationId}`);
 
