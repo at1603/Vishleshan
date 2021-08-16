@@ -28,7 +28,8 @@ export const getcomparisondata = (conversationId1, conversationId2, history) => 
 export const fetchanalysisresult = (conversationId, history) => async (dispatch) => {
     try {
         const { data } = await api.fetchAnalysisResult(conversationId);
-        dispatch({ type: FETCH_ANALYSIS_RESULT, data });
+        dispatch({ type: FETCH_ANALYSIS_RESULT, data: data.analysisData });
+        console.log(data.analysisData, "in fetch");
         history.push('/pitchAnalysisResult');
     } catch (error) {
         console.log(error);
