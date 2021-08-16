@@ -21,7 +21,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import IconButton from "@material-ui/core/IconButton";
 import Tooltip from "@material-ui/core/Tooltip";
 import FilterListIcon from "@material-ui/icons/FilterList";
-import { getcomparisondata } from '../../actions/dashboard';
+import { getcomparisondata, fetchanalysisresult } from '../../actions/dashboard';
 
 
 
@@ -62,6 +62,8 @@ const headCells = [
     },
     { id: "calories", numeric: true, disablePadding: false, label: "Created At" },
     { id: "fat", numeric: true, disablePadding: false, label: "Conversation ID" },
+    { id: "result", numeric: true, disablePadding: false, label: "View Results" },
+    { id: "compare", numeric: true, disablePadding: false, label: "Add to Compare" },
 ];
 
 function EnhancedTableHead(props) {
@@ -307,6 +309,9 @@ export default function Tables() {
 
     const emptyRows =
         rowsPerPage - Math.min(rowsPerPage, tableData.length - page * rowsPerPage);
+    const handleButtonClick = (conversationId) => {
+        dispatch(fetchanalysisresult(conversationId))
+    }
     return (
         <div className={classes.root}>
             <Paper className={classes.paper}>
@@ -356,6 +361,12 @@ export default function Tables() {
                                             <TableCell align="center">{row.meetingName}</TableCell>
                                             <TableCell align="center">{isoToDate(row.createdAt)}</TableCell>
                                             <TableCell align="center">{row.conversationId}</TableCell>
+                                            <TableCell align="center">
+                                                <Button variant="contained" color="primary" onClick={handleButtonClick(row.conversationId)}>
+                                                    View
+                                                </Button>
+
+                                            </TableCell>
                                             <TableCell padding="checkbox">
                                                 <Checkbox
                                                     checked={isItemSelected}
