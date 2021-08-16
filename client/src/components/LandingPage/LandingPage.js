@@ -12,7 +12,7 @@ import { Element } from 'react-scroll'
 
 function iframe() {
     return {
-        __html: '<iframe style="border:none" src="./grid2.html" width="700" height="450"></iframe>'
+        __html: '<iframe style="border:none; border-radius:25px" src="./grid2.html" width="700" height="450"></iframe>'
     }
 }
 

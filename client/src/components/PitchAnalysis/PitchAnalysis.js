@@ -37,10 +37,10 @@ const PitchAnalysis = () => {
         setFormData({ ...formData, [e.target.name]: e.target.value })
     }
     const handleUploadClick = (event) => {
-        setSelectedFileName("")
-        console.log(event.target.files[0]);
-        setFormData({ ...formData, file: event.target.files[0], fileName: event.target.files[0].name });
-        setSelectedFileName(event.target.files[0].name);
+        var newFile = (event.target.files[0] === undefined) ? null : event.target.files[0];
+        var newFileName = (event.target.files[0] === undefined) ? "" : event.target.files[0].name;
+        setFormData({ ...formData, file: newFile, fileName: newFileName });
+        setSelectedFileName(newFileName);
     };
 
     const spinner = <div style={{ alignContent: 'center', textAlign: 'center', justifyContent: 'center', marginTop: '8rem' }}>
@@ -56,6 +56,8 @@ const PitchAnalysis = () => {
                             <form onSubmit={handleSubmit} className={classes.form}>
                                 <TextField className={classes.input} name='meetingName' value={formData.meetingName} onChange={handleChange} variant="outlined" required fullWidth label='Meeting Name' />
                                 <TextField className={classes.input} name='url' value={formData.url} onChange={handleChange} variant="outlined" fullWidth label='URL' />
+                                <Typography style={{ marginLeft: '13rem', fontSize: '30px' }} className={classes.submit} fullWidth>OR</Typography>
+
                                 <>
                                     <input
                                         type="file"
@@ -75,7 +77,8 @@ const PitchAnalysis = () => {
                                     {selectedFileName === "" ? <Typography component="span" className={classes.input}>No File Chosen</Typography> :
                                         <Typography component="span" className={classes.input}>{selectedFileName}</Typography>}
                                 </>
-                                <Button style={{ marginLeft: '0.5rem' }} variant='contained' color='primary' size='large' type='submit' className={classes.submit} fullWidth>Submit</Button>
+                                {formData.url && formData.fileName !== "video.mp4" ? (<Button style={{ marginLeft: '0.5rem' }} variant='contained' color='primary' size='large' className={classes.submit} fullWidth disabled> Submit </Button>) : (<Button style={{ marginLeft: '0.5rem' }} variant='contained' color='primary' size='large' type='submit' className={classes.submit} fullWidth>Submit</Button>)}
+
                             </form>
                         </div>
                     }
