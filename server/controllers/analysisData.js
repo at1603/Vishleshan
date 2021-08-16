@@ -44,3 +44,16 @@ export const getConversationList = async (req, res) => {
         }
     })
 }
+
+export const fetchAnanlysisData = async (req, res) => {
+    await AnalysisData.findOne({ handlerId: req.userId }).exec((err, response) => {
+        if (err) {
+            console.log(err)
+            res.status(204).json({ message: "Please upload a video to generate analysis data!" })
+        }
+        else {
+            console.log(response)
+            res.status(200).json({ analysisResult: response.conversationIdData })
+        }
+    })
+}
