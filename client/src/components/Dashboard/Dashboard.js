@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useLayoutEffect } from 'react';
 import clsx from 'clsx';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
@@ -8,6 +8,7 @@ import Switch from '@material-ui/core/Switch';
 import Tables from './Tables'
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
+import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Link from '@material-ui/core/Link';
@@ -48,10 +49,10 @@ export default function Dashboard() {
         // }, 1000)
         setGulag(!gulag);
     }
-    useEffect(() => {
-        dispatch(getconversationlist());
+    // useLayoutEffect(() => {
+    //     dispatch(getconversationlist());
 
-    }, [dispatch]);
+    // }, [dispatch]);
 
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
@@ -70,7 +71,7 @@ export default function Dashboard() {
                             <Grid container item xs={3} style={gulag ? { display: 'none' } : {}} >
 
                                 <Paper style={{ width: '100%', margin: '0 2rem' }} className={classes.paper}>
-                                    {/* <Chart /> */}
+                                    <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
                                 </Paper>
                             </Grid>
                         </Grow>
@@ -81,6 +82,11 @@ export default function Dashboard() {
                             </Grid>
 
                             {tab === 0 ? (
+                                <Grid item xs={12}>
+                                    <Paper className={classes.paper}>
+                                        <Tables />
+                                    </Paper>
+                                </Grid>) : (
                                 <>
                                     <Grid item xs={12} md={8} lg={4}>
                                         <Paper className={fixedHeightPaper}>
@@ -114,12 +120,7 @@ export default function Dashboard() {
 
 
                                 </>
-                            ) : (
-                                <Grid item xs={12}>
-                                    <Paper className={classes.paper}>
-                                        <Tables />
-                                    </Paper>
-                                </Grid>)}
+                            )}
                         </Grid>
                     </Grid>
                     <Box pt={4}>
