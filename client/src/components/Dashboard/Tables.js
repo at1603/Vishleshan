@@ -6,6 +6,8 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 import { useHistory } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 import PropTypes from "prop-types";
@@ -21,7 +23,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import IconButton from "@material-ui/core/IconButton";
 import Tooltip from "@material-ui/core/Tooltip";
 import FilterListIcon from "@material-ui/icons/FilterList";
-import { getcomparisondata, fetchanalysisresult } from '../../actions/dashboard';
+import { getcomparisondata, fetchanalysisresult, getconversationlist } from '../../actions/dashboard';
 
 
 
@@ -236,10 +238,10 @@ export default function Tables() {
     const conversationId1 = "5024370436079616";
     const conversationId2 = "5665967414706176";
 
-    // useEffect(() => {
-    //     dispatch(getconversationlist());
+    useEffect(() => {
+        dispatch(getconversationlist());
 
-    // }, [dispatch]);
+    }, []);
 
     const tableData = useSelector((state) => state.dashboard.conversationList.conversationIdData);
     console.log(tableData, "meow")
@@ -308,94 +310,106 @@ export default function Tables() {
     const isSelected = (conversationId) => selected.indexOf(conversationId) !== -1;
 
     const emptyRows =
-        rowsPerPage - Math.min(rowsPerPage, tableData.length - page * rowsPerPage);
+        rowsPerPage - Math.min(rowsPerPage, tableData?.length - page * rowsPerPage);
     const handleButtonClick = (conversationId) => {
         dispatch(fetchanalysisresult(conversationId, history))
     }
+    const spinner = <div style={{ alignContent: 'center', textAlign: 'center', justifyContent: 'center', marginTop: '8rem' }}>
+        <CircularProgress />
+        <Typography variant="body1" style={{ display: 'block', textAlign: 'center', marginTop: '2rem' }}>Loading meeting history</Typography>
+    </div>
+    console.log(page, "-page");
+    console.log(rowsPerPage, "-rowsperpage");
     return (
+
         <div className={classes.root}>
             <Paper className={classes.paper}>
-                <EnhancedTableToolbar selected={selected} numSelected={selected.length} />
-                <TableContainer>
-                    <Table
-                        className={classes.table}
-                        aria-labelledby="tableTitle"
-                        size="medium"
-                        aria-label="enhanced table"
-                    >
-                        <EnhancedTableHead
-                            classes={classes}
-                            numSelected={selected.length}
-                            order={order}
-                            orderBy={orderBy}
-                            onRequestSort={handleRequestSort}
-                            rowCount={tableData.length}
-                        />
-                        <TableBody>
-                            {stableSort(tableData, getComparator(order, orderBy))
-                                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                .map((row, index) => {
-                                    // const isItemSelected = isSelected(row.name);
-                                    const isItemSelected = isSelected(row.conversationId);
-                                    const labelId = `enhanced-table-checkbox-${index}`;
+                {tableData === undefined ? (spinner) : (
+                    <>
+                        <EnhancedTableToolbar selected={selected} numSelected={selected.length} />
+                        <TableContainer>
+                            <Table
+                                className={classes.table}
+                                aria-labelledby="tableTitle"
+                                size="medium"
+                                aria-label="enhanced table"
+                            >
+                                <EnhancedTableHead
+                                    classes={classes}
+                                    numSelected={selected.length}
+                                    order={order}
+                                    orderBy={orderBy}
+                                    onRequestSort={handleRequestSort}
+                                    rowCount={tableData.length}
+                                />
+                                <TableBody>
+                                    {stableSort(tableData, getComparator(order, orderBy))
+                                        .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                        .map((row, index) => {
+                                            // const isItemSelected = isSelected(row.name);
+                                            const isItemSelected = isSelected(row.conversationId);
+                                            const labelId = `enhanced-table-checkbox-${index}`;
 
-                                    return (
-                                        <TableRow
-                                            hover
-                                            // onClick={(event) => handleClick(event, row.name)}
-                                            aria-checked={isItemSelected}
-                                            tabIndex={-1}
-                                            key={row.conversationId}
-                                            // key={row.name}
-                                            selected={isItemSelected}
-                                        >
-                                            <TableCell
-                                                component="th"
-                                                id={labelId}
-                                                scope="row"
-                                                padding="none"
-                                                align="center"
-                                            >
-                                                {index + 1}
-                                            </TableCell>
-                                            <TableCell align="center">{row.meetingName}</TableCell>
-                                            <TableCell align="center">{isoToDate(row.createdAt)}</TableCell>
-                                            <TableCell align="center">{row.conversationId}</TableCell>
-                                            <TableCell align="center">
-                                                <Button variant="contained" color="primary" onClick={() => (handleButtonClick(row.conversationId))}>
-                                                    View
-                                                </Button>
-
-                                            </TableCell>
-                                            <TableCell padding="checkbox">
-                                                <Checkbox
-                                                    checked={isItemSelected}
-                                                    inputProps={{ "aria-labelledby": labelId }}
-                                                    disabled={(selected.length == 2 && !isItemSelected) ? true : false}
+                                            return (
+                                                <TableRow
+                                                    hover
                                                     // onClick={(event) => handleClick(event, row.name)}
-                                                    onClick={(event) => handleClick(event, row.conversationId)}
-                                                />
-                                            </TableCell>
+                                                    aria-checked={isItemSelected}
+                                                    tabIndex={-1}
+                                                    key={row.conversationId}
+                                                    // key={row.name}
+                                                    selected={isItemSelected}
+                                                >
+                                                    <TableCell
+                                                        component="th"
+                                                        id={labelId}
+                                                        scope="row"
+                                                        padding="none"
+                                                        align="center"
+                                                    >
+                                                        {page * rowsPerPage + index + 1}
+                                                    </TableCell>
+                                                    <TableCell align="center">{row.meetingName}</TableCell>
+                                                    <TableCell align="center">{isoToDate(row.createdAt)}</TableCell>
+                                                    <TableCell align="center">{row.conversationId}</TableCell>
+                                                    <TableCell align="center">
+                                                        <Button variant="contained" color="primary" onClick={() => (handleButtonClick(row.conversationId))}>
+                                                            View
+                                                        </Button>
+
+                                                    </TableCell>
+                                                    <TableCell padding="checkbox">
+                                                        <Checkbox
+                                                            checked={isItemSelected}
+                                                            inputProps={{ "aria-labelledby": labelId }}
+                                                            disabled={(selected.length == 2 && !isItemSelected) ? true : false}
+                                                            // onClick={(event) => handleClick(event, row.name)}
+                                                            onClick={(event) => handleClick(event, row.conversationId)}
+                                                        />
+                                                    </TableCell>
+                                                </TableRow>
+                                            );
+                                        })}
+                                    {emptyRows > 0 && (
+                                        <TableRow style={{ height: (53) * emptyRows }}>
+                                            <TableCell colSpan={6} />
                                         </TableRow>
-                                    );
-                                })}
-                            {emptyRows > 0 && (
-                                <TableRow style={{ height: (53) * emptyRows }}>
-                                    <TableCell colSpan={6} />
-                                </TableRow>
-                            )}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-                <TablePagination
-                    rowsPerPageOptions={[5, 10, 25]}
-                    component="div"
-                    count={tableData.length}
-                    rowsPerPage={rowsPerPage}
-                    page={page}
-                    onPageChange={handleChangePage}
-                    onRowsPerPageChange={handleChangeRowsPerPage}
-                />
+                                    )}
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
+
+                        <TablePagination
+                            rowsPerPageOptions={[5, 10, 25]}
+                            component="div"
+                            count={tableData.length}
+                            rowsPerPage={rowsPerPage}
+                            page={page}
+                            onPageChange={handleChangePage}
+                            onRowsPerPageChange={handleChangeRowsPerPage}
+                        />
+                    </>
+                )}
             </Paper>
         </div>
     );
