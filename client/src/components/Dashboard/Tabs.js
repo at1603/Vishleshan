@@ -104,8 +104,8 @@ export default function CustomizedTabs(props) {
         <div className={classes.root}>
             <div className={classes.demo1}>
                 <AntTabs value={selectedTab} onChange={handleTabChange} aria-label="ant example" centered>
-                    <AntTab label="Summary Analysis" />
                     <AntTab label="Meeting History" />
+                    <AntTab label="User Stats" />
                     {/* <AntTab label="Sentiment Analysis" /> */}
                 </AntTabs>
                 {/* <Typography className={classes.padding} /> */}
