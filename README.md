@@ -65,9 +65,9 @@ e.g. If someone crashed his car on highway, locals can help promptly than police
 * Database
     * MongoDB
 * APIs
-    * symbl.ai
-    * words API
-    * websockets
+    * Symbl.ai
+    * Words API
+    * Websockets
 
 
 <!-- GETTING STARTED -->
@@ -82,9 +82,7 @@ e.g. If someone crashed his car on highway, locals can help promptly than police
 
 ### Installation
 
-1. Get a Google Maps API key. 
-
-Two APIs are being used 
+1. Two APIs are being used 
 - symbl.ai API
 - words API
 
@@ -126,20 +124,20 @@ Two APIs are being used
 
 
 <!-- USAGE EXAMPLES -->
-## Usage
+<!-- ## Usage
 
 Our platform enables users to volunteer and help nearby users in need of any emergency assistance or aid. Through the website, users can send SOS request to other users in the radius of 2km. Once the SOS request is sent, the nearby users (within 2km) receive the request and they have the choice to either accept the request or reject it depending their personal situation.<br>
 Through this, the requester can get immediate assistance through nearby volunteers.
 Through the google maps api provided on the platform the volunteer will be able to get the address of the requester.
 Even the requester will be able to view his/her location on the google maps before sending the request 
-
+ -->
 
 
 <!-- LICENSE -->
-## License
+<!-- ## License
 
 Distributed under the MIT License.
-
+ -->
 
 
 <!-- CONTACT -->
@@ -147,6 +145,6 @@ Distributed under the MIT License.
 
 - Abhinav Tripathi - abhi3pathi01@gmail.com
 - Harsh Pandey - 
-- Anmol Sahu - 
+- Anmol Sahu - anmolsahu2k@gmail.com
 
 Project Link: [https://github.com/Pro-Abhinav/Vishleshan](https://github.com/Pro-Abhinav/Vishleshan)
