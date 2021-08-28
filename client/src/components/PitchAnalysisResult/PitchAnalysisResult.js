@@ -55,23 +55,23 @@ export default function PitchAnalysisResult() {
     return (
         <div className={classes.root}>
             <main className={classes.content}>
-                <Button onClick={handleGridToggle} className={classes.toggleGrid}>Cha</Button>
+                {/* <Button onClick={handleGridToggle} className={classes.toggleGrid}>Cha</Button>
                 <FormControlLabel
                     control={<Switch checked={open} onChange={handleGridToggle} />}
                     label="Show"
-                />
+                /> */}
                 <Container maxWidth="xl" className={classes.container}>
                     <Grid container xs={12}>
                         {/* <Grid container item xs={3} style={open ? {} : { display: 'none' }}> */}
-                        <Grow in={open} onExited={handleDisplay} onEnter={handleDisplay}>
+                        {/* <Grow in={open} onExited={handleDisplay} onEnter={handleDisplay}>
                             <Grid container item xs={3} style={gulag ? { display: 'none' } : {}} >
 
                                 <Paper style={{ width: '100%', margin: '0 2rem' }} className={classes.paper}>
-                                    {/* <Chart /> */}
+                                    
                                 </Paper>
                             </Grid>
-                        </Grow>
-                        <Grid container spacing={3} item xs={gulag ? 12 : 9}>
+                        </Grow> */}
+                        <Grid container spacing={3} item xs={12}>
 
                             <Grid item xs={12} >
                                 <Paper className={classes.paper}><Tabs onSelectTab={handleTabValue} /></Paper>
@@ -79,6 +79,7 @@ export default function PitchAnalysisResult() {
 
                             {tab === 0 ? (
                                 <>
+
                                     <SummaryAnalysis />
                                 </>
                             ) : (tab === 1 ? <LanguageAnalysis /> : <SentimentAnalysis />)}
