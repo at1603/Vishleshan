@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
+import Grow from '@material-ui/core/Grow';
 
 import GaugeChart from 'react-advanced-gauge-chart';
 import { ResponsivePie } from '@nivo/pie'
@@ -21,6 +22,7 @@ const SummaryAnalysis = () => {
 
     const [meterValue, setMeterValue] = useState(0)
     const [averageEmotion, setAverageEmotion] = useState('Happy')
+    const [open, setOpen] = React.useState(true);
 
     const analysisData = JSON.parse(localStorage.getItem('pitchAnalysisData'))
 
@@ -94,59 +96,62 @@ const SummaryAnalysis = () => {
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
     return (
-        <>
-            <Grid item xs={12} md={8} lg={4}>
-                <Paper className={fixedHeightPaper}>
-                    <Typography style={{ width: '100%', marginTop: '4rem', textAlign: 'center', justifyContent: 'center', fontSize: 69, fontWeight: 'bolder' }}>{analysisData.analytics.members.length}</Typography>
-                    <Typography style={{ marginTop: '2rem', width: '100%', textAlign: 'center', justifyContent: 'center', fontSize: 24 }}>Total Members</Typography>
-                </Paper>
-            </Grid>
+        <Grow in={open}>
+            <>
+                <Grid item xs={12} md={8} lg={4}>
+                    <Paper className={fixedHeightPaper}>
+                        <Typography style={{ width: '100%', marginTop: '4rem', textAlign: 'center', justifyContent: 'center', fontSize: 69, fontWeight: 'bolder' }}>{analysisData.analytics.members.length}</Typography>
+                        <Typography style={{ marginTop: '2rem', width: '100%', textAlign: 'center', justifyContent: 'center', fontSize: 24 }}>Total Members</Typography>
+                    </Paper>
+                </Grid>
 
-            <Grid item xs={12} md={4} lg={4}>
-                <Paper className={fixedHeightPaper}>
-                    {SimplePie}
-                    <Typography style={{ position: 'relative', top: '-55px', marginBottom: '2rem', width: '100%', textAlign: 'center', justifyContent: 'center', fontSize: 24 }}>Total Conversation Time ( in % )</Typography>
+                <Grid item xs={12} md={4} lg={4}>
+                    <Paper className={fixedHeightPaper}>
+                        {SimplePie}
+                        <Typography style={{ position: 'relative', top: '-55px', marginBottom: '2rem', width: '100%', textAlign: 'center', justifyContent: 'center', fontSize: 24 }}>Total Conversation Time ( in % )</Typography>
 
-                </Paper>
-            </Grid>
-            <Grid item xs={12} md={8} lg={4}>
-                <Paper className={fixedHeightPaper}>
-                    {gaugeChart}
-                    <Typography style={{ position: 'relative', top: '-6px', width: '100%', textAlign: 'center', justifyContent: 'center', fontSize: 24 }}>Pace</Typography>
+                    </Paper>
+                </Grid>
+                <Grid item xs={12} md={8} lg={4}>
+                    <Paper className={fixedHeightPaper}>
+                        {gaugeChart}
+                        <Typography style={{ position: 'relative', top: '-6px', width: '100%', textAlign: 'center', justifyContent: 'center', fontSize: 24 }}>Pace</Typography>
 
-                </Paper>
-            </Grid>
+                    </Paper>
+                </Grid>
 
-            <Grid item xs={12} md={4} lg={4}>
-                <Paper className={fixedHeightPaper}>
-                    <Typography style={{ width: '100%', marginTop: '4rem', textAlign: 'center', justifyContent: 'center', fontSize: 69, fontWeight: 'bolder' }}>{analysisData.questions.questions.length}</Typography>
-                    <Typography style={{ width: '100%', textAlign: 'center', justifyContent: 'center', fontSize: 24 }}>Total Questions Asked</Typography>
+                <Grid item xs={12} md={4} lg={4}>
+                    <Paper className={fixedHeightPaper}>
+                        <Typography style={{ width: '100%', marginTop: '4rem', textAlign: 'center', justifyContent: 'center', fontSize: 69, fontWeight: 'bolder' }}>{analysisData.questions.questions.length}</Typography>
+                        <Typography style={{ width: '100%', textAlign: 'center', justifyContent: 'center', fontSize: 24 }}>Total Questions Asked</Typography>
 
-                </Paper>
-            </Grid>
-            <Grid item xs={12} md={8} lg={4}>
-                <Paper className={fixedHeightPaper}>
-                    {SimplePie}
-                    <Typography style={{ position: 'relative', top: '-69px', marginBottom: '2rem', width: '100%', textAlign: 'center', justifyContent: 'center', fontSize: 24 }}>Total Conversation Time</Typography>
+                    </Paper>
+                </Grid>
+                <Grid item xs={12} md={8} lg={4}>
+                    <Paper className={fixedHeightPaper}>
+                        {SimplePie}
+                        <Typography style={{ position: 'relative', top: '-69px', marginBottom: '2rem', width: '100%', textAlign: 'center', justifyContent: 'center', fontSize: 24 }}>Total Conversation Time</Typography>
 
-                </Paper>
-            </Grid>
+                    </Paper>
+                </Grid>
 
-            <Grid item xs={12} md={4} lg={4}>
-                <Paper className={fixedHeightPaper}>
-                    <span role="img" aria-label="sheep" style={{ fontSize: '104px', textAlign: 'center' }}>
-                        {averageEmotion === 'Happy' && '🙂'}
-                        {averageEmotion === 'Sad' && '😐'}
-                        {averageEmotion === 'Angry' && '😠'}
-                        {averageEmotion === 'Bored' && '🙁'}
-                        {averageEmotion === 'Fear' && '😨'}
-                        {averageEmotion === 'Excited' && '😄'}
-                    </span>
-                    <Typography style={{ position: 'relative', top: '2.5rem', marginBottom: '2rem', width: '100%', textAlign: 'center', justifyContent: 'center', fontSize: 24 }}>Average Sentiment</Typography>
+                <Grid item xs={12} md={4} lg={4}>
+                    <Paper className={fixedHeightPaper}>
+                        <span role="img" aria-label="sheep" style={{ fontSize: '104px', textAlign: 'center' }}>
+                            {
+                                averageEmotion === 'Happy' && '🙂'}
+                            {averageEmotion === 'Sad' && '😐'}
+                            {averageEmotion === 'Angry' && '😠'}
+                            {averageEmotion === 'Bored' && '🙁'}
+                            {averageEmotion === 'Fear' && '😨'}
+                            {averageEmotion === 'Excited' && '😄'}
+                        </span>
+                        <Typography style={{ position: 'relative', top: '2.5rem', marginBottom: '2rem', width: '100%', textAlign: 'center', justifyContent: 'center', fontSize: 24 }}>Average Sentiment</Typography>
 
-                </Paper>
-            </Grid>
-        </>
+                    </Paper>
+                </Grid>
+            </>
+        </Grow>
 
     )
 }
