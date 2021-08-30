@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import YouTube from 'react-youtube'
 
+import Grow from '@material-ui/core/Grow';
+
 import { Grid, Typography, Paper, Chip, Button } from '@material-ui/core'
 import { ThemeProvider } from '@material-ui/core/styles';
 import headlineTheme from '../../fonts/FontThemes';
@@ -9,6 +11,8 @@ import useStyles from './styles';
 
 const SentimentAnalysis = () => {
     const analysisData = JSON.parse(localStorage.getItem('pitchAnalysisData'));
+    const [open, setOpen] = React.useState(true);
+
     const classes = useStyles();
     console.log(analysisData)
 
@@ -74,7 +78,7 @@ const SentimentAnalysis = () => {
 
 
     return (
-        <>
+        <Grow in={open}>
             <Paper className={classes.languageWrapper}>
                 <Paper style={{ padding: '2rem', margin: '2rem auto', borderRadius: '25px', boxShadow: 'rgba(0, 0, 0, 0.5) 1px 1px 9px 5px' }}>
                     <YouTube videoId="1mgrHcwcLgU" opts={opts} onReady={_onReady} />
@@ -104,7 +108,7 @@ const SentimentAnalysis = () => {
                     </ol>
                 </Paper>
             </Paper>
-        </>
+        </Grow>
     )
 }
 

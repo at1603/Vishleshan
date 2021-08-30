@@ -39,72 +39,58 @@ export default function Dashboard() {
     const handleTabValue = (tabValue) => {
         setTab(tabValue)
     }
-    const handleGridToggle = () => {
-        setOpen(!open);
-    };
-    const handleDisplay = () => {
-        // setTimeout(() => {
+    const userData = JSON.parse(localStorage.getItem('profile'))
 
-
-        // }, 1000)
-        setGulag(!gulag);
-    }
-    // useLayoutEffect(() => {
-    //     dispatch(getconversationlist());
-
-    // }, [dispatch]);
 
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
+    const isoToDate = (createdAt) => {
+        var date = new Date(createdAt);
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var dt = date.getDate();
+
+        if (dt < 10) {
+            dt = '0' + dt;
+        }
+        if (month < 10) {
+            month = '0' + month;
+        }
+        return (dt + '-' + month + '-' + year);
+
+    }
     return (
         <div className={classes.root}>
             <main className={classes.content}>
-                <Button onClick={handleGridToggle} className={classes.toggleGrid}>Cha</Button>
+                {/* <Button onClick={handleGridToggle} className={classes.toggleGrid}>Cha</Button>
                 <FormControlLabel
                     control={<Switch checked={open} onChange={handleGridToggle} />}
                     label="Show"
-                />
+                /> */}
                 <Container maxWidth="xl" className={classes.container}>
                     <Grid container xs={12}>
                         {/* <Grid container item xs={3} style={open ? {} : { display: 'none' }}> */}
-                        <Grow in={open} onExited={handleDisplay} onEnter={handleDisplay}>
-                            <Grid container item xs={3} style={gulag ? { display: 'none' } : {}} >
 
-                                <Paper style={{ width: '100%', margin: '0 2rem' }} className={classes.paper}>
-                                    <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-                                </Paper>
-                            </Grid>
-                        </Grow>
-                        <Grid container spacing={3} item xs={gulag ? 12 : 9}>
+                        <Grid container spacing={3} item xs={12}>
 
                             <Grid item xs={12} >
                                 <Paper className={classes.paper}><Tabs onSelectTab={handleTabValue} /></Paper>
                             </Grid>
 
                             {tab === 0 ? (
-                                <Grid item xs={12}>
-                                    <Paper className={classes.paper}>
-                                        <Tables />
-                                    </Paper>
-                                </Grid>) : (
+                                <Grow in={open}>
+                                    <Grid item xs={12}>
+                                        <Paper className={classes.paper}>
+                                            <Tables />
+                                        </Paper>
+                                    </Grid>
+                                </Grow>) : (
                                 <>
                                     <Grid item xs={12} md={8} lg={4}>
-                                        <Paper className={fixedHeightPaper}>
-                                        </Paper>
+
                                     </Grid>
 
-                                    <Grid item xs={12} md={4} lg={4}>
-                                        <Paper className={fixedHeightPaper}>
-                                        </Paper>
-                                    </Grid>
-                                    <Grid item xs={12} md={8} lg={4}>
-                                        <Paper className={fixedHeightPaper}>
-                                        </Paper>
-                                    </Grid>
-
-
-
-                                    <Grid item xs={12} md={4} lg={4}>
+                                    {/* <Grid item xs={12} md={4} lg={4}>
                                         <Paper className={fixedHeightPaper}>
                                         </Paper>
                                     </Grid>
@@ -113,9 +99,29 @@ export default function Dashboard() {
                                         </Paper>
                                     </Grid>
 
+
+
                                     <Grid item xs={12} md={4} lg={4}>
                                         <Paper className={fixedHeightPaper}>
                                         </Paper>
+                                    </Grid>
+                                    <Grid item xs={12} md={8} lg={4}>
+                                        <Paper className={fixedHeightPaper}>
+                                        </Paper>
+                                    </Grid> */}
+                                    <Grow in={open}>
+                                        <Grid container item xs={5} style={{ height: "25rem" }} >
+                                            <Paper style={{ width: '100%', margin: '0 2rem', height: '100%' }} className={classes.paper}>
+                                                <Avatar alt="Remy Sharp" src="" />
+                                                <Typography>Email: {userData.result.email}</Typography>
+                                                <Typography>Name: {userData.result.name}</Typography>
+                                                <Typography>Joined On: {isoToDate(userData.result.joinedOn)}</Typography>
+                                            </Paper>
+                                        </Grid>
+                                    </Grow>
+
+                                    <Grid item xs={12} md={4} lg={4}>
+
                                     </Grid>
 
 

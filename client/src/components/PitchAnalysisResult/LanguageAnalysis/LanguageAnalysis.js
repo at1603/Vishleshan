@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import ReactWordcloud from 'react-wordcloud';
+import Grow from '@material-ui/core/Grow';
 
 import { Paper, Grid, Typography, Chip } from '@material-ui/core'
 import { ThemeProvider } from '@material-ui/core/styles';
@@ -11,23 +12,24 @@ import useStyles from './styles';
 const LanguageAnalysis = () => {
     const classes = useStyles();
     const analysisData = JSON.parse(localStorage.getItem('pitchAnalysisData'));
+    const [open, setOpen] = React.useState(true);
 
     const [Words, setWords] = useState({});
 
     const countWords = (resultantString) => {
-        const convertToObject = resultantString.split(" ").map( (i, k) => {
+        const convertToObject = resultantString.split(" ").map((i, k) => {
             return {
-              
-                  text: i,
-                  value: resultantString.split(" ").filter(j => j === i).length,
+
+                text: i,
+                value: resultantString.split(" ").filter(j => j === i).length,
             }
-      });
+        });
         return Array.from(new Set(convertToObject.map(JSON.stringify))).map(JSON.parse)
     };
 
     useEffect(() => {
         let resultantString = "";
-        analysisData.messages.messages.map(function(msg){
+        analysisData.messages.messages.map(function (msg) {
             resultantString += " " + msg.text
         });
         resultantString = resultantString.replace("to ", "");
@@ -44,7 +46,7 @@ const LanguageAnalysis = () => {
         resultantString = resultantString.replace("do ", "");
         resultantString = resultantString.replace("you ", "");
         setWords(countWords(resultantString));
-        
+
     }, [setWords]);
     console.log(analysisData)
 
@@ -72,7 +74,7 @@ const LanguageAnalysis = () => {
         options={options}
         size={size}
         words={Words}
-        style={{margin: '0 0 0 14rem'}}
+        style={{ margin: '0 0 0 14rem' }}
     />
 
     const getTopicSentiment = (sentiment) => {
@@ -80,58 +82,58 @@ const LanguageAnalysis = () => {
         else if (sentiment === "positive") return "Overall Opinion: 😄";
         else return "Overall Opinion: 🙁";
     }
-    
+
     return (
-        <>
-            <Paper  className={classes.languageWrapper}>
-                <Paper style={{padding: '2rem', margin: '2rem auto', borderRadius: '25px', boxShadow: 'rgba(0, 0, 0, 0.5) 1px 1px 9px 5px'}}>
+        <Grow in={open}>
+            <Paper className={classes.languageWrapper}>
+                <Paper style={{ padding: '2rem', margin: '2rem auto', borderRadius: '25px', boxShadow: 'rgba(0, 0, 0, 0.5) 1px 1px 9px 5px' }}>
                     <ThemeProvider theme={headlineTheme}>
-                        <Typography style={{display: 'block', width: '100%', textAlign: 'left', fontWeight: 'bold', fontSize: 40 }}>Frequent Words  </Typography>
+                        <Typography style={{ display: 'block', width: '100%', textAlign: 'left', fontWeight: 'bold', fontSize: 40 }}>Frequent Words  </Typography>
                     </ThemeProvider>
                     {wordCloud}
                 </Paper>
-                <Paper style={{padding: '2rem', margin: '2rem auto', borderRadius: '25px', boxShadow: 'rgba(0, 0, 0, 0.5) 1px 1px 9px 5px'}}>
+                <Paper style={{ padding: '2rem', margin: '2rem auto', borderRadius: '25px', boxShadow: 'rgba(0, 0, 0, 0.5) 1px 1px 9px 5px' }}>
                     <ThemeProvider theme={headlineTheme}>
-                        <Typography style={{display: 'block', width: '100%', textAlign: 'left', fontWeight: 'bold', fontSize: 40 }}>Topics Discussed</Typography>
+                        <Typography style={{ display: 'block', width: '100%', textAlign: 'left', fontWeight: 'bold', fontSize: 40 }}>Topics Discussed</Typography>
                     </ThemeProvider>
                     <ul>
-                        {analysisData.topics.topics.length > 0 ? analysisData.topics.topics.map(function(topic, index){
-                            return <li key={ index }><span style={{display: 'inline-flex'}}><Typography className={classes.liItems}>{topic.text}</Typography><Chip style={{marginLeft: '1rem', fontSize: '18px'}} label={getTopicSentiment(topic.sentiment.suggested)} color="primary"/></span> </li>;
-                        }) : <Typography>No Data Found</Typography> }
+                        {analysisData.topics.topics.length > 0 ? analysisData.topics.topics.map(function (topic, index) {
+                            return <li key={index}><span style={{ display: 'inline-flex' }}><Typography className={classes.liItems}>{topic.text}</Typography><Chip style={{ marginLeft: '1rem', fontSize: '18px' }} label={getTopicSentiment(topic.sentiment.suggested)} color="primary" /></span> </li>;
+                        }) : <Typography>No Data Found</Typography>}
                     </ul>
                 </Paper>
-                <Paper style={{padding: '2rem', margin: '2rem auto', borderRadius: '25px', boxShadow: 'rgba(0, 0, 0, 0.5) 1px 1px 9px 5px'}}>
+                <Paper style={{ padding: '2rem', margin: '2rem auto', borderRadius: '25px', boxShadow: 'rgba(0, 0, 0, 0.5) 1px 1px 9px 5px' }}>
                     <ThemeProvider theme={headlineTheme}>
-                        <Typography style={{display: 'block', width: '100%', textAlign: 'left', fontWeight: 'bold', fontSize: 40 }}>Questions Asked:</Typography>
+                        <Typography style={{ display: 'block', width: '100%', textAlign: 'left', fontWeight: 'bold', fontSize: 40 }}>Questions Asked:</Typography>
                     </ThemeProvider>
                     <ul>
-                        {analysisData.questions.questions.length > 0 ? analysisData.questions.questions.map(function(question, index){
-                            return <li key={ index }><Typography className={classes.liItems}>{question.text}</Typography></li>;
-                        }) : <Typography>No Data Found</Typography> }
+                        {analysisData.questions.questions.length > 0 ? analysisData.questions.questions.map(function (question, index) {
+                            return <li key={index}><Typography className={classes.liItems}>{question.text}</Typography></li>;
+                        }) : <Typography>No Data Found</Typography>}
                     </ul>
                 </Paper>
-                <Paper style={{padding: '2rem', margin: '2rem auto', borderRadius: '25px', boxShadow: 'rgba(0, 0, 0, 0.5) 1px 1px 9px 5px'}}>
+                <Paper style={{ padding: '2rem', margin: '2rem auto', borderRadius: '25px', boxShadow: 'rgba(0, 0, 0, 0.5) 1px 1px 9px 5px' }}>
                     <ThemeProvider theme={headlineTheme}>
-                        <Typography style={{display: 'block', width: '100%', textAlign: 'left', fontWeight: 'bold', fontSize: 40 }}>Action Items:</Typography>
+                        <Typography style={{ display: 'block', width: '100%', textAlign: 'left', fontWeight: 'bold', fontSize: 40 }}>Action Items:</Typography>
                     </ThemeProvider>
                     <ul>
-                        {analysisData.actionItems.actionItems.length > 0 ? analysisData.actionItems.actionItems.map(function(actionItem, index){
-                            return <li key={ index }><Typography className={classes.liItems}>{actionItem.text}</Typography></li>
-                        }) : <Typography>No Data Found</Typography> }
+                        {analysisData.actionItems.actionItems.length > 0 ? analysisData.actionItems.actionItems.map(function (actionItem, index) {
+                            return <li key={index}><Typography className={classes.liItems}>{actionItem.text}</Typography></li>
+                        }) : <Typography>No Data Found</Typography>}
                     </ul>
                 </Paper>
-                <Paper style={{padding: '2rem', margin: '2rem auto', borderRadius: '25px', boxShadow: 'rgba(0, 0, 0, 0.5) 1px 1px 9px 5px'}}>
+                <Paper style={{ padding: '2rem', margin: '2rem auto', borderRadius: '25px', boxShadow: 'rgba(0, 0, 0, 0.5) 1px 1px 9px 5px' }}>
                     <ThemeProvider theme={headlineTheme}>
-                        <Typography style={{display: 'block', width: '100%', textAlign: 'left', fontWeight: 'bold', fontSize: 40 }}>Follow Ups</Typography>
+                        <Typography style={{ display: 'block', width: '100%', textAlign: 'left', fontWeight: 'bold', fontSize: 40 }}>Follow Ups</Typography>
                     </ThemeProvider>
                     <ul>
-                        {analysisData.followUps.followUps.length > 0 ? analysisData.followUps.followUps.map(function(followUp, index){
-                            return <li key={ index }><Typography className={classes.liItems}>{followUp.text}</Typography></li>;
-                        }) : <Typography>No Data Found</Typography> }
+                        {analysisData.followUps.followUps.length > 0 ? analysisData.followUps.followUps.map(function (followUp, index) {
+                            return <li key={index}><Typography className={classes.liItems}>{followUp.text}</Typography></li>;
+                        }) : <Typography>No Data Found</Typography>}
                     </ul>
                 </Paper>
             </Paper>
-        </>
+        </Grow>
     )
 }
 
