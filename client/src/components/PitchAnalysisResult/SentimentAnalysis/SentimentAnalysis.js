@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
+import YouTube from 'react-youtube'
 
-import { Grid, Typography, Paper, Chip } from '@material-ui/core'
+import { Grid, Typography, Paper, Chip, Button } from '@material-ui/core'
 import { ThemeProvider } from '@material-ui/core/styles';
 import headlineTheme from '../../fonts/FontThemes';
 
@@ -11,14 +12,18 @@ const SentimentAnalysis = () => {
     const classes = useStyles();
     console.log(analysisData)
 
+    const [eventYt, seteventYt] = useState()
+
+    const conversationTimeStamp = analysisData.conversationData.startTime
+
     const getSpeaker = (name) => {
         if (name === 'Speaker 1') return 'Interviewer';
         if (name === 'Speaker 2') return 'You'
     }
     const getEmotionLabel = (emotion, idx) => {
-        if (analysisData.extraAnalysis.emotion[idx].emotion[emotion] < 0.5) return 'Passive 🙂'
+        if (analysisData.extraAnalysis.emotion[idx].emotion[emotion] < 0.5) return 'Passive 😶'
         if (emotion === 'Angry') return `${emotion} 😠`
-        if (emotion === 'Bored') return `${emotion} 🙁`
+        if (emotion === 'Bored') return `${emotion} 😴`
         if (emotion === 'Sad') return `${emotion} 😐`
         if (emotion === 'Happy') return `${emotion} 😃`
         if (emotion === 'Fear') return `${emotion} 😨`
@@ -42,11 +47,37 @@ const SentimentAnalysis = () => {
 
     }
 
+    const opts = {
+        height: '315',
+        width: '560',
+        playerVars: {
+            autoplay: 1,
+        },
+    };
+
+    const convertTimeStamp = (timeStamp) => {
+        var myDate = new Date(timeStamp);
+        console.log(myDate, "kj")
+        console.log(myDate.getTime())
+        return myDate.getTime() / 1000;
+    }
+
+    const _onReady = (event) => {
+        seteventYt(event)
+        event.target.pauseVideo();
+
+    }
+    const seekTo = (timeStamp) => {
+        timeStamp = (convertTimeStamp(timeStamp) - convertTimeStamp(conversationTimeStamp)).toFixed(2)
+        eventYt.target.seekTo(timeStamp, true)
+    }
+
+
     return (
         <>
             <Paper className={classes.languageWrapper}>
                 <Paper style={{ padding: '2rem', margin: '2rem auto', borderRadius: '25px', boxShadow: 'rgba(0, 0, 0, 0.5) 1px 1px 9px 5px' }}>
-                    <iframe style={{ width: "60%", height: "10%", display: 'flex', margin: 'auto', }} ></iframe>
+                    <YouTube videoId="1mgrHcwcLgU" opts={opts} onReady={_onReady} />
                 </Paper>
 
                 <Paper style={{ padding: '2rem', margin: '2rem auto', borderRadius: '25px', boxShadow: 'rgba(0, 0, 0, 0.5) 1px 1px 9px 5px' }}>
@@ -55,7 +86,6 @@ const SentimentAnalysis = () => {
                     </ThemeProvider>
                     <ol style={{ fontWeight: 'bold', fontSize: '24px' }}>
                         {analysisData.messages.messages.length > 0 ? analysisData.messages.messages.map(function (message, index) {
-                            console.log(JSON.stringify(message), message.conversationId, message.profane)
                             return (
                                 <li key={index} style={{ padding: '20px 0' }}>
                                     <span style={{ display: 'inline-flex', flexWrap: 'wrap' }}>
@@ -66,6 +96,7 @@ const SentimentAnalysis = () => {
                                             <Chip style={{ backgroundColor: 'green', marginLeft: '1rem', fontSize: '18px' }} label={getIntentLabel(message.intent)} color="primary" />
                                             <Chip style={{ marginLeft: '1rem', fontSize: '18px' }} label={getProfaneLabel(message.profane)} color="primary" />
                                             <Chip style={{ backgroundColor: 'dodgerblue', marginLeft: '1rem', fontSize: '18px' }} label={getSarcasmLabel(message.sarcasm)} color="primary" />
+                                            <Button onClick={() => seekTo(message.startTime)}>Seek</Button>
                                         </span>
                                     </span>
                                 </li>);

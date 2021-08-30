@@ -1,4 +1,4 @@
-import { generateAuthToken, getActionItems, getAnalytics, getEntities, getFollowUps, getQuestions, getSpeechToText, getSummary, getTopics } from '../ConversationApi/apiCalls.js';
+import { generateAuthToken, getActionItems, getAnalytics, getConversationData, getEntities, getFollowUps, getQuestions, getSpeechToText, getSummary, getTopics } from '../ConversationApi/apiCalls.js';
 import mongoose from 'mongoose';
 import request from 'request';
 import multer from 'multer'
@@ -24,8 +24,9 @@ const startPitchAnalysis = async (authToken, path, meetingName, callback) => {
             }
             if (body.status === 'completed') {
 
-                let [messages, questions, analytics, actionItems, entities, followUps, topics, summary] =
-                    [getSpeechToText(conversationId, authToken),
+                let [conversationData, messages, questions, analytics, actionItems, entities, followUps, topics, summary] =
+                    [getConversationData(conversationId, authToken),
+                    getSpeechToText(conversationId, authToken),
                     getQuestions(conversationId, authToken),
                     getAnalytics(conversationId, authToken),
                     getActionItems(conversationId, authToken),
@@ -34,11 +35,11 @@ const startPitchAnalysis = async (authToken, path, meetingName, callback) => {
                     getTopics(conversationId, authToken),
                     getSummary(conversationId, authToken)
                     ]
-                await Promise.allSettled([messages, questions, analytics, actionItems, entities, followUps, topics, summary])
+                await Promise.allSettled([conversationData, messages, questions, analytics, actionItems, entities, followUps, topics, summary])
                     .then(async result => {
                         let i
-                        const properties = ['messages', 'questions', 'analytics', 'actionItems', 'entities', 'followUps', 'topics', 'summary']
-                        for (i = 0; i < 8; i++) {
+                        const properties = ['conversationData', 'messages', 'questions', 'analytics', 'actionItems', 'entities', 'followUps', 'topics', 'summary']
+                        for (i = 0; i < 9; i++) {
                             data[properties[i]] = result[i].value
                         }
                         console.log(data)
