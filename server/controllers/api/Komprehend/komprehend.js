@@ -7,7 +7,7 @@ export const getEmotionAnalysis = (text) => {
         request.post({
             url: `https://apis.paralleldots.com/v5/emotion`,
             form: {
-                api_key: process.env.API_KEY,
+                api_key: process.env.API_KEY1,
                 text: text
             },
             json: true
@@ -35,7 +35,7 @@ export const getSarcasmAnalysis = (text) => {
         request.post({
             url: `https://apis.paralleldots.com/v4/sarcasm`,
             form: {
-                api_key: process.env.API_KEY,
+                api_key: process.env.API_KEY2,
                 text: text
             },
             json: true
@@ -59,7 +59,7 @@ export const getIntentAnalysis = (text) => {
         request.post({
             url: `https://apis.paralleldots.com/v4/new/intent`,
             form: {
-                api_key: process.env.API_KEY,
+                api_key: process.env.API_KEY3,
                 text: text
             },
             json: true
@@ -84,7 +84,7 @@ export const getAbuseAnalysis = (text) => {
         request.post({
             url: `https://apis.paralleldots.com/v4/abuse`,
             form: {
-                api_key: process.env.API_KEY,
+                api_key: process.env.API_KEY4,
                 text: text
             },
             json: true
