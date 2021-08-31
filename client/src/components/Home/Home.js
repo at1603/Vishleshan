@@ -13,32 +13,34 @@ const Home = () => {
 
     useEffect(() => {
         AOS.init({
-          duration : 1500
+            duration: 1500
         });
-      }, []);
+    }, []);
 
     return (
-        <Grid container className={classes.root} spacing={2}>
-            <Grid item xs={12}>
-                <Grid container justifyContent="center" spacing={6}>
-                    <Grid item>
-                        <Paper className={classes.paper} data-aos="fade-right">
-                            <Button className={classes.button} component={Link} to="/dashboard" fullWidth variant="contained" color="default" align="center"><ThemeProvider theme={headlineTheme}><Typography style={{color: '#f4f4f4', textAlign: 'center', fontWeight: 'bold'}}>Dashboard</Typography></ThemeProvider></Button>
-                        </Paper>
-                    </Grid>
-                    <Grid item>
-                        <Paper className={classes.paper} data-aos="fade-zoom-in">
-                            <Button className={classes.button} component={Link} to="/pitchAnalysis" fullWidth variant="contained" color="default" align="center"><ThemeProvider theme={headlineTheme}><Typography style={{color: '#f4f4f4', textAlign: 'center', fontWeight: 'bold'}}>Pitch Analysis</Typography></ThemeProvider></Button>
-                        </Paper>
-                    </Grid>
-                    <Grid item>
-                        <Paper className={classes.paper} textalign="center" data-aos="fade-left">
-                            <Button className={classes.button} component={Link} to="/interviewAnalysis" fullWidth variant="contained" align="center"><ThemeProvider theme={headlineTheme}><Typography style={{color: '#f4f4f4', textAlign: 'center', fontWeight: 'bold'}}>Realtime Analysis</Typography></ThemeProvider></Button>
-                        </Paper>
+        <>
+            <Grid container className={classes.root} spacing={2} style={{ backgroundImage: 'url(https://wallpaperaccess.com/full/2927403.jpg)', backgroundSize: 'contain' }}>
+                <Grid item xs={12}>
+                    <Grid container justifyContent="center" spacing={6}>
+                        <Grid item>
+                            <Paper className={classes.paper} data-aos="fade-right">
+                                <Button className={classes.button} component={Link} to="/dashboard" fullWidth variant="contained" color="default" align="center"><ThemeProvider theme={headlineTheme}><Typography style={{ color: '#f4f4f4', textAlign: 'center', fontWeight: 'bold' }}>Dashboard</Typography></ThemeProvider></Button>
+                            </Paper>
+                        </Grid>
+                        <Grid item>
+                            <Paper className={classes.paper} data-aos="fade-zoom-in">
+                                <Button className={classes.button} component={Link} to="/pitchAnalysis" fullWidth variant="contained" color="default" align="center"><ThemeProvider theme={headlineTheme}><Typography style={{ color: '#f4f4f4', textAlign: 'center', fontWeight: 'bold' }}>Pitch Analysis</Typography></ThemeProvider></Button>
+                            </Paper>
+                        </Grid>
+                        <Grid item>
+                            <Paper className={classes.paper} textalign="center" data-aos="fade-left">
+                                <Button className={classes.button} component={Link} to="/interviewAnalysis" fullWidth variant="contained" align="center"><ThemeProvider theme={headlineTheme}><Typography style={{ color: '#f4f4f4', textAlign: 'center', fontWeight: 'bold' }}>Realtime Analysis</Typography></ThemeProvider></Button>
+                            </Paper>
+                        </Grid>
                     </Grid>
                 </Grid>
             </Grid>
-        </Grid>
+        </>
     )
 }
 

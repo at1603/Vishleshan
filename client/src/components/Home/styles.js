@@ -3,7 +3,10 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    marginTop: 200
+    // marginTop: 200,
+    height: '90vh',
+    overflow: 'hidden',
+    alignContent: 'center'
   },
   paper: {
     display: 'flex',
