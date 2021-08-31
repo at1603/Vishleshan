@@ -107,6 +107,7 @@ export default function CustomizedTabs(props) {
                     <AntTab label="Summary Analysis" />
                     <AntTab label="Langauge Analysis" />
                     <AntTab label="Sentiment Analysis" />
+                    <AntTab label="Suggestion Report" />
                 </AntTabs>
                 {/* <Typography className={classes.padding} /> */}
             </div>

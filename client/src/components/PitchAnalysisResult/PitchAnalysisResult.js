@@ -16,6 +16,7 @@ import Tabs from './Tabs'
 import SummaryAnalysis from './SummaryAnalysis/SummaryAnalysis';
 import LanguageAnalysis from './LanguageAnalysis/LanguageAnalysis';
 import SentimentAnalysis from './SentimentAnalysis/SentimentAnalysis';
+import SuggestionPage from './SuggestionPage/SuggestionPage';
 
 import useStyles from './styles'
 function Copyright() {
@@ -79,10 +80,9 @@ export default function PitchAnalysisResult() {
 
                             {tab === 0 ? (
                                 <>
-
                                     <SummaryAnalysis />
                                 </>
-                            ) : (tab === 1 ? <LanguageAnalysis /> : <SentimentAnalysis />)}
+                            ) : (tab === 1 ? <LanguageAnalysis /> : (tab === 2 ? <SentimentAnalysis /> : <SuggestionPage /> ))}
                         </Grid>
                     </Grid>
                     <Box pt={4}>
