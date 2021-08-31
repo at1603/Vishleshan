@@ -86,14 +86,14 @@ const LanguageAnalysis = () => {
     return (
         <Grow in={open}>
             <div style={{ margin: 'auto' }}>
-                <Paper style={{ padding: '2rem', width: '80%', margin: '2rem auto', borderRadius: '25px', boxShadow: 'rgba(0, 0, 0, 0.5) 1px 1px 9px 5px' }}>
+                <Paper style={{ backgroundColor: '#e8e8e8', padding: '2rem', width: '90%', margin: '2rem auto', borderRadius: '25px', boxShadow: 'rgba(0, 0, 0, 0.5) 1px 1px 9px 5px' }}>
                     <ThemeProvider theme={headlineTheme}>
                         <Typography style={{ display: 'block', width: '100%', textAlign: 'center', fontWeight: 'bold', fontSize: 40 }}>Frequent Words  </Typography>
 
                         <div>{wordCloud}</div>
                     </ThemeProvider>
                 </Paper>
-                <Paper style={{ padding: '2rem', width: '80%', margin: '2rem auto', borderRadius: '25px', boxShadow: 'rgba(0, 0, 0, 0.5) 1px 1px 9px 5px' }}>
+                <Paper style={{ backgroundColor: '#e8e8e8', padding: '2rem', width: '90%', margin: '2rem auto', borderRadius: '25px', boxShadow: 'rgba(0, 0, 0, 0.5) 1px 1px 9px 5px' }}>
                     <ThemeProvider theme={headlineTheme}>
                         <Typography style={{ display: 'block', width: '100%', textAlign: 'center', fontWeight: 'bold', fontSize: 40 }}>Topics Discussed</Typography>
                     </ThemeProvider>
@@ -103,7 +103,7 @@ const LanguageAnalysis = () => {
                         }) : <Typography>No Data Found</Typography>}
                     </ul>
                 </Paper>
-                <Paper style={{ padding: '2rem', width: '80%', margin: '2rem auto', borderRadius: '25px', boxShadow: 'rgba(0, 0, 0, 0.5) 1px 1px 9px 5px' }}>
+                <Paper style={{ backgroundColor: '#e8e8e8', padding: '2rem', width: '90%', margin: '2rem auto', borderRadius: '25px', boxShadow: 'rgba(0, 0, 0, 0.5) 1px 1px 9px 5px' }}>
                     <ThemeProvider theme={headlineTheme}>
                         <Typography style={{ display: 'block', width: '100%', textAlign: 'center', fontWeight: 'bold', fontSize: 40 }}>Questions Asked:</Typography>
                     </ThemeProvider>
@@ -113,7 +113,7 @@ const LanguageAnalysis = () => {
                         }) : <Typography>No Data Found</Typography>}
                     </ul>
                 </Paper>
-                <Paper style={{ padding: '2rem', width: '80%', margin: '2rem auto', borderRadius: '25px', boxShadow: 'rgba(0, 0, 0, 0.5) 1px 1px 9px 5px' }}>
+                <Paper style={{ backgroundColor: '#e8e8e8', padding: '2rem', width: '90%', margin: '2rem auto', borderRadius: '25px', boxShadow: 'rgba(0, 0, 0, 0.5) 1px 1px 9px 5px' }}>
                     <ThemeProvider theme={headlineTheme}>
                         <Typography style={{ display: 'block', width: '100%', textAlign: 'center', fontWeight: 'bold', fontSize: 40 }}>Action Items:</Typography>
                     </ThemeProvider>
@@ -123,7 +123,7 @@ const LanguageAnalysis = () => {
                         }) : <Typography>No Data Found</Typography>}
                     </ul>
                 </Paper>
-                <Paper style={{ padding: '2rem', width: '80%', margin: '2rem auto', borderRadius: '25px', boxShadow: 'rgba(0, 0, 0, 0.5) 1px 1px 9px 5px' }}>
+                <Paper style={{ backgroundColor: '#e8e8e8', padding: '2rem', width: '90%', margin: '2rem auto', borderRadius: '25px', boxShadow: 'rgba(0, 0, 0, 0.5) 1px 1px 9px 5px' }}>
                     <ThemeProvider theme={headlineTheme}>
                         <Typography style={{ display: 'block', width: '100%', textAlign: 'center', fontWeight: 'bold', fontSize: 40 }}>Follow Ups</Typography>
                     </ThemeProvider>

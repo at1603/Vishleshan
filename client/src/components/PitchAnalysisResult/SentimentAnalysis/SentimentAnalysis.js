@@ -68,7 +68,7 @@ const SentimentAnalysis = () => {
 
     const _onReady = (event) => {
         seteventYt(event)
-        event.target.pauseVideo();
+        event.target.playVideo();
 
     }
     const seekTo = (timeStamp) => {
@@ -80,11 +80,11 @@ const SentimentAnalysis = () => {
     return (
         <Grow in={open} >
             <div>
-                <Paper style={{ padding: '2rem', width: '60%', margin: '2rem auto', borderRadius: '25px', boxShadow: 'rgba(0, 0, 0, 0.5) 1px 1px 9px 5px', display: 'flex', justifyContent: 'center' }}>
+                <Paper style={{ backgroundColor: '#e8e8e8', padding: '2rem', width: '60%', margin: '2rem auto', borderRadius: '25px', boxShadow: 'rgba(0, 0, 0, 0.5) 1px 1px 9px 5px', display: 'flex', justifyContent: 'center' }}>
                     <YouTube videoId="1mgrHcwcLgU" opts={opts} onReady={_onReady} />
                 </Paper>
 
-                <Paper style={{ padding: '2rem', width: '60%', margin: '2rem auto', borderRadius: '25px', boxShadow: 'rgba(0, 0, 0, 0.5) 1px 1px 9px 5px' }}>
+                <Paper style={{ backgroundColor: '#e8e8e8', padding: '2rem', width: '60%', margin: '2rem auto', borderRadius: '25px', boxShadow: 'rgba(0, 0, 0, 0.5) 1px 1px 9px 5px' }}>
                     <ThemeProvider theme={headlineTheme}>
                         <Typography style={{ display: 'block', width: '100%', textAlign: 'center', fontWeight: 'bold', fontSize: 40 }}>Messages</Typography>
                     </ThemeProvider>
@@ -98,7 +98,7 @@ const SentimentAnalysis = () => {
                                         <span style={{ display: 'block' }}>
                                             <Chip style={{ backgroundColor: 'orange', marginLeft: '1rem', fontSize: '18px' }} label={getEmotionLabel(message.emotion, index)} color="primary" />
                                             <Chip style={{ backgroundColor: 'green', marginLeft: '1rem', fontSize: '18px' }} label={getIntentLabel(message.intent)} color="primary" />
-                                            {/*<Chip style={{ marginLeft: '1rem', fontSize: '18px' }} label={getProfaneLabel(message.profane)} color="primary" />*/}
+                                            <Chip style={{ marginLeft: '1rem', fontSize: '18px' }} label={getProfaneLabel(message.profane)} color="primary" />
                                             <Chip style={{ backgroundColor: 'dodgerblue', marginLeft: '1rem', fontSize: '18px' }} label={getSarcasmLabel(message.sarcasm)} color="primary" />
                                             <Button onClick={() => seekTo(message.startTime)}>Seek</Button>
                                         </span>
