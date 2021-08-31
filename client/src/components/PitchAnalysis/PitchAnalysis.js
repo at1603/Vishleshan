@@ -91,7 +91,7 @@ const PitchAnalysis = () => {
                     </ThemeProvider>
                     <div className={classes.text}>
                         <Typography variant="h6">
-                            Hello, In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before final copy is available.
+                            This service can be used to analyze a pre recorded meeting event to provide additional insights including sentiment, emotions and many more traits. Please enter video url(YouTube) OR upload a local video to get insights.
                         </Typography>
                     </div>
                 </Grid>
