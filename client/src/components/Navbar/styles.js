@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
     rightToolbar: {
         display: 'flex',
         justifyContent: 'flex-end',
-        paddingLeft: '0'
+        paddingLeft: '0',
     },
     profile: {
         marginLeft: '120px',

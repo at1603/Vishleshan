@@ -34,7 +34,7 @@ const LandingPage = () => {
                             <Typography style={{ width: '80%', fontWeight: 'bold', fontSize: 50 }}><span className={classes.textStyle} style={{ color: 'white', display: 'block' }}>Analyze Videos</span> <span style={{ color: 'white', display: 'block' }}>Amplify Your Skills</span>Achieve Future Goals</Typography>
                         </ThemeProvider>
                         <Typography variant="body1" style={{ width: '80%', marginTop: '2rem' }}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and </Typography>
-                        <Button component={Link} className={classes.button} to="/auth" variant="contained" color="primary" >Sign In</Button>
+                        <Button component={Link} className={classes.button} to="/auth" variant="" color="primary" style={{ width: '200px' }}>Get Started</Button>
                     </Grid>
                     <Grid item xs={5} className={classes.rightGrid} data-aos="fade-left" style={{ border: 'none' }}>
                         <div style={{ border: 'none' }} dangerouslySetInnerHTML={iframe()} />
