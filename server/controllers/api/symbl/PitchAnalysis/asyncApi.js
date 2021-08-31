@@ -1,4 +1,4 @@
-import { generateAuthToken, getActionItems, getAnalytics, getEntities, getFollowUps, getQuestions, getSpeechToText, getSummary, getTopics } from '../ConversationApi/apiCalls.js';
+import { generateAuthToken, getActionItems, getAnalytics, getConversationData, getEntities, getFollowUps, getQuestions, getSpeechToText, getSummary, getTopics } from '../ConversationApi/apiCalls.js';
 import mongoose from 'mongoose';
 import request from 'request';
 import multer from 'multer'
@@ -24,8 +24,9 @@ const startPitchAnalysis = async (authToken, path, meetingName, callback) => {
             }
             if (body.status === 'completed') {
 
-                let [messages, questions, analytics, actionItems, entities, followUps, topics, summary] =
-                    [getSpeechToText(conversationId, authToken),
+                let [conversationData, messages, questions, analytics, actionItems, entities, followUps, topics, summary] =
+                    [getConversationData(conversationId, authToken),
+                    getSpeechToText(conversationId, authToken),
                     getQuestions(conversationId, authToken),
                     getAnalytics(conversationId, authToken),
                     getActionItems(conversationId, authToken),
@@ -34,11 +35,11 @@ const startPitchAnalysis = async (authToken, path, meetingName, callback) => {
                     getTopics(conversationId, authToken),
                     getSummary(conversationId, authToken)
                     ]
-                await Promise.allSettled([messages, questions, analytics, actionItems, entities, followUps, topics, summary])
+                await Promise.allSettled([conversationData, messages, questions, analytics, actionItems, entities, followUps, topics, summary])
                     .then(async result => {
                         let i
-                        const properties = ['messages', 'questions', 'analytics', 'actionItems', 'entities', 'followUps', 'topics', 'summary']
-                        for (i = 0; i < 8; i++) {
+                        const properties = ['conversationData', 'messages', 'questions', 'analytics', 'actionItems', 'entities', 'followUps', 'topics', 'summary']
+                        for (i = 0; i < 9; i++) {
                             data[properties[i]] = result[i].value
                         }
                         console.log(data)
@@ -48,18 +49,29 @@ const startPitchAnalysis = async (authToken, path, meetingName, callback) => {
                             'intent': [],
                             'profaneWord': [],
                         }
+                        let texts = []
                         for (i = 0; i < data.messages.messages.length; i++) {
-                            let emotion = await getEmotionAnalysis(data.messages.messages[i].text)
-                            let sarcasm = await getSarcasmAnalysis(data.messages.messages[i].text)
-                            let intent = await getIntentAnalysis(data.messages.messages[i].text)
-                            let profaneWord = await getAbuseAnalysis(data.messages.messages[i].text)
-                            ans['emotion'].push(emotion)
-                            ans['sarcasm'].push(sarcasm)
-                            ans['intent'].push(intent)
-                            ans['profaneWord'].push(profaneWord)
+                            texts.push(data.messages.messages[i].text)
                         }
-                        data['extraAnalysis'] = ans
-                        callback(null, data)
+                        let [emotion, sarcasm, intent, profaneWord] = [getEmotionAnalysis(texts), getSarcasmAnalysis(texts), getIntentAnalysis(texts), getAbuseAnalysis(texts)]
+                        await Promise.allSettled([emotion, sarcasm, intent, profaneWord])
+                            .then(async response => {
+                                console.log(response, "yyyyy")
+                                ans['emotion'].push(response[0].value)
+                                ans['sarcasm'].push(response[1].value)
+                                ans['intent'].push(response[2].value)
+                                ans['profaneWord'].push(response[3].value)
+                                data['extraAnalysis'] = ans
+                                callback(null, data)
+                            })
+                        // for (i = 0; i < data.messages.messages.length; i++) {
+                        // let emotion = await getEmotionAnalysis(data.messages.messages[i].text)
+                        // let sarcasm = await getSarcasmAnalysis(data.messages.messages[i].text)
+                        // let intent = await getIntentAnalysis(data.messages.messages[i].text)
+                        // let profaneWord = await getAbuseAnalysis(data.messages.messages[i].text)
+
+                        // }
+
                     })
                 fs.unlink(path, (err) => {
                     if (err) {
@@ -198,10 +210,10 @@ export const sendVideoData = async (req, res) => {
                                             const messageData = data.messages.messages
                                             let i;
                                             for (i = 0; i < messageData.length; i++) {
-                                                let tempEmotion = data.extraAnalysis.emotion[i].emotion
-                                                let tempIntent = data.extraAnalysis.intent[i].intent
-                                                let tempProfane = data.extraAnalysis.profaneWord[i]
-                                                let tempSarcasm = data.extraAnalysis.sarcasm[i]
+                                                let tempEmotion = data.extraAnalysis.emotion[0].emotion[i]
+                                                let tempIntent = data.extraAnalysis.intent[0].intent[i].intent
+                                                let tempProfane = data.extraAnalysis.profaneWord[0].abuse[i]
+                                                let tempSarcasm = data.extraAnalysis.sarcasm[0][i]
                                                 messageData[i].emotion = Object.keys(tempEmotion).reduce((a, b) => tempEmotion[a] > tempEmotion[b] ? a : b)
                                                 messageData[i].intent = Object.keys(tempIntent).reduce((a, b) => tempIntent[a] > tempIntent[b] ? a : b)
                                                 messageData[i].profane = Object.keys(tempProfane).reduce((a, b) => tempProfane[a] > tempProfane[b] ? a : b)
@@ -221,10 +233,10 @@ export const sendVideoData = async (req, res) => {
                                             const messageData = data.messages.messages
                                             let i;
                                             for (i = 0; i < messageData.length; i++) {
-                                                let tempEmotion = data.extraAnalysis.emotion[i].emotion
-                                                let tempIntent = data.extraAnalysis.intent[i].intent
-                                                let tempProfane = data.extraAnalysis.profaneWord[i]
-                                                let tempSarcasm = data.extraAnalysis.sarcasm[i]
+                                                let tempEmotion = data.extraAnalysis.emotion[0].emotion[i]
+                                                let tempIntent = data.extraAnalysis.intent[0].intent[i].intent
+                                                let tempProfane = data.extraAnalysis.profaneWord[0].abuse[i]
+                                                let tempSarcasm = data.extraAnalysis.sarcasm[0][i]
                                                 messageData[i].emotion = Object.keys(tempEmotion).reduce((a, b) => tempEmotion[a] > tempEmotion[b] ? a : b)
                                                 messageData[i].intent = Object.keys(tempIntent).reduce((a, b) => tempIntent[a] > tempIntent[b] ? a : b)
                                                 messageData[i].profane = Object.keys(tempProfane).reduce((a, b) => tempProfane[a] > tempProfane[b] ? a : b)
@@ -273,13 +285,14 @@ export const sendVideoData = async (req, res) => {
                                 const existingUser = await AnalysisData.findOne({ handlerId: req.userId })
                                 if (!existingUser) {
                                     try {
+                                        console.log(data.extraAnalysis, "//////////////")
                                         const messageData = data.messages.messages
                                         let i;
                                         for (i = 0; i < messageData.length; i++) {
-                                            let tempEmotion = data.extraAnalysis.emotion[i].emotion
-                                            let tempIntent = data.extraAnalysis.intent[i].intent
-                                            let tempProfane = data.extraAnalysis.profaneWord[i]
-                                            let tempSarcasm = data.extraAnalysis.sarcasm[i]
+                                            let tempEmotion = data.extraAnalysis.emotion[0].emotion[i]
+                                            let tempIntent = data.extraAnalysis.intent[0].intent[i].intent
+                                            let tempProfane = data.extraAnalysis.profaneWord[0].abuse[i]
+                                            let tempSarcasm = data.extraAnalysis.sarcasm[0][i]
                                             messageData[i].emotion = Object.keys(tempEmotion).reduce((a, b) => tempEmotion[a] > tempEmotion[b] ? a : b)
                                             messageData[i].intent = Object.keys(tempIntent).reduce((a, b) => tempIntent[a] > tempIntent[b] ? a : b)
                                             messageData[i].profane = Object.keys(tempProfane).reduce((a, b) => tempProfane[a] > tempProfane[b] ? a : b)
@@ -296,13 +309,14 @@ export const sendVideoData = async (req, res) => {
                                 }
                                 else {
                                     try {
+                                        console.log(data.extraAnalysis, "///////////////////////////")
                                         const messageData = data.messages.messages
                                         let i;
                                         for (i = 0; i < messageData.length; i++) {
-                                            let tempEmotion = data.extraAnalysis.emotion[i].emotion
-                                            let tempIntent = data.extraAnalysis.intent[i].intent
-                                            let tempProfane = data.extraAnalysis.profaneWord[i]
-                                            let tempSarcasm = data.extraAnalysis.sarcasm[i]
+                                            let tempEmotion = data.extraAnalysis.emotion[0].emotion[i]
+                                            let tempIntent = data.extraAnalysis.intent[0].intent[i].intent
+                                            let tempProfane = data.extraAnalysis.profaneWord[0].abuse[i]
+                                            let tempSarcasm = data.extraAnalysis.sarcasm[0][i]
                                             messageData[i].emotion = Object.keys(tempEmotion).reduce((a, b) => tempEmotion[a] > tempEmotion[b] ? a : b)
                                             messageData[i].intent = Object.keys(tempIntent).reduce((a, b) => tempIntent[a] > tempIntent[b] ? a : b)
                                             messageData[i].profane = Object.keys(tempProfane).reduce((a, b) => tempProfane[a] > tempProfane[b] ? a : b)
