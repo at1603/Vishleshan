@@ -67,19 +67,19 @@ export default function Dashboard() {
                     control={<Switch checked={open} onChange={handleGridToggle} />}
                     label="Show"
                 /> */}
-                <Container maxWidth="xl" className={classes.container}>
+                <Container maxWidth="xl" className={classes.container} style={{ backgroundImage: `url("static/src/img/main.jpg")` }}>
                     <Grid container xs={12}>
                         {/* <Grid container item xs={3} style={open ? {} : { display: 'none' }}> */}
 
                         <Grid container spacing={3} item xs={12}>
 
-                            <Grid item xs={12} >
+                            <Grid item xs={8} style={{ margin: 'auto' }} >
                                 <Paper className={classes.paper}><Tabs onSelectTab={handleTabValue} /></Paper>
                             </Grid>
 
                             {tab === 0 ? (
                                 <Grow in={open}>
-                                    <Grid item xs={12}>
+                                    <Grid item xs={8} style={{ margin: 'auto' }}>
                                         <Paper className={classes.paper}>
                                             <Tables />
                                         </Paper>
@@ -111,7 +111,7 @@ export default function Dashboard() {
                                     </Grid> */}
                                     <Grow in={open}>
                                         <Grid container item xs={5} style={{ height: "25rem" }} >
-                                            <Paper style={{ width: '100%', margin: '0 2rem', height: '100%' }} className={classes.paper}>
+                                            <Paper style={{ width: '100%', margin: '0 2rem', height: '100%', textAlign: 'center' }} className={classes.paper}>
                                                 <Avatar alt="Remy Sharp" src="" />
                                                 <Typography>Email: {userData.result.email}</Typography>
                                                 <Typography>Name: {userData.result.name}</Typography>
