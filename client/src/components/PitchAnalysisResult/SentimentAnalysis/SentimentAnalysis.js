@@ -25,7 +25,7 @@ const SentimentAnalysis = () => {
         if (name === 'Speaker 2') return 'You'
     }
     const getEmotionLabel = (emotion, idx) => {
-        if (analysisData.extraAnalysis.emotion[idx].emotion[emotion] < 0.5) return 'Passive 😶'
+        if (analysisData.extraAnalysis.emotion[0].emotion[idx][emotion] < 0.5) return 'Passive 😶'
         if (emotion === 'Angry') return `${emotion} 😠`
         if (emotion === 'Bored') return `${emotion} 😴`
         if (emotion === 'Sad') return `${emotion} 😐`

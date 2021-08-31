@@ -29,21 +29,20 @@ const SummaryAnalysis = () => {
     useEffect(() => {
         let maxEmotionValue = 0
         let averageEmotionObject = { Bored: 0, Angry: 0, Sad: 0, Fear: 0, Excited: 0, Happy: 0 }
-        analysisData.extraAnalysis.emotion.forEach((v, i) => {
-            averageEmotionObject.Bored += v.emotion.Bored;
-            averageEmotionObject.Angry += v.emotion.Angry;
-            averageEmotionObject.Sad += v.emotion.Sad;
-            averageEmotionObject.Fear += v.emotion.Fear;
-            averageEmotionObject.Excited += v.emotion.Excited;
-            averageEmotionObject.Happy += v.emotion.Happy;
+        analysisData.extraAnalysis.emotion[0].emotion.forEach((v, i) => {
+            averageEmotionObject.Bored += v.Bored;
+            averageEmotionObject.Angry += v.Angry;
+            averageEmotionObject.Sad += v.Sad;
+            averageEmotionObject.Fear += v.Fear;
+            averageEmotionObject.Excited += v.Excited;
+            averageEmotionObject.Happy += v.Happy;
 
             maxEmotionValue = Math.max(averageEmotionObject.Bored, averageEmotionObject.Angry, averageEmotionObject.Sad, averageEmotionObject.Fear, averageEmotionObject.Excited
                 , averageEmotionObject.Happy)
         });
         setAverageEmotion(Object.keys(averageEmotionObject).find(key => averageEmotionObject[key] === maxEmotionValue))
         setMeterValue(((analysisData.analytics.members[0].pace.wpm) / 150) * 0.5)
-    }, [meterValue, analysisData.analytics.members, analysisData.extraAnalysis.emotion])
-    console.log(analysisData, analysisData.messages.messages[0].emotion)
+    }, [meterValue, analysisData.analytics.members, analysisData.extraAnalysis.emotion[0].emotion])
     const data = [
         {
             "id": "Total Silence",
@@ -138,15 +137,14 @@ const SummaryAnalysis = () => {
                 <Grid item xs={12} md={4} lg={4}>
                     <Paper className={fixedHeightPaper}>
                         <span role="img" aria-label="sheep" style={{ fontSize: '104px', textAlign: 'center' }}>
-                            {
-                                averageEmotion === 'Happy' && '🙂'}
+                            {averageEmotion === 'Happy' && '🙂'}
                             {averageEmotion === 'Sad' && '😐'}
                             {averageEmotion === 'Angry' && '😠'}
                             {averageEmotion === 'Bored' && '🙁'}
                             {averageEmotion === 'Fear' && '😨'}
                             {averageEmotion === 'Excited' && '😄'}
                         </span>
-                        <Typography style={{ position: 'relative', top: '2.5rem', marginBottom: '2rem', width: '100%', textAlign: 'center', justifyContent: 'center', fontSize: 24 }}>Average Sentiment</Typography>
+                        <Typography style={{ position: 'relative', top: '2.5rem', marginBottom: '2rem', width: '100%', textAlign: 'center', justifyContent: 'center', fontSize: 24 }}>Overall Sentiment</Typography>
 
                     </Paper>
                 </Grid>
