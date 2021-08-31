@@ -3,7 +3,7 @@ import YouTube from 'react-youtube'
 
 import Grow from '@material-ui/core/Grow';
 
-import { Grid, Typography, Paper, Chip, Button } from '@material-ui/core'
+import { Grid, Typography, Paper, Chip, Button, TextField } from '@material-ui/core'
 import { ThemeProvider } from '@material-ui/core/styles';
 import headlineTheme from '../../fonts/FontThemes';
 
@@ -78,15 +78,16 @@ const SentimentAnalysis = () => {
 
 
     return (
-        <Grow in={open}>
-            <Paper className={classes.languageWrapper}>
-                <Paper style={{ padding: '2rem', width:'80%', margin: '2rem auto', borderRadius: '25px', boxShadow: 'rgba(0, 0, 0, 0.5) 1px 1px 9px 5px' }}>
+        <Grow in={open} >
+            <div>
+                <Paper style={{ padding: '2rem', width: '60%', margin: '2rem auto', borderRadius: '25px', boxShadow: 'rgba(0, 0, 0, 0.5) 1px 1px 9px 5px', display: 'flex' }}>
                     <YouTube videoId="1mgrHcwcLgU" opts={opts} onReady={_onReady} />
+                    <Typography>Meeting 1</Typography>
                 </Paper>
 
-                <Paper style={{ padding: '2rem', width:'80%', margin: '2rem auto', borderRadius: '25px', boxShadow: 'rgba(0, 0, 0, 0.5) 1px 1px 9px 5px' }}>
+                <Paper style={{ padding: '2rem', width: '60%', margin: '2rem auto', borderRadius: '25px', boxShadow: 'rgba(0, 0, 0, 0.5) 1px 1px 9px 5px' }}>
                     <ThemeProvider theme={headlineTheme}>
-                        <Typography style={{ display: 'block', width: '100%', textAlign: 'left', fontWeight: 'bold', fontSize: 40 }}>Messages</Typography>
+                        <Typography style={{ display: 'block', width: '100%', textAlign: 'center', fontWeight: 'bold', fontSize: 40 }}>Messages</Typography>
                     </ThemeProvider>
                     <ol style={{ fontWeight: 'bold', fontSize: '24px' }}>
                         {analysisData.messages.messages.length > 0 ? analysisData.messages.messages.map(function (message, index) {
@@ -107,7 +108,7 @@ const SentimentAnalysis = () => {
                         }) : <Typography>No Data Found</Typography>}
                     </ol>
                 </Paper>
-            </Paper>
+            </div>
         </Grow>
     )
 }
