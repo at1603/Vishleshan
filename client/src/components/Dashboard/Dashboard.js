@@ -22,7 +22,7 @@ function Copyright() {
         <Typography variant="body2" color="textSecondary" align="center">
             {'Copyright © '}
             <Link color="inherit" href="https://material-ui.com/">
-                Your Website
+                Vishleshan
             </Link>{' '}
             {new Date().getFullYear()}
             {'.'}
@@ -67,7 +67,7 @@ export default function Dashboard() {
                         <Grid container spacing={3} item xs={12}>
 
                             <Grid item xs={8} style={{ margin: '3rem auto 0' }} >
-                                <Paper className={classes.paper} style={{ background: 'linear-gradient(45deg, #235484, #28e0e0)' }}><Tabs onSelectTab={handleTabValue} /></Paper>
+                                <Paper className={classes.paper}><Tabs onSelectTab={handleTabValue} /></Paper>
                             </Grid>
 
                             {tab === 0 ? (

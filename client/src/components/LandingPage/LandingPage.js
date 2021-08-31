@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Grid, Typography, Paper, Card, CardActionArea, CardContent, CardMedia, TextField } from '@material-ui/core'
 import { Link } from 'react-router-dom';
 import AOS from 'aos';
@@ -17,6 +17,7 @@ function iframe() {
 }
 
 const LandingPage = () => {
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
     const classes = useStyles();
 
     useEffect(() => {
@@ -33,8 +34,8 @@ const LandingPage = () => {
                         <ThemeProvider theme={headlineTheme}>
                             <Typography style={{ width: '80%', fontWeight: 'bold', fontSize: 50 }}><span className={classes.textStyle} style={{ color: 'white', display: 'block' }}>Analyze Videos</span> <span style={{ color: 'white', display: 'block' }}>Amplify Your Skills</span>Achieve Future Goals</Typography>
                         </ThemeProvider>
-                        <Typography variant="body1" style={{ width: '80%', marginTop: '2rem' }}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and </Typography>
-                        <Button component={Link} className={classes.button} to="/auth" variant="" color="primary" style={{ width: '200px' }}>Get Started</Button>
+                        <Typography variant="body1" style={{ width: '80%', marginTop: '2rem' }}>Get your videos analyzed to get valuable insights. Improve performance based on the insights. Ultimately achieve future goals with an improved performance.</Typography>
+                        {user?.result ? ('') : (<Button component={Link} className={classes.button} to="/auth" variant="" color="primary" style={{ width: '200px' }}>Get Started</Button>)}
                     </Grid>
                     <Grid item xs={5} className={classes.rightGrid} data-aos="fade-left" style={{ border: 'none' }}>
                         <div style={{ border: 'none' }} dangerouslySetInnerHTML={iframe()} />
@@ -55,7 +56,10 @@ const LandingPage = () => {
                             <img src="https://www.cambridgemaths.org/Images/The-trouble-with-graphs.jpg" width="500" height="400" alt="Graph" />
                         </Grid>
                         <Grid items xs={6} className={classes.aboutRightGrid} data-aos="fade-left">
-                            <Typography variant="body1">Many times when producing HTML email blasts you cannot use style sheets or style /style blocks. All CSS needs to be inline. in each bullet item. Customize the pixels value to your liking.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur a dignissim nunc, ac lobortis ex. Suspendisse vulputate leo nec dolor maximus blandit. Curabitur dictum sodales ex a tincidunt. Nam porttitor, arcu ut elementum eleifend, erat purus porttitor leo, vitae laoreet turpis quam sit amet ligula. Donec vel metus sit amet odio vehicula vestibulum. Vivamus tempus maximus sem, ac hendrerit libero gravida sed.</Typography>
+                            <Typography variant="body1">In this era of cut throat competition for job placements, there is a greater than ever need of self assessment for ensuring that the current level of job preparation is upto the general industry standards.
+                                This led us to create a solution that allows the interviewee to visualize their performance in order to work on their area of weakness and vastly increase their chances of performing well in a job interview amongst others.
+                                Additionally, interviewers can objectively analyse the performance of the candidates for selection.
+                            </Typography>
                             <Typography variant="h6" style={{ marginTop: '2rem', color: '#1e2572', fontWeight: 'bold' }}>Why Choose Us!</Typography>
                             <ul>
                                 <li><Typography variant="body1">Interactive Visual Analysis</Typography></li>
@@ -93,7 +97,7 @@ const LandingPage = () => {
                                     <Typography style={{ marginTop: '2rem', fontSize: '24px', color: 'white' }}>Async Video Analysis</Typography>
                                 </div>
                                 <div className="flip-card-back">
-                                    <Typography variant="body1" style={{ marginTop: '4rem', fontSize: '20px', padding: '2rem' }}>A detailed summary with user-friendly data visualization of every performance done on this website.</Typography>
+                                    <Typography variant="body1" style={{ marginTop: '4rem', fontSize: '20px', padding: '2rem' }}>This service can be used to analyze a pre recorded meeting event to provide additional insights including sentiment, emotions and many more traits. </Typography>
                                 </div>
                             </div>
                         </div>
@@ -103,7 +107,7 @@ const LandingPage = () => {
                                     <Typography style={{ marginTop: '2rem', fontSize: '24px', color: 'white' }}>Real-Time Video Analysis</Typography>
                                 </div>
                                 <div className="flip-card-back">
-                                    <Typography variant="body1" style={{ marginTop: '4rem', fontSize: '20px', padding: '2rem' }}>A detailed summary with user-friendly data visualization of every performance done on this website.</Typography>
+                                    <Typography variant="body1" style={{ marginTop: '4rem', fontSize: '20px', padding: '2rem' }}>This service can be used to analyze a meeting event in real-time to get visual data and suggestions to improve the performance in real-time.</Typography>
                                 </div>
                             </div>
                         </div>
@@ -131,8 +135,7 @@ const LandingPage = () => {
                                         Abhinav Tripathi
                                     </Typography>
                                     <Typography variant="body2" color="textSecondary" component="p">
-                                        Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-                                        across all continents except Antarctica
+                                        ---------------------------------------------------------------------------------------------------------------------
                                     </Typography>
                                 </CardContent>
                             </CardActionArea>
@@ -149,8 +152,7 @@ const LandingPage = () => {
                                         Harsh Pandey
                                     </Typography>
                                     <Typography variant="body2" color="textSecondary" component="p">
-                                        Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-                                        across all continents except Antarctica
+                                        ---------------------------------------------------------------------------------------------------------------------
                                     </Typography>
                                 </CardContent>
                             </CardActionArea>
@@ -167,8 +169,7 @@ const LandingPage = () => {
                                         Anmol Sahu
                                     </Typography>
                                     <Typography variant="body2" color="textSecondary" component="p">
-                                        Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-                                        across all continents except Antarctica
+                                        ---------------------------------------------------------------------------------------------------------------------
                                     </Typography>
                                 </CardContent>
                             </CardActionArea>

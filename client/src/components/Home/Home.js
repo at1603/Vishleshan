@@ -34,7 +34,7 @@ const Home = () => {
                         </Grid>
                         <Grid item>
                             <Paper className={classes.paper} textalign="center" data-aos="fade-left">
-                                <Button className={classes.button} component={Link} to="/interviewAnalysis" fullWidth variant="contained" align="center"><ThemeProvider theme={headlineTheme}><Typography style={{ color: '#f4f4f4', textAlign: 'center', fontWeight: 'bold' }}>Realtime Analysis</Typography></ThemeProvider></Button>
+                                <Button className={classes.button} component={Link} to="/interviewAnalysis" fullWidth variant="contained" align="center"><ThemeProvider theme={headlineTheme}><Typography style={{ color: '#f4f4f4', textAlign: 'center', fontWeight: 'bold' }}>Real-Time Analysis</Typography></ThemeProvider></Button>
                             </Paper>
                         </Grid>
                     </Grid>

@@ -80,9 +80,8 @@ const SentimentAnalysis = () => {
     return (
         <Grow in={open} >
             <div>
-                <Paper style={{ padding: '2rem', width: '60%', margin: '2rem auto', borderRadius: '25px', boxShadow: 'rgba(0, 0, 0, 0.5) 1px 1px 9px 5px', display: 'flex' }}>
+                <Paper style={{ padding: '2rem', width: '60%', margin: '2rem auto', borderRadius: '25px', boxShadow: 'rgba(0, 0, 0, 0.5) 1px 1px 9px 5px', display: 'flex', justifyContent: 'center' }}>
                     <YouTube videoId="1mgrHcwcLgU" opts={opts} onReady={_onReady} />
-                    <Typography>Meeting 1</Typography>
                 </Paper>
 
                 <Paper style={{ padding: '2rem', width: '60%', margin: '2rem auto', borderRadius: '25px', boxShadow: 'rgba(0, 0, 0, 0.5) 1px 1px 9px 5px' }}>

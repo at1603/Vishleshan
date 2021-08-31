@@ -87,13 +87,13 @@ export default function Comparison() {
     useEffect(() => {
         let maxEmotionValue = 0
         let averageEmotionObject = { Bored: 0, Angry: 0, Sad: 0, Fear: 0, Excited: 0, Happy: 0 }
-        comparisonData.performance1.conversationIdData[0].analysisData.extraAnalysis.emotion.forEach((v, i) => {
-            averageEmotionObject.Bored += v.emotion.Bored;
-            averageEmotionObject.Angry += v.emotion.Angry;
-            averageEmotionObject.Sad += v.emotion.Sad;
-            averageEmotionObject.Fear += v.emotion.Fear;
-            averageEmotionObject.Excited += v.emotion.Excited;
-            averageEmotionObject.Happy += v.emotion.Happy;
+        comparisonData.performance1.conversationIdData[0].analysisData.extraAnalysis.emotion[0].emotion.forEach((v, i) => {
+            averageEmotionObject.Bored += v.Bored;
+            averageEmotionObject.Angry += v.Angry;
+            averageEmotionObject.Sad += v.Sad;
+            averageEmotionObject.Fear += v.Fear;
+            averageEmotionObject.Excited += v.Excited;
+            averageEmotionObject.Happy += v.Happy;
 
             maxEmotionValue = Math.max(averageEmotionObject.Bored, averageEmotionObject.Angry, averageEmotionObject.Sad, averageEmotionObject.Fear, averageEmotionObject.Excited
                 , averageEmotionObject.Happy)
@@ -102,13 +102,13 @@ export default function Comparison() {
 
         maxEmotionValue = 0
         averageEmotionObject = { Bored: 0, Angry: 0, Sad: 0, Fear: 0, Excited: 0, Happy: 0 }
-        comparisonData.performance2.conversationIdData[0].analysisData.extraAnalysis.emotion.forEach((v, i) => {
-            averageEmotionObject.Bored += v.emotion.Bored;
-            averageEmotionObject.Angry += v.emotion.Angry;
-            averageEmotionObject.Sad += v.emotion.Sad;
-            averageEmotionObject.Fear += v.emotion.Fear;
-            averageEmotionObject.Excited += v.emotion.Excited;
-            averageEmotionObject.Happy += v.emotion.Happy;
+        comparisonData.performance2.conversationIdData[0].analysisData.extraAnalysis.emotion[0].emotion.forEach((v, i) => {
+            averageEmotionObject.Bored += v.Bored;
+            averageEmotionObject.Angry += v.Angry;
+            averageEmotionObject.Sad += v.Sad;
+            averageEmotionObject.Fear += v.Fear;
+            averageEmotionObject.Excited += v.Excited;
+            averageEmotionObject.Happy += v.Happy;
 
             maxEmotionValue = Math.max(averageEmotionObject.Bored, averageEmotionObject.Angry, averageEmotionObject.Sad, averageEmotionObject.Fear, averageEmotionObject.Excited
                 , averageEmotionObject.Happy)
@@ -393,19 +393,6 @@ export default function Comparison() {
             <main className={classes.content}>
                 <Container maxWidth="lg" className={classes.container}>
                     <Grid container spacing={3}>
-                        <Grid container xs={12}>
-                            <Paper className={fixedHeightPaper} style={{ diplay: 'flex', width: '100vw' }}>
-                                <Grid xs={5}>
-                                    <Typography>Email: {userData.result.email}</Typography>
-                                    <Typography>Name: {userData.result.name}</Typography>
-                                    <Typography>Joined On: {isoToDate(userData.result.joinedOn)}</Typography>
-                                </Grid>
-
-                                <Grid xs={5}>
-                                    sdfskljfklsd
-                                </Grid>
-                            </Paper>
-                        </Grid>
                         <Grid item xs={12}>
                             <Paper className={fixedHeightPaper}>
                                 <Typography variant="h4" style={{ textAlign: 'center' }}>Emotion Per Sentence Graph</Typography>

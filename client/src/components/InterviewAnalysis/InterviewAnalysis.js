@@ -71,7 +71,7 @@ const InterviewAnalysis = () => {
                     </ThemeProvider>
                     <div className={classes.text}>
                         <Typography variant="h6">
-                            Hello, In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before final copy is available.
+                            This service can be used to analyze a meeting event in real-time to get visual data and suggestions to improve the performance in real-time. Please enter Zoom meeting URL in the form to get insights.
                         </Typography>
                     </div>
                 </Grid>
