@@ -5,11 +5,11 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: '#dce8ff',
         height: '92vh'
     },
-    languageWrapper: {
+    reportWrapper: {
         height: 'fit-content',
-        width: '100%',
+        width: '80%',
         borderRadius: '25px',
-        margin: '1rem 1rem 2rem 1rem',
+        margin: '1rem auto 1rem',
         padding: '5rem',
         backgroundColor: '#40dd67',
     },
