@@ -81,11 +81,11 @@ const useStyles = makeStyles((theme) => ({
     padding: {
         padding: theme.spacing(3),
     },
-    demo1: {
-        backgroundColor: "dodgerblue",
-        color: "black"
+    // demo1: {
+    //     background: 'linear-gradient(45deg, #235484, #28e0e0)',
+    //     color: "black"
 
-    },
+    // },
     demo2: {
         backgroundColor: '#2e1534',
     },
