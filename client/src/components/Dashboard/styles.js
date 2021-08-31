@@ -1,14 +1,12 @@
 
 import { makeStyles } from '@material-ui/core/styles';
 
-const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
         height: '100%',
-        backgroundColor: '#dce8ff'
-
+        backgroundColor: '#dce8ff',
     },
     toolbar: {
         paddingRight: 24, // keep right padding when drawer closed
@@ -29,30 +27,10 @@ const useStyles = makeStyles((theme) => ({
     title: {
         flexGrow: 1,
     },
-    drawerPaper: {
-        position: 'fixed',
-        whiteSpace: 'nowrap',
-        width: drawerWidth,
-        transition: theme.transitions.create('width', {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
-    },
-    drawerPaperClose: {
-        overflowX: 'hidden',
-        transition: theme.transitions.create('width', {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-        width: theme.spacing(7),
-        [theme.breakpoints.up('sm')]: {
-            width: theme.spacing(9),
-        },
-    },
     content: {
         flexGrow: 1,
-        // height: '100vh',
-        height: '100%'
+        height: '90vh',
+        // height: '100%'
 
     },
     container: {
@@ -65,7 +43,9 @@ const useStyles = makeStyles((theme) => ({
         overflow: 'auto',
         flexDirection: 'column',
         borderRadius: '25px',
-        boxShadow: '0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22)'
+        boxShadow: '0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22)',
+        alignItems: 'center',
+        justifyContent: 'space-evenly'
     },
     fixedHeight: {
         height: 240,

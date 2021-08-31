@@ -80,7 +80,7 @@ function EnhancedTableHead(props) {
     };
 
     return (
-        <TableHead>
+        <TableHead >
             <TableRow>
                 {headCells.map((headCell) => (
                     <TableCell
@@ -88,6 +88,7 @@ function EnhancedTableHead(props) {
                         align={"center"}
                         padding={headCell.disablePadding ? "none" : "normal"}
                         sortDirection={orderBy === headCell.id ? order : false}
+                        style={{ fontSize: '25px' }}
                     >
                         <TableSortLabel
                             active={orderBy === headCell.id}
@@ -359,6 +360,7 @@ export default function Tables() {
                                                     key={row.conversationId}
                                                     // key={row.name}
                                                     selected={isItemSelected}
+
                                                 >
                                                     <TableCell
                                                         component="th"
@@ -366,13 +368,14 @@ export default function Tables() {
                                                         scope="row"
                                                         padding="none"
                                                         align="center"
+                                                        style={{ fontSize: '18px' }}
                                                     >
                                                         {page * rowsPerPage + index + 1}
                                                     </TableCell>
-                                                    <TableCell align="center">{row.meetingName}</TableCell>
-                                                    <TableCell align="center">{isoToDate(row.createdAt)}</TableCell>
-                                                    <TableCell align="center">{row.conversationId}</TableCell>
-                                                    <TableCell align="center">
+                                                    <TableCell align="center" style={{ fontSize: '18px' }}>{row.meetingName}</TableCell>
+                                                    <TableCell align="center" style={{ fontSize: '18px' }}>{isoToDate(row.createdAt)}</TableCell>
+                                                    <TableCell align="center" style={{ fontSize: '18px' }}>{row.conversationId}</TableCell>
+                                                    <TableCell align="center" style={{ fontSize: '18px' }}>
                                                         <Button variant="contained" color="primary" onClick={() => (handleButtonClick(row.conversationId))}>
                                                             View
                                                         </Button>
