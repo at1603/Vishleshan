@@ -33,15 +33,15 @@ const AntTab = withStyles((theme) => ({
             '"Segoe UI Symbol"',
         ].join(','),
         '&:hover': {
-            color: '#40a9ff',
+            color: 'black',
             opacity: 1,
         },
         '&$selected': {
-            color: '#1890ff',
+            color: 'black',
             fontWeight: theme.typography.fontWeightMedium,
         },
         '&:focus': {
-            color: '#40a9ff',
+            color: 'black',
         },
 
     },
@@ -82,7 +82,8 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(3),
     },
     demo1: {
-        backgroundColor: theme.palette.background.paper,
+        backgroundColor: "dodgerblue",
+        color: "black"
 
     },
     demo2: {
@@ -105,19 +106,12 @@ export default function CustomizedTabs(props) {
             <div className={classes.demo1}>
                 <AntTabs value={selectedTab} onChange={handleTabChange} aria-label="ant example" centered>
                     <AntTab label="Meeting History" />
-                    <AntTab label="User Stats" />
+                    <AntTab label="Profile" />
                     {/* <AntTab label="Sentiment Analysis" /> */}
                 </AntTabs>
                 {/* <Typography className={classes.padding} /> */}
             </div>
-            {/* <div className={classes.demo2}>
-                <StyledTabs value={value} onChange={handleChange} aria-label="styled tabs example">
-                    <StyledTab label="Workflows" />
-                    <StyledTab label="Datasets" />
-                    <StyledTab label="Connections" />
-                </StyledTabs>
-                <Typography className={classes.padding} />
-            </div> */}
+
         </div>
     );
 }

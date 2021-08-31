@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     },
     content: {
         flexGrow: 1,
-        height: '90vh',
+        height: '92vh',
         // height: '100%'
 
     },
@@ -38,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
         paddingBottom: theme.spacing(4),
     },
     paper: {
+        backgroundColor: '#e8e8e8',
         padding: theme.spacing(2),
         display: 'flex',
         overflow: 'auto',
