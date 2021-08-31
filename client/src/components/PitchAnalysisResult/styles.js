@@ -76,7 +76,8 @@ const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
         backgroundColor: '#dce8ff',
-        height: '92vh'
+        height: '100%',
+        bottom: '0'
 
     },
     toolbar: {
