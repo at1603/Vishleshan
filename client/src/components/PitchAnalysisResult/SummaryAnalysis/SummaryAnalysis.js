@@ -96,7 +96,7 @@ const SummaryAnalysis = () => {
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
     return (
-        <Grow in={open}>
+        <Grow in={open} >
             <>
                 <Grid item xs={12} md={8} lg={4}>
                     <Paper className={fixedHeightPaper}>
@@ -135,7 +135,7 @@ const SummaryAnalysis = () => {
                     </Paper>
                 </Grid>
 
-                <Grid item xs={12} md={4} lg={4}>
+                <Grid item xs={12} md={4} lg={4} style={{ marginBottom: '6rem' }}>
                     <Paper className={fixedHeightPaper}>
                         <span role="img" aria-label="sheep" style={{ fontSize: '104px', textAlign: 'center' }}>
                             {averageEmotion === 'Happy' && '🙂'}
