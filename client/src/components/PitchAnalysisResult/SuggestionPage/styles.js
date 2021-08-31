@@ -1,5 +1,10 @@
 import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) => ({
+    root: {
+        display: 'flex',
+        backgroundColor: '#dce8ff',
+        height: '92vh'
+    },
     languageWrapper: {
         height: 'fit-content',
         width: '100%',

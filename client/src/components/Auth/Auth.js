@@ -77,7 +77,7 @@ const Auth = () => {
     };
 
     return (
-        <Container component="main" maxWidth="xs">
+        <Container component="main" maxWidth="xs" >
             <div className={classes.backPaper}>
                 <div className={classes.paper}>
                     <Typography component="h1" variant="h5">

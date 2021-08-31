@@ -29,14 +29,14 @@ const SummaryAnalysis = () => {
     useEffect(() => {
         let maxEmotionValue = 0
         let averageEmotionObject = { Bored: 0, Angry: 0, Sad: 0, Fear: 0, Excited: 0, Happy: 0 }
-        analysisData.extraAnalysis.emotion.forEach((v, i) => {
+        analysisData.extraAnalysis.emotion[0].emotion.forEach((v, i) => {
             console.log(v);
-            averageEmotionObject.Angry += v.emotion.Angry;
-            averageEmotionObject.Sad += v.emotion.Sad;
-            averageEmotionObject.Fear += v.emotion.Fear;
-            averageEmotionObject.Excited += v.emotion.Excited;
-            averageEmotionObject.Bored += v.emotion.Bored;
-            averageEmotionObject.Happy += v.emotion.Happy;
+            averageEmotionObject.Angry += v.Angry;
+            averageEmotionObject.Sad += v.Sad;
+            averageEmotionObject.Fear += v.Fear;
+            averageEmotionObject.Excited += v.Excited;
+            averageEmotionObject.Bored += v.Bored;
+            averageEmotionObject.Happy += v.Happy;
 
             maxEmotionValue = Math.max(averageEmotionObject.Bored, averageEmotionObject.Angry, averageEmotionObject.Sad, averageEmotionObject.Fear, averageEmotionObject.Excited
                 , averageEmotionObject.Happy)

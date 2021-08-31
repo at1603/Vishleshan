@@ -54,7 +54,7 @@ export default function PitchAnalysisResult() {
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
     return (
-        <div className={classes.root}>
+        <div className={classes.root} style={{ backgroundImage: 'url("https://www.setaswall.com/wp-content/uploads/2017/12/Blue-And-Black-Wallpaper-44-1920x1080.jpg")' }}>
             <main className={classes.content}>
                 {/* <Button onClick={handleGridToggle} className={classes.toggleGrid}>Cha</Button>
                 <FormControlLabel
@@ -74,7 +74,7 @@ export default function PitchAnalysisResult() {
                         </Grow> */}
                         <Grid container spacing={3} item xs={12}>
 
-                            <Grid item xs={12} >
+                            <Grid item xs={12} style={{ margin: 'auto' }}>
                                 <Paper className={classes.paper}><Tabs onSelectTab={handleTabValue} /></Paper>
                             </Grid>
 
@@ -82,7 +82,7 @@ export default function PitchAnalysisResult() {
                                 <>
                                     <SummaryAnalysis />
                                 </>
-                            ) : (tab === 1 ? <LanguageAnalysis /> : (tab === 2 ? <SentimentAnalysis /> : <SuggestionPage /> ))}
+                            ) : (tab === 1 ? <LanguageAnalysis /> : (tab === 2 ? <SentimentAnalysis /> : <SuggestionPage />))}
                         </Grid>
                     </Grid>
                     <Box pt={4}>

@@ -74,7 +74,7 @@ const LanguageAnalysis = () => {
         options={options}
         size={size}
         words={Words}
-        style={{ margin: '0 0 0 14rem' }}
+        style={{ margin: 'auto' }}
     />
 
     const getTopicSentiment = (sentiment) => {
@@ -85,16 +85,17 @@ const LanguageAnalysis = () => {
 
     return (
         <Grow in={open}>
-            <Paper className={classes.languageWrapper}>
+            <div style={{ margin: 'auto' }}>
                 <Paper style={{ padding: '2rem', width: '80%', margin: '2rem auto', borderRadius: '25px', boxShadow: 'rgba(0, 0, 0, 0.5) 1px 1px 9px 5px' }}>
                     <ThemeProvider theme={headlineTheme}>
-                        <Typography style={{ display: 'block', width: '100%', textAlign: 'left', fontWeight: 'bold', fontSize: 40 }}>Frequent Words  </Typography>
+                        <Typography style={{ display: 'block', width: '100%', textAlign: 'center', fontWeight: 'bold', fontSize: 40 }}>Frequent Words  </Typography>
+
+                        <div>{wordCloud}</div>
                     </ThemeProvider>
-                    {wordCloud}
                 </Paper>
                 <Paper style={{ padding: '2rem', width: '80%', margin: '2rem auto', borderRadius: '25px', boxShadow: 'rgba(0, 0, 0, 0.5) 1px 1px 9px 5px' }}>
                     <ThemeProvider theme={headlineTheme}>
-                        <Typography style={{ display: 'block', width: '100%', textAlign: 'left', fontWeight: 'bold', fontSize: 40 }}>Topics Discussed</Typography>
+                        <Typography style={{ display: 'block', width: '100%', textAlign: 'center', fontWeight: 'bold', fontSize: 40 }}>Topics Discussed</Typography>
                     </ThemeProvider>
                     <ul>
                         {analysisData.topics.topics.length > 0 ? analysisData.topics.topics.map(function (topic, index) {
@@ -102,9 +103,9 @@ const LanguageAnalysis = () => {
                         }) : <Typography>No Data Found</Typography>}
                     </ul>
                 </Paper>
-                <Paper style={{ padding: '2rem',width: '80%', margin: '2rem auto', borderRadius: '25px', boxShadow: 'rgba(0, 0, 0, 0.5) 1px 1px 9px 5px' }}>
+                <Paper style={{ padding: '2rem', width: '80%', margin: '2rem auto', borderRadius: '25px', boxShadow: 'rgba(0, 0, 0, 0.5) 1px 1px 9px 5px' }}>
                     <ThemeProvider theme={headlineTheme}>
-                        <Typography style={{ display: 'block', width: '100%', textAlign: 'left', fontWeight: 'bold', fontSize: 40 }}>Questions Asked:</Typography>
+                        <Typography style={{ display: 'block', width: '100%', textAlign: 'center', fontWeight: 'bold', fontSize: 40 }}>Questions Asked:</Typography>
                     </ThemeProvider>
                     <ul>
                         {analysisData.questions.questions.length > 0 ? analysisData.questions.questions.map(function (question, index) {
@@ -114,7 +115,7 @@ const LanguageAnalysis = () => {
                 </Paper>
                 <Paper style={{ padding: '2rem', width: '80%', margin: '2rem auto', borderRadius: '25px', boxShadow: 'rgba(0, 0, 0, 0.5) 1px 1px 9px 5px' }}>
                     <ThemeProvider theme={headlineTheme}>
-                        <Typography style={{ display: 'block', width: '100%', textAlign: 'left', fontWeight: 'bold', fontSize: 40 }}>Action Items:</Typography>
+                        <Typography style={{ display: 'block', width: '100%', textAlign: 'center', fontWeight: 'bold', fontSize: 40 }}>Action Items:</Typography>
                     </ThemeProvider>
                     <ul>
                         {analysisData.actionItems.actionItems.length > 0 ? analysisData.actionItems.actionItems.map(function (actionItem, index) {
@@ -124,7 +125,7 @@ const LanguageAnalysis = () => {
                 </Paper>
                 <Paper style={{ padding: '2rem', width: '80%', margin: '2rem auto', borderRadius: '25px', boxShadow: 'rgba(0, 0, 0, 0.5) 1px 1px 9px 5px' }}>
                     <ThemeProvider theme={headlineTheme}>
-                        <Typography style={{ display: 'block', width: '100%', textAlign: 'left', fontWeight: 'bold', fontSize: 40 }}>Follow Ups</Typography>
+                        <Typography style={{ display: 'block', width: '100%', textAlign: 'center', fontWeight: 'bold', fontSize: 40 }}>Follow Ups</Typography>
                     </ThemeProvider>
                     <ul>
                         {analysisData.followUps.followUps.length > 0 ? analysisData.followUps.followUps.map(function (followUp, index) {
@@ -132,7 +133,7 @@ const LanguageAnalysis = () => {
                         }) : <Typography>No Data Found</Typography>}
                     </ul>
                 </Paper>
-            </Paper>
+            </div>
         </Grow>
     )
 }
