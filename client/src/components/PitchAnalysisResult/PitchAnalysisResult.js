@@ -24,7 +24,7 @@ function Copyright() {
         <Typography variant="body2" color="textSecondary" align="center">
             {'Copyright © '}
             <Link color="inherit" href="https://material-ui.com/">
-                Your Website
+                Vishleshan2021
             </Link>{' '}
             {new Date().getFullYear()}
             {'.'}
@@ -44,10 +44,6 @@ export default function PitchAnalysisResult() {
         setOpen(!open);
     };
     const handleDisplay = () => {
-        // setTimeout(() => {
-
-
-        // }, 1000)
         setGulag(!gulag);
     }
 
@@ -56,25 +52,11 @@ export default function PitchAnalysisResult() {
     return (
         <div className={classes.root} style={{ backgroundImage: 'url("https://www.setaswall.com/wp-content/uploads/2017/12/Blue-And-Black-Wallpaper-44-1920x1080.jpg")' }}>
             <main className={classes.content}>
-                {/* <Button onClick={handleGridToggle} className={classes.toggleGrid}>Cha</Button>
-                <FormControlLabel
-                    control={<Switch checked={open} onChange={handleGridToggle} />}
-                    label="Show"
-                /> */}
                 <Container maxWidth="xl" className={classes.container}>
                     <Grid container xs={12}>
-                        {/* <Grid container item xs={3} style={open ? {} : { display: 'none' }}> */}
-                        {/* <Grow in={open} onExited={handleDisplay} onEnter={handleDisplay}>
-                            <Grid container item xs={3} style={gulag ? { display: 'none' } : {}} >
-
-                                <Paper style={{ width: '100%', margin: '0 2rem' }} className={classes.paper}>
-                                    
-                                </Paper>
-                            </Grid>
-                        </Grow> */}
                         <Grid container spacing={3} item xs={12}>
 
-                            <Grid item xs={12} style={{ margin: 'auto' }}>
+                            <Grid item xs={12} style={{ margin: 'auto'}}>
                                 <Paper className={classes.paper}><Tabs onSelectTab={handleTabValue} /></Paper>
                             </Grid>
 

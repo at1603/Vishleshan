@@ -119,18 +119,18 @@ const SummaryAnalysis = () => {
 
                     </Paper>
                 </Grid>
-
-                <Grid item xs={12} md={4} lg={4}>
-                    <Paper className={fixedHeightPaper}>
-                        <Typography style={{ width: '100%', marginTop: '4rem', textAlign: 'center', justifyContent: 'center', fontSize: 69, fontWeight: 'bolder' }}>{analysisData.questions.questions.length}</Typography>
-                        <Typography style={{ width: '100%', textAlign: 'center', justifyContent: 'center', fontSize: 24 }}>Total Questions Asked</Typography>
-
-                    </Paper>
-                </Grid>
+                
                 <Grid item xs={12} md={8} lg={4}>
                     <Paper className={fixedHeightPaper}>
                         {SimplePie}
                         <Typography style={{ position: 'relative', top: '-69px', marginBottom: '2rem', width: '100%', textAlign: 'center', justifyContent: 'center', fontSize: 24 }}>Total Conversation Time</Typography>
+
+                    </Paper>
+                </Grid>
+                <Grid item xs={12} md={4} lg={4}>
+                    <Paper className={fixedHeightPaper}>
+                        <Typography style={{ width: '100%', marginTop: '4rem', textAlign: 'center', justifyContent: 'center', fontSize: 69, fontWeight: 'bolder' }}>{analysisData.questions.questions.length}</Typography>
+                        <Typography style={{ width: '100%', textAlign: 'center', justifyContent: 'center', fontSize: 24 }}>Total Questions Asked</Typography>
 
                     </Paper>
                 </Grid>
