@@ -105,7 +105,7 @@
       * Websockets
 
   ### Flow Chart:
-  ![Flow Chart](https://github.com/ProAbhinav/Vishleshan/blob/master/public/assets/img/FlowChart.jpeg)
+  ![Flow Chart](https://github.com/Pro-Abhinav/Vishleshan/blob/master/public/images/READMEimages/FlowChart.png)
 
 
   ### Applications:
