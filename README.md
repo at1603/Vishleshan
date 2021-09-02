@@ -108,8 +108,6 @@ Performance analytics is based on the combined data from the verbal as well as n
     * Words API
     * Websockets
 
-### Process Flow Diagram:
-
 
 
 ### Applications:
