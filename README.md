@@ -77,20 +77,16 @@
 
   ### Introduction
   In this era of cut throat competition for job placements, there is a greater than ever need of self assessment for ensuring that the current level of job preparation is upto the general industry standards.
-  This leads to the need of a solution that allows the interviewee to visualize their performance in order to work on their area of weakness and vastly increase their chances of performing well in a job interview amongst others.
+  This led us to create a solution that allows the interviewee to visualize their performance in order to work on their area of weakness and vastly increase their chances of performing well in a job interview amongst others.
   Additionally, interviewers can objectively analyse the performance of the candidates for selection.
 
-  ### Objective: 
-  Our objective is to develop a web platform which enables users to analyse their performance during a pitch/interview and generate detailed analytics that is presented to them in a graphical and textual format.
 
   ### Implementation: 
-  On the client side, we will be implementing ReactJs as a frontend framework.
+  On the client side, the web pages were implemented using ReactJs as a frontend framework.
 
-  On Server side, we will be using NodeJs as a runtime environment, with Express as a framework and MongoDb Atlas as a database. 
+  On Server side, NodeJs is used as a runtime environment, with Express as a framework and MongoDb Atlas as a cloud database. 
 
-  APIs that we will be using to facilitate our service will be Symbl.ai’s Streaming API, telephony API, async API ,conversation API for speech analytics and Microsoft Azure’s face API for facial analytics.
-
-  Performance analytics is based on the combined data from the verbal as well as non-verbal transcripts.
+  Among APIs, we have used Symbl.ai’s Streaming API, Telephony API, Async Video API, Conversation API for speech analytics and Komprehend’s NLP API for other sentence traits (such as: emotions, intent, abusive and sarcastical words) to facilitate our services.
 
   ### Technology used:
   * Frontend
@@ -108,6 +104,8 @@
       * Words API
       * Websockets
 
+  ### Flow Chart:
+  ![Flow Chart](https://github.com/ProAbhinav/Vishleshan/blob/master/public/assets/img/FlowChart.jpeg)
 
 
   ### Applications:
@@ -127,7 +125,7 @@
 
 <!-- License -->
 ## License
-MIT License :balance_scale:
+MIT License  :balance_scale:
 
 <!-- CONTACT -->
 ## Contact
